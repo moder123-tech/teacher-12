@@ -1,0 +1,76 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Internship Sign In & Sign Up Form a Responsive Widget Template :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Internship Sign In & Sign Up Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<script src="js/vue.js" type="text/javascript"></script>
+	<script src="js/axios.js" type="text/javascript"></script>
+<!-- Custom Theme files -->
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+<link href="css/snow.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" media="all" />
+<!-- //Custom Theme files -->
+<!-- web font -->
+<link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+<!-- //web font -->
+</head>
+<body>
+<div class="snow-container">
+			  <div class="snow foreground"></div>
+			  <div class="snow foreground layered"></div>
+			  <div class="snow middleground"></div>
+			  <div class="snow middleground layered"></div>
+			  <div class="snow background"></div>
+			  <div class="snow background layered"></div>
+			</div>
+
+<div class="top-buttons-agileinfo">
+<a href="login.html">登录</a><a href="signup.html" class="active">注册</a>
+</div>
+<h1>登录 & 注册</h1>
+<div class="main-agileits">
+<!--form-stars-here-->
+		<div class="form-w3-agile">
+			<h2 class="sub-agileits-w3layouts">注册</h2>
+			<form action="${pageContext.request.contextPath}/login" method="post">
+					<input id="email" type="text" name="uNumber" placeholder="邮箱账号" required="" />
+					<input id="password" type="password" name="uPassword" placeholder="密码" required="" />
+					<input id="password_ok" type="password" name="Password" placeholder="确认密码" required="" />
+				    <input id="code"type="text" name="code" placeholder="验证码" required="" />
+					<input type="button" value="获取验证码" class="get">
+				<div class="submit-w3l">
+					<input type="submit" value="提交">
+				</div>
+			</form>
+		</div>
+		</div>
+<!--//form-ends-here-->
+<!-- copyright -->
+	
+	<!-- //copyright -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+<script>
+
+	document.querySelector(".get").onclick=function (){
+		var email=document.getElementById("email").value
+		alert("验证码发送成功");
+      axios.get("http://localhost:8080/send/"+email)
+		.then(function (response){
+			console.log(response.data)
+		})
+	}
+</script>
+</body>
+</html>
