@@ -35,20 +35,21 @@ public class Logins {
     @Value("${spring.mail.username}")
     private String emailProvider;
 
-    @Resource
+    @Autowired
     public UserService userService;
 
 
 
+
+
+
     @GetMapping(value = "/register")
-    public String hello(UserInformation userInformation, Map map, ModelAndView modelAndView,@RequestParam("code") String code,HttpServletRequest request){
+    public String register(UserInformation userInformation, Map map, ModelAndView modelAndView,@RequestParam("code") String code,HttpServletRequest request){
         userService.insertUser(userInformation);
         HttpSession sessoin=request.getSession();
         Object codes = sessoin.getAttribute("codes");
-        System.out.println(codes);
-        System.out.println(code);
         if(!(codes.equals(code))){
-            return "redirect:http://localhost:8080/error.html";
+            return "redirect:http://localhost:8080/number.html";
         }
         return "redirect:http://localhost:8080/login.html";
     }
@@ -56,8 +57,24 @@ public class Logins {
     @ResponseBody
     @RequestMapping(value = "/send/{emails}")
     public String sendEmail(UserInformation userInformation, Map map, @PathVariable("emails") String emails,HttpServletRequest request) throws InterruptedException {
-        new EmailSend(userInformation,map,emails,javaMailSender,emailProvider,request);
+
+       new EmailSend(userInformation,map,emails,javaMailSender,emailProvider,request);
         return "200";
+    }
+
+    @GetMapping(value = "/login")
+    public String login(@RequestParam("eamil") String u_number,@RequestParam("password") String u_password,HttpSession session){
+        try {
+            int number = userService.getUser(u_number, u_password);
+            if(number+""!=null){
+                session.setAttribute("msg","200");
+                return "redirect:http://localhost:8080/index.html";
+            }
+            return "redirect:http://localhost:8080/password.html";
+        }catch (Exception exception){
+            return "redirect:http://localhost:8080/password.html";
+        }
+
     }
 
 
