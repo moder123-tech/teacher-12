@@ -1,66 +1,64 @@
 package cn.com.teacher.bean;
 
-public class UserInformation {
 
-  private long uid;
-  private String uNumber;
-  private String uPassword;
-  private String uHead;
-  private String uName;
+import java.io.Serializable;
 
+public class UserInformation implements Serializable {
 
-  public long getUid() {
-    return uid;
+  private Integer u_id;
+  private String u_number;
+  private String u_password;
+  private String u_head;
+  private String u_name;
+
+  public UserInformation(Integer u_id, String u_number, String u_password, String u_head, String u_name) {
+    this.u_id = u_id;
+    this.u_number = u_number;
+    this.u_password = u_password;
+    this.u_head = u_head;
+    this.u_name = u_name;
+  }
+  public UserInformation(){
+
   }
 
-  public void setUid(long uid) {
-    this.uid = uid;
+  public Integer getU_id() {
+    return u_id;
   }
 
-
-  public String getUNumber() {
-    return uNumber;
+  public void setU_id(Integer u_id) {
+    this.u_id = u_id;
   }
 
-  public void setUNumber(String uNumber) {
-    this.uNumber = uNumber;
+  public String getU_number() {
+    return u_number;
   }
 
-
-  public String getUPassword() {
-    return uPassword;
+  public void setU_number(String u_number) {
+    this.u_number = u_number;
   }
 
-  public void setUPassword(String uPassword) {
-    this.uPassword = uPassword;
+  public String getU_password() {
+    return u_password;
   }
 
-
-  public String getUHead() {
-    return uHead;
+  public void setU_password(String u_password) {
+    this.u_password = u_password;
   }
 
-  public void setUHead(String uHead) {
-    this.uHead = uHead;
+  public String getU_head() {
+    return u_head;
   }
 
-
-  public String getUName() {
-    return uName;
+  public void setU_head(String u_head) {
+    this.u_head = u_head;
   }
 
-  public void setUName(String uName) {
-    this.uName = uName;
+  public String getU_name() {
+    return u_name;
   }
 
-  @Override
-  public String toString() {
-    return "UserInformation{" +
-            "uid=" + uid +
-            ", uNumber='" + uNumber + '\'' +
-            ", uPassword='" + uPassword + '\'' +
-            ", uHead='" + uHead + '\'' +
-            ", uName='" + uName + '\'' +
-            '}';
+  public void setU_name(String u_name) {
+    this.u_name = u_name;
   }
 }

@@ -1,55 +1,53 @@
 package cn.com.teacher.bean;
 
-public class History {
+import java.io.Serializable;
 
-  private long hid;
-  private String hForeign;
-  private String hPath;
-  private String hContent;
+public class History implements Serializable {
 
+  private Integer h_id;
+  private String h_forrign;
+  private String h_path;
+  private String h_content;
 
-  public long getHid() {
-    return hid;
+  public Integer getH_id() {
+    return h_id;
   }
 
-  public void setHid(long hid) {
-    this.hid = hid;
+  public void setH_id(Integer h_id) {
+    this.h_id = h_id;
   }
 
-
-  public String getHForeign() {
-    return hForeign;
+  public String getH_forrign() {
+    return h_forrign;
   }
 
-  public void setHForeign(String hForeign) {
-    this.hForeign = hForeign;
+  public void setH_forrign(String h_forrign) {
+    this.h_forrign = h_forrign;
   }
 
-
-  public String getHPath() {
-    return hPath;
+  public String getH_path() {
+    return h_path;
   }
 
-  public void setHPath(String hPath) {
-    this.hPath = hPath;
+  public void setH_path(String h_path) {
+    this.h_path = h_path;
   }
 
-
-  public String getHContent() {
-    return hContent;
+  public String getH_content() {
+    return h_content;
   }
 
-  public void setHContent(String hContent) {
-    this.hContent = hContent;
+  public void setH_content(String h_content) {
+    this.h_content = h_content;
   }
 
   @Override
   public String toString() {
     return "History{" +
-            "hid=" + hid +
-            ", hForeign='" + hForeign + '\'' +
-            ", hPath='" + hPath + '\'' +
-            ", hContent='" + hContent + '\'' +
+            "h_id=" + h_id +
+            ", h_forrign='" + h_forrign + '\'' +
+            ", h_path='" + h_path + '\'' +
+            ", h_content='" + h_content + '\'' +
             '}';
   }
 }

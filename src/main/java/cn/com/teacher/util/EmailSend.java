@@ -9,6 +9,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -25,11 +27,11 @@ public class EmailSend {
 
     }
 
-    public EmailSend(UserInformation userInformation, Map map,String emails, JavaMailSender javaMailSender, String emailProvider){
-        sendEmail(userInformation,map,emails,javaMailSender,emailProvider);
+    public EmailSend(UserInformation userInformation, Map map,String emails, JavaMailSender javaMailSender, String emailProvider,HttpServletRequest request){
+        sendEmail(userInformation,map,emails,javaMailSender,emailProvider,request);
     }
 
-    public  String sendEmail(UserInformation userInformation, Map map,String emails,JavaMailSender javaMailSender,String emailProvider){
+    public  String sendEmail(UserInformation userInformation, Map map, String emails, JavaMailSender javaMailSender, String emailProvider,HttpServletRequest request){
         String[] letters = new String[] {
                 "q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m",
                 "A","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M",
@@ -41,12 +43,12 @@ public class EmailSend {
         System.out.println(stringBuilder);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom(emailProvider);
-        System.out.println(emailProvider);
         simpleMailMessage.setSubject("验证码");
         simpleMailMessage.setText("验证码为:"+stringBuilder);
         simpleMailMessage.setTo(emails);
         javaMailSender.send(simpleMailMessage);
-        map.put("code",stringBuilder);
+        HttpSession sessoin=request.getSession();
+        sessoin.setAttribute("codes",stringBuilder);
         log.info("成功");
         return "200";
     }

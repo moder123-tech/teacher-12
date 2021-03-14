@@ -43,8 +43,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="form-w3-agile">
 			<h2 class="sub-agileits-w3layouts">登录</h2>
 			<form action="#" method="post">
-					<input type="email" name="Eamil" placeholder="Email" required="" />
-					<input type="password" name="Password" placeholder="Password" required="" />
+					<input  id="email" type="email" name="Eamil" placeholder="Email" required="" class="em" />
+					<div id="checkEmail"></div>
+					<input id="password" type="password" name="Password" placeholder="Password" required="" class="pm"/>
+					<div id="pas"></div>
 					<a href="#" class="forgot-w3layouts">Forgot Password ?</a>
 				<div class="submit-w3l">
 					<input type="submit" value="登录">
@@ -55,6 +57,38 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 <!--//form-ends-here-->
 <!-- copyright -->
+	<script>
+		document.querySelector(".em").onblur = function() {
+			var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+			var obj = document.getElementById("email").value
+			if (obj == "") {
+				document.getElementById("checkEmail").innerHTML = "<font color=red>输入不能为空！</font>";
+				return false;
+			}
+			if (!reg.test(obj)) {
+				document.getElementById("checkEmail").innerHTML = "<font color=red>验证不通过!！</font>";
+				return false;
+			} else {
+				document.getElementById("checkEmail").innerHTML = "<font color=blue>验证通过</font>";
+				return true;
+			}
+		}
+	</script>
+	
+	<script>
+		document.querySelector(".pm").onblur = function() {
+			var obj = document.getElementById("password").value
+			if (obj == "") {
+				document.getElementById("pas").innerHTML = "<font color=red>密码输入不能为空！</font>";
+				return false;
+			}
+			if (obj.length < 6) {
+				document.getElementById("pas").innerHTML = "<font color=red>密码长度不能小于6！</font>";
+			} else {
+				document.getElementById("pas").innerHTML = "<font color=blue>验证通过</font>";
+			}
+		}
+	</script>
 	
 	<!-- //copyright --> 
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
