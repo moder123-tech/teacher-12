@@ -5,6 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
+
 <html>
 <head>
 <title>Novus Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
@@ -33,6 +34,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 	<script>
 		 new WOW().init();
 	</script>
+
+
 <!--//end-animate-->
 <!-- chart -->
 <script src="js/Chart.js"></script>
@@ -128,13 +131,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<div class="profile_img">	
 									<span class="prfil-img"><img src="images/a.png" alt=""> </span> 
 									<div class="user-name">
-										<p>Wikolia</p>
+										<p id="app">{{info}}</p>>
 										<span>Administrator</span>
-									</div>
+
 									<div class="clearfix"></div>	
-								</div>	
+									</div>
+								</div>
 							</a>
-						
 						</li>
 					</ul>
 				</div>
@@ -518,8 +521,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			}
 		</script>
 	<!--scrolling js-->
+	<script src="js/vue.js" type="text/javascript"></script>
+	<script src="js/axios.js" type="text/javascript"></script>
 	<script src="js/jquery.nicescroll.js"></script>
 	<script src="js/scripts.js"></script>
+	<script>
+
+		new Vue({
+			el: '#app',
+			data: {
+				info:""
+			},
+			mounted () {
+				window.onload = function(){
+					axios.get("http://localhost:8080/tes")
+							.then(function(response) {
+								document.getElementById("app").innerHTML = "<font color=red> "+response.data+"</font>";
+							})
+				}
+			}
+		})
+	</script>
 	<!--//scrolling js-->
 	<!-- Bootstrap Core JavaScript -->
    <script src="js/bootstrap.js"> </script>

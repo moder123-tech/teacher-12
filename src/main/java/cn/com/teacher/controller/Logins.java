@@ -1,15 +1,14 @@
 package cn.com.teacher.controller;
 
+import cn.com.teacher.bean.UName;
 import cn.com.teacher.bean.UserInformation;
-import cn.com.teacher.dao.UserDao;
 import cn.com.teacher.service.UserService;
 import cn.com.teacher.util.EmailSend;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.SQLOutput;
 import java.util.Map;
 
 /**
@@ -33,12 +31,11 @@ public class Logins {
     private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
+
     private String emailProvider;
 
     @Autowired
     public UserService userService;
-
-
 
 
 
@@ -57,15 +54,15 @@ public class Logins {
     @ResponseBody
     @RequestMapping(value = "/send/{emails}")
     public String sendEmail(UserInformation userInformation, Map map, @PathVariable("emails") String emails,HttpServletRequest request) throws InterruptedException {
-
        new EmailSend(userInformation,map,emails,javaMailSender,emailProvider,request);
         return "200";
     }
 
     @GetMapping(value = "/login")
-    public String login(@RequestParam("eamil") String u_number,@RequestParam("password") String u_password,HttpSession session){
+    public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session){
         try {
-            int number = userService.getUser(u_number, u_password);
+            String number = userService.getUser(u_number, u_password);
+            session.setAttribute("number",number);
             if(number+""!=null){
                 session.setAttribute("msg","200");
                 return "redirect:http://localhost:8080/index.html";
@@ -75,7 +72,13 @@ public class Logins {
             return "redirect:http://localhost:8080/password.html";
         }
 
-    }
 
+    }
+    @ResponseBody
+    @GetMapping(value = "/tes")
+    public String test(HttpSession session){
+
+        return (String) session.getAttribute("number");
+    }
 
 }

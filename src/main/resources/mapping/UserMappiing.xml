@@ -17,8 +17,8 @@
         insert into UserInformation(u_number,u_password,u_name)
         values(#{u_number},#{u_password},#{u_name})
     </insert>
-    <select id="getUser"   resultType="java.lang.Integer" parameterType="java.lang.String">
-       select u_id from UserInformation
+    <select id="getUser"   resultType="java.lang.String" parameterType="java.lang.String">
+       select u_name from UserInformation
         <where>
             <if test="u_number != null">
                 u_number=#{u_number,jdbcType=VARCHAR} and u_password=#{u_password,jdbcType=VARCHAR}

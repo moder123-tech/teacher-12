@@ -20,6 +20,6 @@ public interface UserService {
      * 密码 @param password
      * 是否成功 @return
      */
-    int getUser(@Param("u_number") String u_number, @Param("u_password") String u_password);
+    String getUser(@Param("u_number") String u_number, @Param("u_password") String u_password);
 
 }
