@@ -75,7 +75,7 @@ public class Logins {
 
     }
     @ResponseBody
-    @GetMapping(value = "/tes")
+    @GetMapping(value = "/test")
     public String test(HttpSession session){
 
         return (String) session.getAttribute("number");

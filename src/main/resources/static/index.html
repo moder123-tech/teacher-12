@@ -534,7 +534,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			},
 			mounted () {
 				window.onload = function(){
-					axios.get("http://localhost:8080/tes")
+					axios.get("http://localhost:8080/test")
 							.then(function(response) {
 								document.getElementById("app").innerHTML = "<font color=red> "+response.data+"</font>";
 							})
