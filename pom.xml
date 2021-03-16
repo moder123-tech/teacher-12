@@ -112,6 +112,7 @@
                     <include>**/*.js</include>
                     <include>**/*.jpg</include>
                     <include>**/*.png</include>
+                    <include>**/*.mp4</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>
