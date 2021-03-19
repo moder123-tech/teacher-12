@@ -154,8 +154,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div id="ads">
 					<div class="div-inline" v-for="site in sites">
 						<video controls autoplay name="media" height="200" width="350">
-							<source :src="site.name" type="video/mp4" ></source>
+							<source :src="site.r_path" type="video/mp4" ></source>
 						</video>
+					</div>
+                    <br>
+					<div class="div-inline" v-for="site in sites" style="width: 350px">
+						<span  v-text="site.r_content"></span>
 					</div>
 					<!--<div class="div-inline">
 						<video controls autoplay name="media" height="200" width="350">
@@ -441,6 +445,21 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 	</script>
 
 	<script>
+		window.onload = function() {
+			new Vue({
+				el: '#ads',
+				data: {
+					sites: []
+				},
+				mounted() {
+					axios.get("http://localhost:8080/getMovie")
+							.then(response => (this.sites = response.data))
+				}
+
+			})
+		}
+	</script>
+<!--	<script>
 		var app=new Vue({
 			el: '#ads',
 			data:{
@@ -452,7 +471,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				]
 			}
 		})
-	</script>
+	</script>-->
+
 	<!--//scrolling js-->
 	<!-- Bootstrap Core JavaScript -->
    <script src="js/bootstrap.js"> </script>

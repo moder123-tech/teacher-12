@@ -1,7 +1,9 @@
 package cn.com.teacher.controller;
 
+import cn.com.teacher.bean.Resources;
 import cn.com.teacher.bean.UName;
 import cn.com.teacher.bean.UserInformation;
+import cn.com.teacher.service.ResourcesService;
 import cn.com.teacher.service.UserService;
 import cn.com.teacher.util.EmailSend;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +39,8 @@ public class Logins {
 
     @Autowired
     public UserService userService;
+
+
 
 
 
@@ -77,8 +82,9 @@ public class Logins {
     @ResponseBody
     @GetMapping(value = "/test")
     public String test(HttpSession session){
-
         return (String) session.getAttribute("number");
     }
+
+
 
 }
