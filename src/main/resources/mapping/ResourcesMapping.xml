@@ -5,4 +5,12 @@
     <select id="getAllResources" resultType="cn.com.teacher.bean.Resources">
         select * from Resources
     </select>
+    <select id="getSearchResources" resultType="cn.com.teacher.bean.Resources">
+        select * from Resources
+        <where>
+            <if test="r_content != null">
+                r_content like "%"#{r_content,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
+    </select>
 </mapper>

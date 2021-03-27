@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -27,5 +28,12 @@ public class IndexController {
     public List<Resources> getAllResources(){
         List<Resources> allResources = resourcesService.getAllResources();
         return allResources;
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/searchMovie")
+    public List<Resources> getSearchResources(@RequestParam String r_content){
+        List<Resources> searchResources = resourcesService.getSearchResources(r_content);
+        return searchResources;
     }
 }

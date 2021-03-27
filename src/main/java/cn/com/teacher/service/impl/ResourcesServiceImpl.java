@@ -24,4 +24,9 @@ public class ResourcesServiceImpl implements ResourcesService {
     public List<Resources> getAllResources() {
         return resourcesDao.getAllResources();
     }
+
+    @Override
+    public List<Resources> getSearchResources(String r_content) {
+        return resourcesDao.getSearchResources(r_content);
+    }
 }

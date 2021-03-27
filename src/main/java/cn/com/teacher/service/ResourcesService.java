@@ -16,4 +16,10 @@ public interface ResourcesService {
      * 返回所有的用户@return
      */
     List<Resources> getAllResources();
+
+    /**
+     *
+     * 返回指定的用户@return
+     */
+    List<Resources> getSearchResources(String r_content);
 }
