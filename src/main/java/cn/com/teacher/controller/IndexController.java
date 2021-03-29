@@ -27,6 +27,7 @@ public class IndexController {
     @GetMapping(value = "/getMovie")
     public List<Resources> getAllResources(){
         List<Resources> allResources = resourcesService.getAllResources();
+        System.out.println("getAllResources ="+allResources);
         return allResources;
     }
 
@@ -34,6 +35,7 @@ public class IndexController {
     @GetMapping(value = "/searchMovie")
     public List<Resources> getSearchResources(@RequestParam String r_content){
         List<Resources> searchResources = resourcesService.getSearchResources(r_content);
+        System.out.println("getSearchResources ="+searchResources);
         return searchResources;
     }
 }

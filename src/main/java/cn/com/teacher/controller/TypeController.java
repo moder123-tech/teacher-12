@@ -29,7 +29,7 @@ public class TypeController {
     @GetMapping(value = "/getTypeMovie")
     public List<Resources> getAllResources(@RequestParam String r_label){
         List<Resources> typeResources = typeResourcesService.getTypeResources(r_label);
-        System.out.println(typeResources);
+        System.out.println("typeResources ="+typeResources);
         return typeResources;
     }
 }

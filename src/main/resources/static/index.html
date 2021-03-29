@@ -155,11 +155,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					<div class="div-inline" v-for="site in sites">
 						<video controls autoplay name="media" height="200" width="350">
 							<source :src="site.r_path" type="video/mp4" ></source>
-							<span  v-text="site.r_content" style="width: 50px"></span>
 						</video>
 					</div>
 					<div class="div-inline" v-for="site in sites" style="width: 500px">
-
+						<span  v-text="site.r_content" style="width: 50px"></span>
 					</div>
 					<!--<div class="div-inline">
 						<video controls autoplay name="media" height="200" width="350">
