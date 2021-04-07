@@ -30,6 +30,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <!--//webfonts-->
 <!--animate-->
 <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+	<style>
+		.div-inline{display: inline-block;}
+	</style>
 <script src="js/wow.min.js"></script>
 	<script>
 		 new WOW().init();
@@ -262,14 +265,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div id="ads">
-				<!--<div class="div-inline" v-for="site in sites">
+				<div class="div-inline" v-for="site in sites">
 					<video controls autoplay name="media" height="200" width="350">
 						<source :src="site.r_path" type="video/mp4" ></source>
 					</video>
-				</div>
-				<div class="div-inline" v-for="site in sites" style="width: 500px">
+					</br>
 					<span  v-text="site.r_content" style="width: 50px"></span>
-				</div>-->
+					</br>
+					</br>
+					</br>
+					</br>
+				</div>
 			</div>
 		</div>
 		<!--footer-->
@@ -298,7 +304,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				}
 			}
 		</script>
-	<!--<script>
+	<script>
 		document.querySelector(".get").onclick = function() {
 			new Vue({
 				el: '#ads',
@@ -312,7 +318,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 			})
 		}
-	</script>-->
+	</script>
 	<!--scrolling js-->
 	<script src="js/jquery.nicescroll.js"></script>
 	<script src="js/scripts.js"></script>
