@@ -32,4 +32,6 @@ public class TypeController {
         System.out.println("typeResources ="+typeResources);
         return typeResources;
     }
+
+
 }

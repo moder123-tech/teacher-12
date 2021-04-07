@@ -2,11 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.teacher.dao.ResourcesDao">
 
+    <sql id="Resources" >
+        r_id,r_path,r_content,r_label
+    </sql>
+
+    <sql id="History" >
+        h_id,h_forrign,h_path,h_content,h_time
+    </sql>
+
+    <insert id="addResourcesHistory" parameterType="cn.com.teacher.bean.History" useGeneratedKeys="true" keyProperty="h_id">
+        insert into History
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="h_path != null" >
+                h_path,
+            </if>
+            <if test="h_content != null" >
+                h_content,
+            </if>
+            <if test="h_time !=null">
+                h_time
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="h_path != null" >
+                #{h_path,jdbcType=VARCHAR},
+            </if>
+            <if test="h_content != null" >
+                #{h_content,jdbcType=VARCHAR},
+            </if>
+            <if test="h_time !=null">
+                #{h_time,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
     <select id="getAllResources" resultType="cn.com.teacher.bean.Resources">
-        select * from Resources
+        select
+        <include refid="Resources" />
+        from Resources
     </select>
     <select id="getSearchResources" resultType="cn.com.teacher.bean.Resources">
-        select * from Resources
+        select
+        <include refid="Resources" />
+        from Resources
         <where>
             <if test="r_content != null">
                 r_content like "%"#{r_content,jdbcType=VARCHAR}"%"

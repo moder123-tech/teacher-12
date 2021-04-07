@@ -19,4 +19,6 @@ public interface TypeResourcesDao {
      * 返回所有的用户@return
      */
     List<Resources> getTypeResources(@Param("r_label") String r_label);
+
+
 }

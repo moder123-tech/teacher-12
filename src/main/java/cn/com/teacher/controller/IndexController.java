@@ -1,5 +1,6 @@
 package cn.com.teacher.controller;
 
+import cn.com.teacher.bean.History;
 import cn.com.teacher.bean.Resources;
 import cn.com.teacher.service.ResourcesService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,5 +41,22 @@ public class IndexController {
         List<Resources> searchResources = resourcesService.getSearchResources(r_content);
         System.out.println("getSearchResources ="+searchResources);
         return searchResources;
+    }
+    @ResponseBody
+    @GetMapping(value = "/addHistory")
+    public void addResourcesHistory(@RequestParam String content){
+        History history=new History();
+        String[] split = content.split(":");
+        String h_content=split[0];
+        String h_path=split[1];
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String h_time = df.format(new Date());
+        history.setH_content(h_content);
+        history.setH_path(h_path);
+        history.setH_time(h_time);
+        int i = resourcesService.addResourcesHistory(history);
+        if(i==1){
+            System.out.println("成功");
+        }
     }
 }

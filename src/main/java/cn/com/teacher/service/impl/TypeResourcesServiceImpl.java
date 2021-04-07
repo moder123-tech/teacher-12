@@ -23,4 +23,6 @@ public class TypeResourcesServiceImpl implements TypeResourcesService {
     public List<Resources> getTypeResources(String r_label) {
         return typeResourcesDao.getTypeResources(r_label);
     }
+
+
 }

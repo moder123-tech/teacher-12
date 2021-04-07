@@ -1,5 +1,6 @@
 package cn.com.teacher.service.impl;
 
+import cn.com.teacher.bean.History;
 import cn.com.teacher.bean.Resources;
 import cn.com.teacher.dao.ResourcesDao;
 import cn.com.teacher.dao.UserDao;
@@ -28,5 +29,9 @@ public class ResourcesServiceImpl implements ResourcesService {
     @Override
     public List<Resources> getSearchResources(String r_content) {
         return resourcesDao.getSearchResources(r_content);
+    }
+    @Override
+    public int addResourcesHistory(History history) {
+        return resourcesDao.addResourcesHistory(history);
     }
 }

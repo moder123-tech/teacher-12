@@ -8,6 +8,15 @@ public class History implements Serializable {
   private String h_forrign;
   private String h_path;
   private String h_content;
+  private String h_time;
+
+  public String getH_time() {
+    return h_time;
+  }
+
+  public void setH_time(String h_time) {
+    this.h_time = h_time;
+  }
 
   public Integer getH_id() {
     return h_id;
@@ -48,6 +57,7 @@ public class History implements Serializable {
             ", h_forrign='" + h_forrign + '\'' +
             ", h_path='" + h_path + '\'' +
             ", h_content='" + h_content + '\'' +
+            ", h_time='" + h_time + '\'' +
             '}';
   }
 }
