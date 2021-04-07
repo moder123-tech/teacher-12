@@ -51,4 +51,9 @@
             </if>
         </where>
     </select>
+    <select id="getAllHistory" resultType="cn.com.teacher.bean.History">
+        select
+        <include refid="History" />
+        from History
+    </select>
 </mapper>

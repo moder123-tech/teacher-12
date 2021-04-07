@@ -17,22 +17,27 @@ public interface ResourcesDao {
 
     /**
      *
-     * 返回所有的用户@return
+     * 返回所有的视频资源@return
      */
     List<Resources> getAllResources();
 
     /**
      *
-     * 返回指定的用户@return
+     * 传入标签内容条件@param r_content
+     * 返回符合条件的集合@return
      */
-    List<Resources> getSearchResources(@Param("r_content") String r_content);
+    List<Resources> getSearchResources(String r_content);
 
     /**
      *
-     * 内容@param h_content
-     * 路径@param h_path
-     * 时间@param h_time
-     * 返回视频集合@return
+     * 传入history对象@param history
+     * 返回是否插入成功@return
      */
-     int addResourcesHistory(History history);
+    int addResourcesHistory(History history);
+
+    /**
+     *
+     * 返回所有的历史记录@return
+     */
+    List<History> getAllHistory();
 }
