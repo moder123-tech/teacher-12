@@ -64,5 +64,10 @@ public class ResourcesServiceImpl implements ResourcesService {
         return resourcesDao.getSearchLoveMovie(c_content);
     }
 
+    @Override
+    public int deleteLoveMovie(UserCollection userCollection) {
+        return resourcesDao.deleteLoveMovie(userCollection);
+    }
+
 
 }

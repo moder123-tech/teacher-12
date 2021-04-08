@@ -60,6 +60,11 @@
         </trim>
     </insert>
 
+    <delete id="deleteLoveMovie">
+        delete from UserCollection
+        where c_path = #{c_path,jdbcType=VARCHAR}
+    </delete>
+
     <select id="getAllResources" resultType="cn.com.teacher.bean.Resources">
         select
         <include refid="Resources" />

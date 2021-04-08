@@ -148,7 +148,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 </video>
                 </br>
                 <span v-text="site.c_content" style="width: 50px"></span>
-                <img :src="images" width="35px" height="35px" @click="likes(site.c_content+':'+site.c_path)">
+                <img :src="images" width="35px" height="35px" @click="likes(site.c_path)">
                 </br>
                 </br>
                 </br>
@@ -222,6 +222,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     axios.get("http://localhost:8080/searchLoveMovie?c_content=" + result)
                         .then(response => (
                             this.sites = response.data))
+                },
+                likes(data){
+                    console.log(data)
+                    axios.get("http://localhost:8080/deleteLoveMovie?content=" + data).then((res) => {
+                        alert(res.data)
+                        this.showData();
+                    })
                 }
             }
         }), new Vue({

@@ -73,4 +73,10 @@ public interface ResourcesService {
      */
     List<UserCollection> getSearchLoveMovie(String c_content);
 
+    /**
+     *
+     * 传入要删除的对象@param userCollection
+     * 返回是否删除成功@return
+     */
+    int deleteLoveMovie(UserCollection userCollection);
 }

@@ -112,4 +112,17 @@ public class IndexController {
         return searchLoveMovie;
     }
 
+
+    @ResponseBody
+    @GetMapping(value = "/deleteLoveMovie")
+    public String deleteLoveMovie(@RequestParam String content) {
+        UserCollection userCollection = new UserCollection();
+        userCollection.setC_path(content);
+        int i = resourcesService.deleteLoveMovie(userCollection);
+        if (i == 1) {
+            return "取消收藏成功";
+        }
+        return "取消收藏失败了.......";
+    }
+
 }
