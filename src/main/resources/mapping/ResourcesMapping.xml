@@ -7,7 +7,7 @@
     </sql>
 
     <sql id="History" >
-        h_id,h_forrign,h_path,h_content,h_time
+        h_id,h_path,h_content,h_time
     </sql>
 
     <insert id="addResourcesHistory" parameterType="cn.com.teacher.bean.History" useGeneratedKeys="true" keyProperty="h_id">
@@ -55,5 +55,15 @@
         select
         <include refid="History" />
         from History
+    </select>
+    <select id="getSearchHistory" resultType="cn.com.teacher.bean.History">
+        select
+        <include refid="History" />
+        from History
+        <where>
+            <if test="h_content != null">
+                h_content like "%"#{h_content,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
     </select>
 </mapper>

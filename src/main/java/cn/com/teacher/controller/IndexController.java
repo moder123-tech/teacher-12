@@ -62,7 +62,17 @@ public class IndexController {
     @GetMapping(value = "/searchResourcesHistory")
     public List<History> getAllHistory(){
         List<History> allHistory = resourcesService.getAllHistory();
-        System.out.println("allHistory ="+allHistory);
+        System.out.println("getAllHistory ="+allHistory);
         return allHistory;
     }
+
+
+    @ResponseBody
+    @GetMapping(value = "/searchHistory")
+    public List<History> getSearchHistory(@RequestParam String h_content){
+        List<History> searchHistory = resourcesService.getSearchHistory(h_content);
+        System.out.println("getSearchHistory ="+searchHistory);
+        return searchHistory;
+    }
+
 }

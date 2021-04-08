@@ -43,11 +43,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <script>
         new WOW().init();
     </script>
-	<style>
-		.div-inline {
-			display: inline-block;
-		}
-	</style>
+    <style>
+        .div-inline {
+            display: inline-block;
+        }
+    </style>
     <!--//end-animate-->
     <!--skycons-icons-->
     <script src="js/skycons.js"></script>
@@ -71,7 +71,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <li>
                         <a href="index.html"><i class="fa fa-home nav_icon"></i>主页</a>
                     </li>
-
                     <li class="">
                         <a href="#"><i class="fa fa-book nav_icon"></i>分类 <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
@@ -117,178 +116,28 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             </div>
             <!--//logo-->
             <!--search-box-->
-            <div class="search-box">
-                <form class="input">
-                    <input class="sb-search-input input__field--madoka" placeholder="Search..." type="search"
-                           id="input-31"/>
-                    <label class="input__label" for="input-31">
-                        <svg class="graphic" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
-                            <path d="m0,0l404,0l0,77l-404,0l0,-77z"/>
-                        </svg>
-                    </label>
-                </form>
+            <div class="search-box" id="searchBox">
+                <input placeholder="Search..." type="search"
+                       id="input-31"/>
+                <button onclick="getSearchData()">搜索</button>
             </div><!--//end-search-box-->
             <div class="clearfix"></div>
         </div>
         <div class="header-right">
-            <div class="profile_details_left"><!--notifications of menu start -->
-                <ul class="nofitications-dropdown">
-                    <li class="dropdown head-dpdn">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-                                class="fa fa-envelope"></i><span class="badge">3</span></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="notification_header">
-                                    <h3>You have 3 new messages</h3>
-                                </div>
-                            </li>
-                            <li><a href="#">
-                                <div class="user_img"><img src="images/1.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet</p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a></li>
-                            <li class="odd"><a href="#">
-                                <div class="user_img"><img src="images/2.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a></li>
-                            <li><a href="#">
-                                <div class="user_img"><img src="images/3.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a></li>
-                            <li>
-                                <div class="notification_bottom">
-                                    <a href="#">See all messages</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown head-dpdn">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-                                class="fa fa-bell"></i><span class="badge blue">3</span></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="notification_header">
-                                    <h3>You have 3 new notification</h3>
-                                </div>
-                            </li>
-                            <li><a href="#">
-                                <div class="user_img"><img src="images/2.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet</p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a></li>
-                            <li class="odd"><a href="#">
-                                <div class="user_img"><img src="images/1.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a></li>
-                            <li><a href="#">
-                                <div class="user_img"><img src="images/3.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>
-                            </a></li>
-                            <li>
-                                <div class="notification_bottom">
-                                    <a href="#">See all notifications</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown head-dpdn">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-                                class="fa fa-tasks"></i><span class="badge blue1">15</span></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="notification_header">
-                                    <h3>You have 8 pending task</h3>
-                                </div>
-                            </li>
-                            <li><a href="#">
-                                <div class="task-info">
-                                    <span class="task-desc">Database update</span><span class="percentage">40%</span>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="progress progress-striped active">
-                                    <div class="bar yellow" style="width:40%;"></div>
-                                </div>
-                            </a></li>
-                            <li><a href="#">
-                                <div class="task-info">
-                                    <span class="task-desc">Dashboard done</span><span class="percentage">90%</span>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="progress progress-striped active">
-                                    <div class="bar green" style="width:90%;"></div>
-                                </div>
-                            </a></li>
-                            <li><a href="#">
-                                <div class="task-info">
-                                    <span class="task-desc">Mobile App</span><span class="percentage">33%</span>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="progress progress-striped active">
-                                    <div class="bar red" style="width: 33%;"></div>
-                                </div>
-                            </a></li>
-                            <li><a href="#">
-                                <div class="task-info">
-                                    <span class="task-desc">Issues fixed</span><span class="percentage">80%</span>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="progress progress-striped active">
-                                    <div class="bar  blue" style="width: 80%;"></div>
-                                </div>
-                            </a></li>
-                            <li>
-                                <div class="notification_bottom">
-                                    <a href="#">See all pending tasks</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
             <!--notification menu end -->
             <div class="profile_details">
                 <ul>
                     <li class="dropdown profile_details_drop">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <div class="profile_img">
-                                <span class="prfil-img"><img src="images/a.png" alt=""> </span>
+                                <span class="prfil-img"><img src="image/a.png" alt=""> </span>
                                 <div class="user-name">
-                                    <p>Wikolia</p>
+                                    <p id="app">{{info}}</p>
                                     <span>Administrator</span>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <i class="fa fa-angle-down lnr"></i>
-                                <i class="fa fa-angle-up lnr"></i>
-                                <div class="clearfix"></div>
                             </div>
                         </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-                            <li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -298,20 +147,21 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- //header-ends -->
     <!-- main content start-->
     <div id="page-wrapper">
-		<div id="ads">
-			<table v-for="(site,index) in sites" cellpadding="100">
-				<tr v-if="index == 0" >
-					<td style="width: 450px;height: 50px" >内容</td>
-					<td style="width: 450px;height: 50px">路径</td>
-					<td style="width: 450px;height: 50px">时间</td>
-				</tr>
-                 <tr>
-					 <td v-text="site.h_content" style="width: 450px;height: 50px"></td>
-					 <td  style="width: 450px;height: 50px"><a :href="site.h_path">{{site.h_path}}</a></td>
-					 <td v-text="site.h_time" style="width: 450px;height: 50px"></td>
-				 </tr>
-			</table>
-		</div>
+        <div id="ads">
+            <table v-for="(site,index) in sites" cellpadding="100" class="table table-bordered">
+                <tr v-if="index == 0">
+                    <td style="width: 450px;height: 50px">内容</td>
+                    <td style="width: 450px;height: 50px">路径</td>
+                    <td style="width: 450px;height: 50px">时间</td>
+                </tr>
+                <tr>
+                    <td v-text="site.h_content" style="width: 450px;height: 50px"></td>
+                    <td style="width: 450px;height: 50px"><a :href="site.h_path">{{site.h_path}}</a></td>
+                    <td v-text="site.h_time" style="width: 450px;height: 50px"></td>
+                </tr>
+            </table>
+            <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
+        </div>
     </div>
     <!--footer-->
     <div class="footer">
@@ -350,8 +200,34 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             mounted() {
                 axios.get("http://localhost:8080/searchResourcesHistory")
                     .then(response => (this.sites = response.data))
+            },
+            methods: {
+                showData() {
+                    var result = document.getElementById("input-31").value;
+                    console.log(result)
+                    axios.get("http://localhost:8080/searchHistory?h_content=" + result)
+                        .then(response => (
+                            this.sites = response.data))
+                }
+            }
+        }), new Vue({
+            el: '#app',
+            data: {
+                info: ""
+            },
+            mounted() {
+                axios.get("http://localhost:8080/test")
+                    .then(function (response) {
+                        document.getElementById("app").innerHTML = "<font color=red> " + response.data + "</font>";
+                    })
             }
         })
+    }
+</script>
+<script>
+    function getSearchData() {
+        var result = document.getElementById("input-31").value;
+        document.getElementById("buttons").click();
     }
 </script>
 <!--scrolling js-->

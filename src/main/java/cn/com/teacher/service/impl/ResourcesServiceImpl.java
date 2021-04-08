@@ -37,4 +37,11 @@ public class ResourcesServiceImpl implements ResourcesService {
     public List<History> getAllHistory() {
         return resourcesDao.getAllHistory();
     }
+
+    @Override
+    public List<History> getSearchHistory(String h_content) {
+        return resourcesDao.getSearchHistory(h_content);
+    }
+
+
 }

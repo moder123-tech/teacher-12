@@ -40,4 +40,11 @@ public interface ResourcesDao {
      * 返回所有的历史记录@return
      */
     List<History> getAllHistory();
+
+    /**
+     *
+     * 传入查询的历史内容@param h_content
+     * 返回符合条件的历史记录@return
+     */
+    List<History> getSearchHistory(String h_content);
 }
