@@ -9,6 +9,10 @@
     <sql id="History" >
         h_id,h_path,h_content,h_time
     </sql>
+    
+    <sql id="UserCollection">
+       c_id,c_path,c_content
+    </sql>
 
     <insert id="addResourcesHistory" parameterType="cn.com.teacher.bean.History" useGeneratedKeys="true" keyProperty="h_id">
         insert into History
@@ -32,6 +36,26 @@
             </if>
             <if test="h_time !=null">
                 #{h_time,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addResourcesCollection" parameterType="cn.com.teacher.bean.UserCollection" useGeneratedKeys="true" keyProperty="c_id">
+        insert into UserCollection
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="c_path != null" >
+                c_path,
+            </if>
+            <if test="c_content != null" >
+                c_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="c_path != null" >
+                #{c_path,jdbcType=VARCHAR},
+            </if>
+            <if test="c_content != null" >
+                #{c_content,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -63,6 +87,34 @@
         <where>
             <if test="h_content != null">
                 h_content like "%"#{h_content,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
+    </select>
+    
+    <select id="getLoveResources" resultType="cn.com.teacher.bean.UserCollection">
+        select
+        <include refid="UserCollection" />
+        from UserCollection
+    </select>
+
+    <select id="checkLove" resultType="java.lang.Integer">
+        select
+        <include refid="UserCollection" />
+        from UserCollection
+        <where>
+            <if test="c_path != null">
+                c_path = #{c_path,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSearchLoveMovie" resultType="cn.com.teacher.bean.UserCollection">
+        select
+        <include refid="UserCollection" />
+        from UserCollection
+        <where>
+            <if test="c_content != null">
+                c_content like "%"#{c_content,jdbcType=VARCHAR}"%"
             </if>
         </where>
     </select>

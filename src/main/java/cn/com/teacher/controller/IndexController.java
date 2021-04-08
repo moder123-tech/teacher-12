@@ -1,6 +1,7 @@
 package cn.com.teacher.controller;
 import cn.com.teacher.bean.History;
 import cn.com.teacher.bean.Resources;
+import cn.com.teacher.bean.UserCollection;
 import cn.com.teacher.service.ResourcesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,16 +46,14 @@ public class IndexController {
     public void addResourcesHistory(@RequestParam String content){
         History history=new History();
         String[] split = content.split(":");
-        String h_content=split[0];
-        String h_path=split[1];
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String h_time = df.format(new Date());
-        history.setH_content(h_content);
-        history.setH_path(h_path);
+        history.setH_content(split[0]);
+        history.setH_path(split[1]);
         history.setH_time(h_time);
         int i = resourcesService.addResourcesHistory(history);
         if(i==1){
-            System.out.println("插入成功");
+            System.out.println("插入历史记录成功");
         }
     }
 
@@ -73,6 +72,44 @@ public class IndexController {
         List<History> searchHistory = resourcesService.getSearchHistory(h_content);
         System.out.println("getSearchHistory ="+searchHistory);
         return searchHistory;
+    }
+
+
+    @ResponseBody
+    @GetMapping(value = "/addCollection")
+    public String addResourcesCollection(@RequestParam String content){
+        UserCollection userCollection=new UserCollection();
+        String[] split = content.split(":");
+        userCollection.setC_content(split[0]);
+        userCollection.setC_path(split[1]);
+        try{
+            if(resourcesService.checkLove(split[1])==null){
+                int i = resourcesService.addResourcesCollection(userCollection);
+                if(i==1){
+                    return "收藏成功";
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "收藏重复了.......";
+    }
+
+
+    @ResponseBody
+    @GetMapping(value = "/getLoveMovie")
+    public List<UserCollection> getLoveResources(){
+        List<UserCollection> loveResources = resourcesService.getLoveResources();
+        System.out.println("getLoveResources ="+loveResources);
+        return loveResources;
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/searchLoveMovie")
+    public List<UserCollection> getSearchLoveMovie(@RequestParam String c_content){
+        List<UserCollection> searchLoveMovie = resourcesService.getSearchLoveMovie(c_content);
+        System.out.println("getSearchLoveMovie ="+searchLoveMovie);
+        return searchLoveMovie;
     }
 
 }

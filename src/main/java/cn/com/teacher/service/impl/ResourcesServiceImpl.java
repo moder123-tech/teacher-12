@@ -1,6 +1,7 @@
 package cn.com.teacher.service.impl;
 import cn.com.teacher.bean.History;
 import cn.com.teacher.bean.Resources;
+import cn.com.teacher.bean.UserCollection;
 import cn.com.teacher.dao.ResourcesDao;
 import cn.com.teacher.service.ResourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,26 @@ public class ResourcesServiceImpl implements ResourcesService {
     @Override
     public List<History> getSearchHistory(String h_content) {
         return resourcesDao.getSearchHistory(h_content);
+    }
+
+    @Override
+    public int addResourcesCollection(UserCollection userCollection) {
+        return resourcesDao.addResourcesCollection(userCollection);
+    }
+
+    @Override
+    public List<UserCollection> getLoveResources() {
+        return resourcesDao.getLoveResources();
+    }
+
+    @Override
+    public Integer checkLove(String c_path) {
+        return resourcesDao.checkLove(c_path);
+    }
+
+    @Override
+    public List<UserCollection> getSearchLoveMovie(String c_content) {
+        return resourcesDao.getSearchLoveMovie(c_content);
     }
 
 
