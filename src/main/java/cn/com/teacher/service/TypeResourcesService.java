@@ -1,7 +1,6 @@
 package cn.com.teacher.service;
 
 import cn.com.teacher.bean.Resources;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,7 +12,6 @@ import java.util.List;
 public interface TypeResourcesService {
 
     /**
-     *
      * 返回所有的用户@return
      */
     List<Resources> getTypeResources(String type);

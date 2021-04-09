@@ -1,63 +1,40 @@
 package cn.com.teacher.bean;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.io.Serializable;
 
+/**
+ * @author wx
+ */
+@Data
+@ToString
 public class History implements Serializable {
 
-  private Integer h_id;
-  private String h_forrign;
-  private String h_path;
-  private String h_content;
-  private String h_time;
+    /**
+     * 历史记录表id
+     */
+    private Integer h_id;
 
-  public String getH_time() {
-    return h_time;
-  }
+    /**
+     * 关联用户信息表id
+     */
+    private String h_forrign;
 
-  public void setH_time(String h_time) {
-    this.h_time = h_time;
-  }
+    /**
+     * 路径
+     */
+    private String h_path;
 
-  public Integer getH_id() {
-    return h_id;
-  }
+    /**
+     * 内容
+     */
+    private String h_content;
 
-  public void setH_id(Integer h_id) {
-    this.h_id = h_id;
-  }
+    /**
+     * 时间
+     */
+    private String h_time;
 
-  public String getH_forrign() {
-    return h_forrign;
-  }
-
-  public void setH_forrign(String h_forrign) {
-    this.h_forrign = h_forrign;
-  }
-
-  public String getH_path() {
-    return h_path;
-  }
-
-  public void setH_path(String h_path) {
-    this.h_path = h_path;
-  }
-
-  public String getH_content() {
-    return h_content;
-  }
-
-  public void setH_content(String h_content) {
-    this.h_content = h_content;
-  }
-
-  @Override
-  public String toString() {
-    return "History{" +
-            "h_id=" + h_id +
-            ", h_forrign='" + h_forrign + '\'' +
-            ", h_path='" + h_path + '\'' +
-            ", h_content='" + h_content + '\'' +
-            ", h_time='" + h_time + '\'' +
-            '}';
-  }
 }

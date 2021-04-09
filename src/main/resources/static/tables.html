@@ -212,7 +212,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             },
             mounted() {
                 axios.get("http://localhost:8080/getLoveMovie")
-                    .then(response => (this.images="image/5.png",this.sites = response.data))
+                    .then(response => (this.images = "image/5.png", this.sites = response.data))
             },
             methods: {
                 showData() {
@@ -221,7 +221,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         .then(response => (
                             this.sites = response.data))
                 },
-                likes(data){
+                likes(data) {
                     axios.get("http://localhost:8080/deleteLoveMovie?content=" + data).then((res) => {
                         alert(res.data)
                         this.showData();

@@ -2,36 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.teacher.dao.ResourcesDao">
 
-    <sql id="Resources" >
-        r_id,r_path,r_content,r_label
+    <sql id="Resources">
+        r_id
+        ,r_path,r_content,r_label
     </sql>
 
-    <sql id="History" >
-        h_id,h_path,h_content,h_time
+    <sql id="History">
+        h_id
+        ,h_path,h_content,h_time
     </sql>
-    
+
     <sql id="UserCollection">
-       c_id,c_path,c_content
+        c_id
+        ,c_path,c_content
     </sql>
 
-    <insert id="addResourcesHistory" parameterType="cn.com.teacher.bean.History" useGeneratedKeys="true" keyProperty="h_id">
+    <insert id="addResourcesHistory" parameterType="cn.com.teacher.bean.History" useGeneratedKeys="true"
+            keyProperty="h_id">
         insert into History
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="h_path != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="h_path != null">
                 h_path,
             </if>
-            <if test="h_content != null" >
+            <if test="h_content != null">
                 h_content,
             </if>
             <if test="h_time !=null">
                 h_time
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="h_path != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="h_path != null">
                 #{h_path,jdbcType=VARCHAR},
             </if>
-            <if test="h_content != null" >
+            <if test="h_content != null">
                 #{h_content,jdbcType=VARCHAR},
             </if>
             <if test="h_time !=null">
@@ -40,39 +44,41 @@
         </trim>
     </insert>
 
-    <insert id="addResourcesCollection" parameterType="cn.com.teacher.bean.UserCollection" useGeneratedKeys="true" keyProperty="c_id">
+    <insert id="addResourcesCollection" parameterType="cn.com.teacher.bean.UserCollection" useGeneratedKeys="true"
+            keyProperty="c_id">
         insert into UserCollection
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="c_path != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="c_path != null">
                 c_path,
             </if>
-            <if test="c_content != null" >
+            <if test="c_content != null">
                 c_content,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="c_path != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="c_path != null">
                 #{c_path,jdbcType=VARCHAR},
             </if>
-            <if test="c_content != null" >
+            <if test="c_content != null">
                 #{c_content,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
 
     <delete id="deleteLoveMovie">
-        delete from UserCollection
+        delete
+        from UserCollection
         where c_path = #{c_path,jdbcType=VARCHAR}
     </delete>
 
     <select id="getAllResources" resultType="cn.com.teacher.bean.Resources">
         select
-        <include refid="Resources" />
+        <include refid="Resources"/>
         from Resources
     </select>
     <select id="getSearchResources" resultType="cn.com.teacher.bean.Resources">
         select
-        <include refid="Resources" />
+        <include refid="Resources"/>
         from Resources
         <where>
             <if test="r_content != null">
@@ -82,12 +88,12 @@
     </select>
     <select id="getAllHistory" resultType="cn.com.teacher.bean.History">
         select
-        <include refid="History" />
+        <include refid="History"/>
         from History
     </select>
     <select id="getSearchHistory" resultType="cn.com.teacher.bean.History">
         select
-        <include refid="History" />
+        <include refid="History"/>
         from History
         <where>
             <if test="h_content != null">
@@ -95,16 +101,16 @@
             </if>
         </where>
     </select>
-    
+
     <select id="getLoveResources" resultType="cn.com.teacher.bean.UserCollection">
         select
-        <include refid="UserCollection" />
+        <include refid="UserCollection"/>
         from UserCollection
     </select>
 
     <select id="checkLove" resultType="java.lang.Integer">
         select
-        <include refid="UserCollection" />
+        <include refid="UserCollection"/>
         from UserCollection
         <where>
             <if test="c_path != null">
@@ -115,7 +121,7 @@
 
     <select id="getSearchLoveMovie" resultType="cn.com.teacher.bean.UserCollection">
         select
-        <include refid="UserCollection" />
+        <include refid="UserCollection"/>
         from UserCollection
         <where>
             <if test="c_content != null">

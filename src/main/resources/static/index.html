@@ -68,7 +68,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
                 <ul class="nav" id="side-menu">
                     <li>
-                      <a href="index.html" class="active"><img src="image/6.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主页</a>
+                        <a href="index.html" class="active"><img src="image/6.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主页</a>
                     </li>
                     <li class="">
                         <a href="#"><img src="image/7.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类</a>
@@ -125,16 +125,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <div class="profile_details">
             <ul>
                 <li class="dropdown profile_details_drop">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <div class="profile_img">
-                            <span class="prfil-img"><img src="image/a.png" alt=""> </span>
-                            <div class="user-name">
-                                <p id="app">{{info}}</p>
-                                <span>Administrator</span>
-                                <div class="clearfix"></div>
-                            </div>
+                    <div class="profile_img">
+                        <span class="prfil-img"><img src="image/a.png" alt=""> </span>
+                        <div class="user-name">
+                            <p id="app">{{info}}</p>
+                            <span>Administrator</span>
+                            <button onclick="submitImage()">提交</button>
+                            <div class="clearfix"></div>
                         </div>
-                    </a>
+                    </div>
+                    <div class="hello">
+                        <div class="user-header" id="headerImage">
+                            <button style="visibility: hidden" id="buttonSelect" @click="getFileName()">1</button>
+                            <input type="file" name="image" accept="image/*" @change='onchangeImgFun'
+                                   class="header-upload-btn user-header-com">
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -159,11 +165,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         </div>
         <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
     </div>
-        <div class="cal1">
+    <div class="cal1">
 
-        </div>
     </div>
-    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
 </div>
 <!--footer-->
 <div class="footer">
@@ -224,7 +230,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             },
             mounted() {
                 axios.get("http://localhost:8080/getMovie")
-                    .then(response => (this.images="image/5.png",this.sites = response.data))
+                    .then(response => (this.images = "image/5.png", this.sites = response.data))
             },
             methods: {
                 countss(src) {
@@ -238,9 +244,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         .then(response => (
                             this.sites = response.data))
                 },
-                likes(data){
+                likes(data) {
                     axios.get("http://localhost:8080/addCollection?content=" + data).then((res) => {
-                       alert(res.data)
+                        alert(res.data)
                     })
                 }
             }
@@ -253,7 +259,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 axios.get("http://localhost:8080/test")
                     .then(function (response) {
                         document.getElementById("app").innerHTML = "<font color=red> " + response.data + "</font>";
-                    })
+                    }),
+                    axios.get("http://localhost:8080/getUserImage")
+                        .then((res) => {
+                            alert(res.data)
+                        })
             }
         })
     }
@@ -263,6 +273,65 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         var result = document.getElementById("input-31").value;
         document.getElementById("buttons").click();
     }
+</script>
+
+<script>
+    function submitImage() {
+        document.getElementById("buttonSelect").click();
+    }
+</script>
+
+<script>
+    new Vue({
+        el: '#headerImage',
+        data: {
+            errorStr: "",
+            fileName: "",
+            imgStr: ""
+        },
+        methods: {
+            getFileName() {
+                axios.post("http://localhost:8080/uploadImage", this.imgStr)
+                    .then((res) => {
+                        alert(res.data)
+                    })
+            },
+            onchangeImgFun(e) {
+                var that = this;
+                var file = e.target.files[0]
+                console.log(file.name)
+                this.fileName = file.name;
+                // 获取图片的大小，做大小限制有用
+                let imgSize = file.size
+                console.log('imgSize' + imgSize)
+                if (imgSize <= 50 * 1024) {
+                    // 合格
+                    this.errorStr = ''
+                    console.log('大小合适')
+                    // 开始渲染选择的图片
+                    // 本地路径方法 1
+                    // this.imgStr = window.URL.createObjectURL(e.target.files[0])
+                    // console.log(window.URL.createObjectURL(e.target.files[0]))                  // 获取当前文件的信息
+
+//base64方法 2
+                    var reader = new FileReader()
+                    reader.readAsDataURL(file) // 读出 base64
+                    reader.onloadend = function () {
+                        // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+                        var dataURL = reader.result
+                        console.log(dataURL)
+                        that.imgStr = dataURL
+                        // 下面逻辑处理
+                    }
+                } else {
+                    alert('图片大小不得大于50kb')
+                    this.errorStr = '图片大小超出范围'
+                }
+            }
+
+
+        }
+    })
 </script>
 
 <!--<script>

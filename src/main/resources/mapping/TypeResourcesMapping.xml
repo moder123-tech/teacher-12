@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.teacher.dao.TypeResourcesDao">
 
-    <sql id="Resources" >
-        r_id,r_path,r_content,r_label
+    <sql id="Resources">
+        r_id
+        ,r_path,r_content,r_label
     </sql>
 
 
     <select id="getTypeResources" resultType="cn.com.teacher.bean.Resources">
         select
-        <include refid="Resources" />
+        <include refid="Resources"/>
         from Resources
         <where>
             <if test="r_label != null">

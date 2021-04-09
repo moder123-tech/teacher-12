@@ -10,15 +10,31 @@
         <result column="u_name" jdbcType="VARCHAR" property="u_name"/>
     </resultMap>
 
-    <insert id="insertUser" parameterType="cn.com.teacher.bean.UserInformation" useGeneratedKeys="true" keyProperty="uid">
+    <insert id="insertUser" parameterType="cn.com.teacher.bean.UserInformation" useGeneratedKeys="true"
+            keyProperty="uid">
         <selectKey keyProperty="u_id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into UserInformation(u_number,u_password,u_name)
         values(#{u_number},#{u_password},#{u_name})
     </insert>
-    <select id="getUser"  resultType="java.lang.String" parameterType="java.lang.String">
-       select u_name from UserInformation
+
+    <update id="updateUpdateUploadImage" parameterType="cn.com.teacher.bean.UserInformation">
+        UPDATE UserInformation
+        SET
+        <if test="u_head != null">
+            u_head = #{u_head,jdbcType=VARCHAR}
+        </if>
+        <where>
+            <if test="u_number != null">
+                u_number=#{u_number,jdbcType=VARCHAR}
+            </if>
+        </where>
+
+
+    </update>
+    <select id="getUser" resultType="java.lang.String" parameterType="java.lang.String">
+        select u_name from UserInformation
         <where>
             <if test="u_number != null">
                 u_number=#{u_number,jdbcType=VARCHAR}
@@ -28,6 +44,15 @@
             </if>
         </where>
 
+    </select>
+
+    <select id="getUserImage" resultType="java.lang.String">
+        select u_head from UserInformation
+        <where>
+            <if test="u_number != null">
+                u_number=#{u_number,jdbcType=VARCHAR}
+            </if>
+        </where>
     </select>
 
 </mapper>

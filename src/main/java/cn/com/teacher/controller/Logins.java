@@ -29,55 +29,107 @@ public class Logins {
     private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
-
     private String emailProvider;
 
     @Autowired
     public UserService userService;
 
 
-
-
+    /**
+     * 传入所要注册的用户对象@param userInformation
+     * map集合@param map
+     * 模型视图@param modelAndView
+     * 状态@param code
+     * httprequest@param request
+     * 返回成功或者失败页面@return
+     */
     @GetMapping(value = "/register")
-    public String register(UserInformation userInformation, Map map, ModelAndView modelAndView,@RequestParam("code") String code,HttpServletRequest request){
+    public String register(UserInformation userInformation, Map map, ModelAndView modelAndView, @RequestParam("code") String code, HttpServletRequest request) {
         userService.insertUser(userInformation);
-        HttpSession sessoin=request.getSession();
+        HttpSession sessoin = request.getSession();
         Object codes = sessoin.getAttribute("codes");
-        if(!(codes.equals(code))){
+        if (!(codes.equals(code))) {
             return "redirect:http://localhost:8080/number.html";
         }
         return "redirect:http://localhost:8080/login.html";
     }
 
+    /**
+     * 传入所要注册的用户对象@param userInformation
+     * map集合@param map
+     * 从前端页面获取用户所填的邮箱@param emails
+     * httprequest@param request
+     * 返回状态码 200:成功@return
+     */
     @ResponseBody
     @RequestMapping(value = "/send/{emails}")
-    public String sendEmail(UserInformation userInformation, Map map, @PathVariable("emails") String emails,HttpServletRequest request) throws InterruptedException {
-       new EmailSend(userInformation,map,emails,javaMailSender,emailProvider,request);
+    public String sendEmail(UserInformation userInformation, Map map, @PathVariable("emails") String emails, HttpServletRequest request) throws InterruptedException {
+        new EmailSend(userInformation, map, emails, javaMailSender, emailProvider, request);
         return "200";
     }
 
+    /**
+     * 用户所填的账号信息@param u_number
+     * 用户所填的密码信息@param u_password
+     * HttpSession@param session
+     * 返回成功或者失败页面@return
+     */
     @GetMapping(value = "/login")
-    public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session){
+    public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session) {
         try {
             String number = userService.getUser(u_number, u_password);
-            session.setAttribute("number",number);
-            if(number!=null){
-                session.setAttribute("msg","200");
+            session.setAttribute("number", number);
+            session.setAttribute("email", u_number);
+            if (number != null) {
+                session.setAttribute("msg", "200");
                 return "redirect:http://localhost:8080/index.html";
             }
             return "redirect:http://localhost:8080/password.html";
-        }catch (Exception exception){
+        } catch (Exception exception) {
             return "redirect:http://localhost:8080/password.html";
         }
 
 
     }
+
+    /**
+     * HttpSession@param session
+     * 返回昵称信息@return
+     */
     @ResponseBody
     @GetMapping(value = "/test")
-    public String test(HttpSession session){
+    public String test(HttpSession session) {
         return (String) session.getAttribute("number");
     }
 
+    /**
+     * 前端传过来的信息@param data
+     * HttpSession@param session
+     * 返回上传头像是否成功@return
+     */
+    @ResponseBody
+    @PostMapping(value = "/uploadImage")
+    public String updateUploadImage(@RequestBody String data, HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        UserInformation userInformation = new UserInformation();
+        userInformation.setU_number(email);
+        userInformation.setU_head(data);
+        int i = userService.updateUpdateUploadImage(userInformation);
+        if (i == 1) {
+            return "ok";
+        }
+        return "false";
+    }
 
-
+    /**
+     * HttpSession@param session
+     * 返回用户的头像信息@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/getUserImage")
+    public String getUserImage(HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        String userImage = userService.getUserImage(email);
+        return userImage;
+    }
 }
