@@ -71,6 +71,12 @@
         where c_path = #{c_path,jdbcType=VARCHAR}
     </delete>
 
+    <delete id="deleteHistory">
+        delete
+        from History
+        where h_time = #{h_time,jdbcType=VARCHAR}
+    </delete>
+
     <select id="getAllResources" resultType="cn.com.teacher.bean.Resources">
         select
         <include refid="Resources"/>
@@ -129,4 +135,6 @@
             </if>
         </where>
     </select>
+
+
 </mapper>

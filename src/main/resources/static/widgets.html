@@ -91,6 +91,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         <a href="tables.html"><img src="image/9.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收藏</a>
                     </li>
 
+                    <li>
+                        <a href="like.html"><img src="image/11.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个性化推荐</a>
+                    </li>
 
                 </ul>
                 <div class="clearfix"></div>
@@ -148,14 +151,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <div id="ads">
             <table v-for="(site,index) in sites" cellpadding="100" class="table table-bordered">
                 <tr v-if="index == 0">
-                    <td style="width: 450px;height: 50px">内容</td>
-                    <td style="width: 450px;height: 50px">路径</td>
-                    <td style="width: 450px;height: 50px">时间</td>
+                    <td style="width: 400px">内容</td>
+                    <td style="width: 400px">路径</td>
+                    <td style="width: 400px">时间</td>
                 </tr>
                 <tr>
-                    <td v-text="site.h_content" style="width: 450px;height: 50px"></td>
-                    <td style="width: 450px;height: 50px"><a :href="site.h_path">{{site.h_path}}</a></td>
-                    <td v-text="site.h_time" style="width: 450px;height: 50px"></td>
+                    <td v-text="site.h_content" style="width: 400px"></td>
+                    <td style="width: 400px"><a :href="site.h_path">{{site.h_path}}</a></td>
+                    <td v-text="site.h_time" style="width: 400px"></td>
+                    <td><button @click="deleteTime(site.h_time)">删除</button></td>
                 </tr>
             </table>
             <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
@@ -206,6 +210,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     axios.get("http://localhost:8080/searchHistory?h_content=" + result)
                         .then(response => (
                             this.sites = response.data))
+                },
+                deleteTime(data){
+                    axios.get("http://localhost:8080/deleteHistory?h_time=" + data)
+                        .then(response => (alert("删除成功"), this.sites = response.data))
                 }
             }
         }), new Vue({

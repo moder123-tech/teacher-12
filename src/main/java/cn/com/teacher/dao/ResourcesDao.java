@@ -71,4 +71,11 @@ public interface ResourcesDao {
      * 返回是否删除成功@return
      */
     int deleteLoveMovie(UserCollection userCollection);
+
+    /**
+     *
+     * 传入要删除历史记录所对应的时间信息@param h_time
+     * 返回剩下历史记录的集合@return
+     */
+    int deleteHistory(String h_time);
 }

@@ -71,5 +71,10 @@ public class ResourcesServiceImpl implements ResourcesService {
         return resourcesDao.deleteLoveMovie(userCollection);
     }
 
+    @Override
+    public int deleteHistory(String h_time) {
+        return resourcesDao.deleteHistory(h_time);
+    }
+
 
 }

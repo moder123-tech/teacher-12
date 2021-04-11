@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Novus Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Typography ::
+    <title>Novus Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Tables ::
         w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -20,6 +20,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
+    <style>
+        .div-inline {
+            display: inline-block;
+        }
+    </style>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <!-- Custom CSS -->
@@ -38,20 +43,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!--animate-->
     <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
     <script src="js/wow.min.js"></script>
+    <script src="js/vue.js" type="text/javascript"></script>
+    <script src="js/axios.js" type="text/javascript"></script>
     <script>
         new WOW().init();
     </script>
-    <style>
-        .div-inline {
-            display: inline-block;
-        }
-    </style>
     <!--//end-animate-->
     <!-- Metis Menu -->
     <script src="js/metisMenu.min.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/vue.js" type="text/javascript"></script>
-    <script src="js/axios.js" type="text/javascript"></script>
     <link href="css/custom.css" rel="stylesheet">
     <!--//Metis Menu -->
 </head>
@@ -65,7 +65,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <li>
                         <a href="index.html" class="active"><img src="image/6.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主页</a>
                     </li>
-
                     <li class="">
                         <a href="#"><img src="image/7.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类</a>
                         <ul class="nav nav-second-level collapse">
@@ -111,6 +110,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             </div>
             <!--//logo-->
             <!--search-box-->
+            <div class="search-box" id="searchBox">
+                <input placeholder="Search..." type="search"
+                       id="input-31"/>
+                <button onclick="getSearchData()">搜索</button>
+            </div><!--//end-search-box-->
             <div class="clearfix"></div>
         </div>
         <div class="header-right">
@@ -138,19 +142,23 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- //header-ends -->
     <!-- main content start-->
     <div id="page-wrapper">
-        <div id="adsss">
-            <div class="div-inline" v-for="site in sitesss">
-                <video controls="controls" name="media" height="200" width="350">
-                    <source :src="site.r_path" type="video/mp4"></source>
+        <div id="ads">
+            <div class="div-inline" v-for="site in sites">
+               <!-- <video controls="controls" name="media" height="200" width="350px"
+                       @click="countss(site.c_content+':'+site.c_path)">
+                    <source :src="site.c_path" type="video/mp4"></source>
                 </video>
                 </br>
-                <span v-text="site.r_content" style="width: 50px"></span>
+                <span v-text="site.c_content" style="width: 50px"></span>
+                <img :src="images" width="35px" height="35px" @click="likes(site.c_path)">
                 </br>
                 </br>
                 </br>
-                </br>
+                </br> -->
             </div>
+            <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
         </div>
+        <div class="clearfix"></div>
     </div>
     <!--footer-->
     <div class="footer">
@@ -179,18 +187,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         }
     }
 </script>
+<!--scrolling js-->
 <script>
     window.onload = function () {
         new Vue({
-            el: '#adsss',
-            data: {
-                sitesss: []
-            },
-            mounted() {
-                axios.get("http://localhost:8080/getTypeMovie?r_label=English")
-                    .then(response => (this.sitesss = response.data))
-            }
-        }), new Vue({
             el: '#app',
             data: {
                 info: ""
@@ -204,7 +204,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         })
     }
 </script>
-<!--scrolling js-->
+
+
+
 <script src="js/jquery.nicescroll.js"></script>
 <script src="js/scripts.js"></script>
 <!--//scrolling js-->

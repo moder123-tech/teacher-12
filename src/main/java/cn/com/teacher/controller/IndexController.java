@@ -94,6 +94,20 @@ public class IndexController {
         return searchHistory;
     }
 
+    /**
+     *
+     * 传入要删除历史记录所对应的时间@param h_time
+     * 返回剩下的历史记录集合@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/deleteHistory")
+    public List<History> getDeleteHistory(@RequestParam String h_time) {
+        resourcesService.deleteHistory(h_time);
+        List<History> allHistory = this.getAllHistory();
+        System.out.println("删除历史记录成功");
+        return allHistory;
+    }
+
 
     /**
      * 从前端页面传入视频资源的路径跟标题内容@param content
