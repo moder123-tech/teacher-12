@@ -41,6 +41,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
           rel='stylesheet' type='text/css'>
     <!--//webfonts-->
     <!--animate-->
+    <style>
+        .round_icon{
+            width: 70px;
+            height: 70px;
+            display: flex;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+    </style>
     <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
     <script src="js/wow.min.js"></script>
     <script src="js/vue.js" type="text/javascript"></script>
@@ -125,7 +136,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <li class="dropdown profile_details_drop">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <div class="profile_img">
-                                <span class="prfil-img" id="showImg" ><img :src="image" width="50px;" height="50px" alt=""> </span>
+                                 <span class="prfil-img" id="showImg">
+                                <img :src="image" class="round_icon" alt="" onerror="this.src='image/pp.jpg'"/>
+                            </span>
                                 <div class="user-name">
                                     <p id="app">{{info}}</p>
                                     <span>Administrator</span>

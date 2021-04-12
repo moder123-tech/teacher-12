@@ -140,7 +140,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <form action="/uploadImage" method="post" enctype="multipart/form-data">
                         <div class="profile_img">
                             <span class="prfil-img" id="showImg">
-                                <img :src="image" class="round_icon" alt="">
+                                <img :src="image" class="round_icon" alt="" onerror="this.src='image/pp.jpg'" onclick="uploadImg()"/>
                             </span>
                             <div class="user-name">
                                 <p id="app">{{info}}</p>
@@ -152,7 +152,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         <div class="hello">
                             <div class="user-header" id="headerImage">
                                 <div class="row">
-                                    <input type="file" name="file"/><br/>
+                                    <input type="file" name="file" id="upp"/><br/>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +298,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 
-
+<script>
+    function uploadImg(){
+       document.getElementById("upp").click()
+    }
+</script>
 
 <!--<script>
         new Vue({
@@ -407,5 +411,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 
 </script>
+
+
 </body>
 </html>
