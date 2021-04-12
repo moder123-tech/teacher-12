@@ -20,7 +20,7 @@ public interface UserService {
      * 密码 @param password
      * 是否成功 @return
      */
-    String getUser(@Param("u_number") String u_number, @Param("u_password") String u_password);
+    UserInformation getUser(@Param("u_number") String u_number, @Param("u_password") String u_password);
 
     /**
      * 传入要更新的用户对象@param userInformation

@@ -3,6 +3,7 @@ package cn.com.teacher.config;
 import cn.com.teacher.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
@@ -25,4 +26,11 @@ public class MyConfig implements WebMvcConfigurer {
                 "/signup.html", "/css/*", "/fonts/*", "/images/*", "/js/*", "/login", "/register",
                 "/send/*", "/test", "/getMovie", "/getTypeMovie/*", "/getTypeMovie", "/searchMovie", "/searchMovie/*", "/password.html");
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        /*System.out.println("配置文件已经生效");*/
+        registry.addResourceHandler("/static/image/**").addResourceLocations("file:F:\\Idea\\IdeaWork\\teacher\\src\\main\\resources\\static\\image\\");
+    }
+
 }

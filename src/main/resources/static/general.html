@@ -119,7 +119,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <li class="dropdown profile_details_drop">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <div class="profile_img">
-                                <span class="prfil-img"><img src="image/a.png" alt=""> </span>
+                                <span class="prfil-img" id="showImg" ><img :src="image" width="50px;" height="50px" alt=""> </span>
                                 <div class="user-name">
                                     <p id="app">{{info}}</p>
                                     <span>Administrator</span>
@@ -137,13 +137,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- //header-ends -->
     <!-- main content start-->
     <div id="page-wrapper">
-        <div id="adsss">
-            <div class="div-inline" v-for="site in sitesss">
-                <video controls="controls" name="media" height="200" width="350">
+        <div id="ads">
+            <div class="div-inline" v-for="site in sites">
+                <video controls="controls" name="media" height="200" width="350px"
+                       @click="countss(site.r_content+':'+site.r_path)">
                     <source :src="site.r_path" type="video/mp4"></source>
                 </video>
                 </br>
                 <span v-text="site.r_content" style="width: 50px"></span>
+                <img :src="images" width="35px" height="35px" @click="likes(site.r_content+':'+site.r_path)">
                 </br>
                 </br>
                 </br>
@@ -181,13 +183,26 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script>
     window.onload = function () {
         new Vue({
-            el: '#adsss',
+            el: '#ads',
             data: {
-                sitesss: []
+                sites: [],
+                images: ''
             },
             mounted() {
                 axios.get("http://localhost:8080/getTypeMovie?r_label=java")
-                    .then(response => (this.sitesss = response.data))
+                    .then(response => (this.images = "image/5.png",this.sites = response.data))
+            },
+            methods: {
+                countss(src) {
+                    axios.get("http://localhost:8080/addHistory?content=" + src).then((res) => {
+
+                    })
+                },
+                likes(data) {
+                    axios.get("http://localhost:8080/addCollection?content=" + data).then((res) => {
+                        alert(res.data)
+                    })
+                }
             }
         }), new Vue({
             el: '#app',
@@ -199,6 +214,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     .then(function (response) {
                         document.getElementById("app").innerHTML = "<font color=red> " + response.data + "</font>";
                     })
+            }
+        }),new Vue({
+            el: '#showImg',
+            data: {
+                image: ''
+            },
+            mounted() {
+                axios.get("http://localhost:8080/getUserImage")
+                    .then(response => (
+                        console.log(response.data),
+                            this.image = '/static/image/'+response.data.u_number+'/'+response.data.u_head))
             }
         })
     }

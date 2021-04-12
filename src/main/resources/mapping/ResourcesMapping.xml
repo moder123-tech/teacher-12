@@ -96,6 +96,7 @@
         select
         <include refid="History"/>
         from History
+        ORDER BY h_time DESC
     </select>
     <select id="getSearchHistory" resultType="cn.com.teacher.bean.History">
         select

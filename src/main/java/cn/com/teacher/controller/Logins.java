@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -77,10 +81,13 @@ public class Logins {
     @GetMapping(value = "/login")
     public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session) {
         try {
-            String number = userService.getUser(u_number, u_password);
-            session.setAttribute("number", number);
+            UserInformation user = userService.getUser(u_number, u_password);
+            String uName = user.getU_name();
+            String uHead = user.getU_head();
+            session.setAttribute("uName", uName);
             session.setAttribute("email", u_number);
-            if (number != null) {
+            session.setAttribute("head", uHead);
+            if (uName != null) {
                 session.setAttribute("msg", "200");
                 return "redirect:http://localhost:8080/index.html";
             }
@@ -99,7 +106,7 @@ public class Logins {
     @ResponseBody
     @GetMapping(value = "/test")
     public String test(HttpSession session) {
-        return (String) session.getAttribute("number");
+        return (String) session.getAttribute("uName");
     }
 
     /**
@@ -107,18 +114,27 @@ public class Logins {
      * HttpSession@param session
      * 返回上传头像是否成功@return
      */
-    @ResponseBody
     @PostMapping(value = "/uploadImage")
-    public String updateUploadImage(@RequestBody String data, HttpSession session) {
+    public String updateUploadImage(MultipartFile file, HttpSession session) throws IOException {
+        //获取原始文件名
+        String originalFilename = file.getOriginalFilename();
         String email = (String) session.getAttribute("email");
+        String uuidFilename = email+System.currentTimeMillis();
+        File fileDir = new File("F:/Idea/IdeaWork/teacher/src/main/resources/static/image/"+email);
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+        //创建新的文件夹
+        File newFile = new File("F:/Idea/IdeaWork/teacher/src/main/resources/static/image/"+email,uuidFilename+".jpg");
+        file.transferTo(newFile);
         UserInformation userInformation = new UserInformation();
         userInformation.setU_number(email);
-        userInformation.setU_head(data);
+        userInformation.setU_head(uuidFilename+".jpg");
         int i = userService.updateUpdateUploadImage(userInformation);
         if (i == 1) {
-            return "ok";
+            return "redirect:http://localhost:8080/index.html";
         }
-        return "false";
+        return "上传头像失败";
     }
 
     /**
@@ -127,9 +143,11 @@ public class Logins {
      */
     @ResponseBody
     @GetMapping(value = "/getUserImage")
-    public String getUserImage(HttpSession session) {
-        String email = (String) session.getAttribute("email");
-        String userImage = userService.getUserImage(email);
-        return userImage;
+    public UserInformation getUserImage(HttpSession session) {
+        UserInformation userInformation=new UserInformation();
+        String email =(String) session.getAttribute("email");
+        userInformation.setU_head(userService.getUserImage(email));
+        userInformation.setU_number(email);
+        return userInformation;
     }
 }
