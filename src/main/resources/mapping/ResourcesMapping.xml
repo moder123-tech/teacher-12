@@ -9,7 +9,7 @@
 
     <sql id="History">
         h_id
-        ,h_forrign,h_path,h_content,h_time
+        ,h_forrign,h_path,h_content,h_time,h_label
     </sql>
 
     <sql id="UserCollection">
@@ -31,7 +31,10 @@
                 h_content,
             </if>
             <if test="h_time !=null">
-                h_time
+                h_time,
+            </if>
+            <if test="h_label !=null">
+                h_label,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -46,6 +49,9 @@
             </if>
             <if test="h_time !=null">
                 #{h_time,jdbcType=VARCHAR},
+            </if>
+            <if test="h_label !=null">
+                #{h_label,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -183,4 +189,17 @@
         </where>
         ORDER BY h_time DESC
     </select>
+
+    <select id="getLabel" resultType="cn.com.teacher.bean.Resources">
+        select
+        <include refid="Resources"/>
+        from Resources
+        <where>
+            <if test="r_path != null">
+                r_path = #{r_path,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

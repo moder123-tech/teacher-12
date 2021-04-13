@@ -87,4 +87,11 @@ public interface ResourcesDao {
      * 返回剩下历史记录的集合@return
      */
     int deleteHistory(@Param("h_time") String h_time,@Param("h_forrign")String h_forrign);
+
+    /**
+     *
+     * 传入查找资源表的视频路径@param r_path
+     * 返回视频所对应的标签@return
+     */
+    Resources getLabel(String r_path);
 }

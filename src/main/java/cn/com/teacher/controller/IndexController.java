@@ -61,12 +61,14 @@ public class IndexController {
         Integer uId = (Integer) session.getAttribute("uId");
         History history = new History();
         String[] split = content.split(":");
+        Resources resources = resourcesService.getLabel(split[1]);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String h_time = df.format(new Date());
         history.setH_content(split[0]);
         history.setH_path(split[1]);
         history.setH_time(h_time);
         history.setH_forrign(uId+"");
+        history.setH_label(resources.getR_label());
         int i = resourcesService.addResourcesHistory(history);
         if (i == 1) {
             System.out.println("插入历史记录成功");
@@ -185,4 +187,12 @@ public class IndexController {
         return "取消收藏失败了.......";
     }
 
+
+   /* @ResponseBody
+    @GetMapping(value = "/getRecommendMovie")
+    public List<Resources> getRecommendResources() {
+        List<Resources> allResources = resourcesService.getAllResources();
+        System.out.println("getRecommendResources =" + allResources);
+        return allResources;；；
+    }*/
 }

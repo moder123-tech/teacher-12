@@ -157,7 +157,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <div id="page-wrapper">
         <div id="ads">
             <div class="div-inline" v-for="site in sites">
-               <!-- <video controls="controls" name="media" height="200" width="350px"
+                <video controls="controls" name="media" height="200" width="350px"
                        @click="countss(site.c_content+':'+site.c_path)">
                     <source :src="site.c_path" type="video/mp4"></source>
                 </video>
@@ -167,7 +167,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 </br>
                 </br>
                 </br>
-                </br> -->
+                </br>
             </div>
             <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
         </div>
@@ -201,6 +201,39 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 <!--scrolling js-->
+<script>
+    window.onload = function () {
+        new Vue({
+            el: '#ads',
+            data: {
+                sites: [],
+                images: ''
+            },
+            mounted() {
+                axios.get("http://localhost:8080/getRecommendMovie")
+                    .then(response => (this.images = "image/5.png",this.sites = response.data))
+            },
+            methods: {
+                countss(src) {
+                    axios.get("http://localhost:8080/addHistory?content=" + src).then((res) => {
+
+                    })
+                },
+                showData() {
+                    var result = document.getElementById("input-31").value;
+                    axios.get("http://localhost:8080/searchMovie?r_content=" + result)
+                        .then(response => (
+                            this.sites = response.data))
+                },
+                likes(data) {
+                    axios.get("http://localhost:8080/addCollection?content=" + data).then((res) => {
+                        alert(res.data)
+                    })
+                }
+            }
+        })
+    }
+</script>
 <script>
     window.onload = function () {
         new Vue({

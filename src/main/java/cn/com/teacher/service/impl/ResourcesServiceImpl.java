@@ -76,5 +76,10 @@ public class ResourcesServiceImpl implements ResourcesService {
         return resourcesDao.deleteHistory(h_time,h_forrign);
     }
 
+    @Override
+    public Resources getLabel(String r_path) {
+        return resourcesDao.getLabel(r_path);
+    }
+
 
 }

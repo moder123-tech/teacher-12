@@ -37,4 +37,9 @@ public class History implements Serializable {
      */
     private String h_time;
 
+    /**
+     * 标签
+     */
+    private String h_label;
+
 }
