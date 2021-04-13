@@ -9,18 +9,21 @@
 
     <sql id="History">
         h_id
-        ,h_path,h_content,h_time
+        ,h_forrign,h_path,h_content,h_time
     </sql>
 
     <sql id="UserCollection">
         c_id
-        ,c_path,c_content
+        ,c_foreign,c_path,c_content
     </sql>
 
     <insert id="addResourcesHistory" parameterType="cn.com.teacher.bean.History" useGeneratedKeys="true"
             keyProperty="h_id">
         insert into History
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="h_forrign != null">
+                h_forrign,
+            </if>
             <if test="h_path != null">
                 h_path,
             </if>
@@ -32,6 +35,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="h_forrign != null">
+                #{h_forrign,jdbcType=VARCHAR},
+            </if>
             <if test="h_path != null">
                 #{h_path,jdbcType=VARCHAR},
             </if>
@@ -51,6 +57,9 @@
             <if test="c_path != null">
                 c_path,
             </if>
+            <if test="c_foreign != null">
+                c_foreign,
+            </if>
             <if test="c_content != null">
                 c_content,
             </if>
@@ -59,22 +68,39 @@
             <if test="c_path != null">
                 #{c_path,jdbcType=VARCHAR},
             </if>
+            <if test="c_foreign != null">
+                #{c_foreign,jdbcType=VARCHAR},
+            </if>
             <if test="c_content != null">
                 #{c_content,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
 
-    <delete id="deleteLoveMovie">
+    <delete id="deleteLoveMovie" parameterType="cn.com.teacher.bean.UserCollection">
         delete
         from UserCollection
-        where c_path = #{c_path,jdbcType=VARCHAR}
+        <where>
+            <if test="c_path != null">
+                c_path = #{c_path,jdbcType=VARCHAR}
+            </if>
+            <if test="c_foreign != null">
+                and c_foreign = #{c_foreign,jdbcType=VARCHAR}
+            </if>
+        </where>
     </delete>
 
     <delete id="deleteHistory">
         delete
         from History
-        where h_time = #{h_time,jdbcType=VARCHAR}
+        <where>
+            <if test="h_time != null">
+                h_time = #{h_time,jdbcType=VARCHAR}
+            </if>
+            <if test="h_forrign != null">
+               and #{h_forrign,jdbcType=VARCHAR}
+            </if>
+        </where>
     </delete>
 
     <select id="getAllResources" resultType="cn.com.teacher.bean.Resources">
@@ -92,12 +118,7 @@
             </if>
         </where>
     </select>
-    <select id="getAllHistory" resultType="cn.com.teacher.bean.History">
-        select
-        <include refid="History"/>
-        from History
-        ORDER BY h_time DESC
-    </select>
+
     <select id="getSearchHistory" resultType="cn.com.teacher.bean.History">
         select
         <include refid="History"/>
@@ -106,6 +127,9 @@
             <if test="h_content != null">
                 h_content like "%"#{h_content,jdbcType=VARCHAR}"%"
             </if>
+            <if test="h_forrign != null">
+                and h_forrign = #{h_forrign,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
 
@@ -113,6 +137,11 @@
         select
         <include refid="UserCollection"/>
         from UserCollection
+        <where>
+            <if test="c_foreign != null">
+              c_foreign = #{c_foreign,jdbcType=VARCHAR}
+            </if>
+        </where>
     </select>
 
     <select id="checkLove" resultType="java.lang.Integer">
@@ -122,6 +151,9 @@
         <where>
             <if test="c_path != null">
                 c_path = #{c_path,jdbcType=VARCHAR}
+            </if>
+            <if test="c_foreign != null">
+                and c_foreign = #{c_foreign,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -134,8 +166,21 @@
             <if test="c_content != null">
                 c_content like "%"#{c_content,jdbcType=VARCHAR}"%"
             </if>
+            <if test="c_foreign != null">
+                and c_foreign = #{c_foreign,jdbcType=VARCHAR}
+            </if>
         </where>
     </select>
 
-
+    <select id="getAllHistory" resultType="cn.com.teacher.bean.History">
+        select
+        <include refid="History"/>
+        from History
+        <where>
+            <if test="h_forrign != null">
+                h_forrign = #{h_forrign,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ORDER BY h_time DESC
+    </select>
 </mapper>

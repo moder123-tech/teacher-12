@@ -82,11 +82,11 @@ public class Logins {
     public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session) {
         try {
             UserInformation user = userService.getUser(u_number, u_password);
+            Integer u_id = user.getU_id();
             String uName = user.getU_name();
-            String uHead = user.getU_head();
             session.setAttribute("uName", uName);
             session.setAttribute("email", u_number);
-            session.setAttribute("head", uHead);
+            session.setAttribute("uId",u_id);
             if (uName != null) {
                 session.setAttribute("msg", "200");
                 return "redirect:http://localhost:8080/index.html";
