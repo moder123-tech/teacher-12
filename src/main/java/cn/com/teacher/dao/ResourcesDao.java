@@ -94,4 +94,18 @@ public interface ResourcesDao {
      * 返回视频所对应的标签@return
      */
     Resources getLabel(String r_path);
+
+    /**
+     *
+     * 传入标签@param r_label
+     * 返回符合标签所对应的视频资源信息@return
+     */
+    List<Resources> getRecommendMovie(String r_label);
+
+    /**
+     *
+     * 传入用户表的id@param h_forrign
+     * 从历史表中查找数量最多的标签@return
+     */
+    History getRlabel(String h_forrign);
 }

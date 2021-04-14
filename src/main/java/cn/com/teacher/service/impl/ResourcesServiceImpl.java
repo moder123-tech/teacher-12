@@ -81,5 +81,15 @@ public class ResourcesServiceImpl implements ResourcesService {
         return resourcesDao.getLabel(r_path);
     }
 
+    @Override
+    public List<Resources> getRecommendMovie(String r_label) {
+        return resourcesDao.getRecommendMovie(r_label);
+    }
+
+    @Override
+    public History getRlabel(String h_forrign) {
+        return resourcesDao.getRlabel(h_forrign);
+    }
+
 
 }

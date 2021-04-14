@@ -201,5 +201,20 @@
         </where>
     </select>
 
+    <select id="getRecommendMovie" resultType="cn.com.teacher.bean.Resources">
+        select
+        <include refid="Resources"/>
+        from Resources
+        <where>
+            <if test="r_label != null">
+                r_label = #{r_label,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <select id="getRlabel" resultType="cn.com.teacher.bean.History">
+        select h_label,count(*) as h_path from History WHERE h_forrign= #{h_forrign,jdbcType=VARCHAR} group by h_label ORDER BY h_path DESC LIMIT 1
+    </select>
+
 
 </mapper>
