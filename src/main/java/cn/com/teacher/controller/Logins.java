@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -47,6 +48,7 @@ public class Logins {
      * httprequest@param request
      * 返回成功或者失败页面@return
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @GetMapping(value = "/register")
     public String register(UserInformation userInformation, Map map, ModelAndView modelAndView, @RequestParam("code") String code, HttpServletRequest request) {
         userService.insertUser(userInformation);
@@ -114,6 +116,7 @@ public class Logins {
      * HttpSession@param session
      * 返回上传头像是否成功@return
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @PostMapping(value = "/uploadImage")
     public String updateUploadImage(MultipartFile file, HttpSession session) throws IOException {
         //获取原始文件名

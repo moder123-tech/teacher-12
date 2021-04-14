@@ -7,6 +7,8 @@ import cn.com.teacher.service.ResourcesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,6 +57,7 @@ public class IndexController {
     /**
      * 从前端页面传入视频资源的路径跟标题内容@param content
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @ResponseBody
     @GetMapping(value = "/addHistory")
     public void addResourcesHistory(@RequestParam String content, HttpSession session) {
@@ -105,6 +108,7 @@ public class IndexController {
      * 传入要删除历史记录所对应的时间@param h_time
      * 返回剩下的历史记录集合@return
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @ResponseBody
     @GetMapping(value = "/deleteHistory")
     public List<History> getDeleteHistory(@RequestParam String h_time, HttpSession session) {
@@ -120,6 +124,7 @@ public class IndexController {
      * 从前端页面传入视频资源的路径跟标题内容@param content
      * 返回收藏是否成功@return
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @ResponseBody
     @GetMapping(value = "/addCollection")
     public String addResourcesCollection(@RequestParam String content, HttpSession session) {
@@ -171,6 +176,7 @@ public class IndexController {
      * 传入视频的路径,根据视频路径取消收藏@param content
      * 返回取消收藏是否成功@return
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @ResponseBody
     @GetMapping(value = "/deleteLoveMovie")
     public String deleteLoveMovie(@RequestParam String content, HttpSession session) {
