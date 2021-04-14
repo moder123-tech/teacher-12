@@ -191,11 +191,7 @@ public class IndexController {
     @ResponseBody
     @GetMapping(value = "/getRecommendMovie")
     public List<Resources> getRecommendResources(HttpSession session) {
-        System.out.println("1111111111111111111");
-        Object uId = session.getAttribute("uId");
-        System.out.println("uId"+uId);
         History history = resourcesService.getRlabel(session.getAttribute("uId") + "");
-        System.out.println(history);
         List<Resources> recommendMovie = resourcesService.getRecommendMovie(history.getH_label());
         System.out.println("getRecommendResources =" + recommendMovie);
         return recommendMovie;
