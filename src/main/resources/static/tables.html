@@ -239,10 +239,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             this.sites = response.data))
                 },
                 likes(data) {
-                    axios.get("http://localhost:8080/deleteLoveMovie?content=" + data).then((res) => {
-                        alert(res.data)
-                        this.showData();
-                    })
+                    var result = confirm('确认取消收藏吗！');
+                    if(result){
+                        axios.get("http://localhost:8080/deleteLoveMovie?content=" + data).then((res) => {
+                            alert(res.data)
+                            this.showData();
+                        })
+                    }else{
+
+                    }
                 },countss(src) {
                     axios.get("http://localhost:8080/addHistory?content=" + src).then((res) => {
 

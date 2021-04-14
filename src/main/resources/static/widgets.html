@@ -225,8 +225,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             this.sites = response.data))
                 },
                 deleteTime(data){
-                    axios.get("http://localhost:8080/deleteHistory?h_time=" + data)
-                        .then(response => (alert("删除成功"), this.sites = response.data))
+                    var result = confirm('确认删除吗！');
+                    if(result){
+                        axios.get("http://localhost:8080/deleteHistory?h_time=" + data)
+                            .then(response => (alert("删除成功"), this.sites = response.data))
+                    }else{
+
+                    }
+
                 }
             }
         }), new Vue({
