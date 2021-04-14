@@ -67,7 +67,7 @@ public class IndexController {
         history.setH_content(split[0]);
         history.setH_path(split[1]);
         history.setH_time(h_time);
-        history.setH_forrign(uId+"");
+        history.setH_forrign(uId + "");
         history.setH_label(resources.getR_label());
         int i = resourcesService.addResourcesHistory(history);
         if (i == 1) {
@@ -82,7 +82,7 @@ public class IndexController {
     @GetMapping(value = "/searchResourcesHistory")
     public List<History> getAllHistory(HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
-        List<History> allHistory = resourcesService.getAllHistory(uId+"");
+        List<History> allHistory = resourcesService.getAllHistory(uId + "");
         System.out.println("getAllHistory =" + allHistory);
         return allHistory;
     }
@@ -94,23 +94,22 @@ public class IndexController {
      */
     @ResponseBody
     @GetMapping(value = "/searchHistory")
-    public List<History> getSearchHistory(@RequestParam String h_content,HttpSession session) {
+    public List<History> getSearchHistory(@RequestParam String h_content, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
-        List<History> searchHistory = resourcesService.getSearchHistory(h_content,uId+"");
+        List<History> searchHistory = resourcesService.getSearchHistory(h_content, uId + "");
         System.out.println("getSearchHistory =" + searchHistory);
         return searchHistory;
     }
 
     /**
-     *
      * 传入要删除历史记录所对应的时间@param h_time
      * 返回剩下的历史记录集合@return
      */
     @ResponseBody
     @GetMapping(value = "/deleteHistory")
-    public List<History> getDeleteHistory(@RequestParam String h_time,HttpSession session) {
+    public List<History> getDeleteHistory(@RequestParam String h_time, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
-        resourcesService.deleteHistory(h_time,uId+"");
+        resourcesService.deleteHistory(h_time, uId + "");
         List<History> allHistory = this.getAllHistory(session);
         System.out.println("删除历史记录成功");
         return allHistory;
@@ -123,15 +122,15 @@ public class IndexController {
      */
     @ResponseBody
     @GetMapping(value = "/addCollection")
-    public String addResourcesCollection(@RequestParam String content,HttpSession session) {
+    public String addResourcesCollection(@RequestParam String content, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
         UserCollection userCollection = new UserCollection();
         String[] split = content.split(":");
         userCollection.setC_content(split[0]);
         userCollection.setC_path(split[1]);
-        userCollection.setC_foreign(uId+"");
+        userCollection.setC_foreign(uId + "");
         try {
-            if (resourcesService.checkLove(split[1],uId+"") == null) {
+            if (resourcesService.checkLove(split[1], uId + "") == null) {
                 int i = resourcesService.addResourcesCollection(userCollection);
                 if (i == 1) {
                     return "收藏成功";
@@ -150,7 +149,7 @@ public class IndexController {
     @GetMapping(value = "/getLoveMovie")
     public List<UserCollection> getLoveResources(HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
-        List<UserCollection> loveResources = resourcesService.getLoveResources(uId+"");
+        List<UserCollection> loveResources = resourcesService.getLoveResources(uId + "");
         System.out.println("getLoveResources =" + loveResources);
         return loveResources;
     }
@@ -161,9 +160,9 @@ public class IndexController {
      */
     @ResponseBody
     @GetMapping(value = "/searchLoveMovie")
-    public List<UserCollection> getSearchLoveMovie(@RequestParam String c_content,HttpSession session) {
+    public List<UserCollection> getSearchLoveMovie(@RequestParam String c_content, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
-        List<UserCollection> searchLoveMovie = resourcesService.getSearchLoveMovie(c_content,uId+"");
+        List<UserCollection> searchLoveMovie = resourcesService.getSearchLoveMovie(c_content, uId + "");
         System.out.println("getSearchLoveMovie =" + searchLoveMovie);
         return searchLoveMovie;
     }
@@ -174,12 +173,12 @@ public class IndexController {
      */
     @ResponseBody
     @GetMapping(value = "/deleteLoveMovie")
-    public String deleteLoveMovie(@RequestParam String content,HttpSession session) {
+    public String deleteLoveMovie(@RequestParam String content, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
-        System.out.println("uId"+uId);
+        System.out.println("uId" + uId);
         UserCollection userCollection = new UserCollection();
         userCollection.setC_path(content);
-        userCollection.setC_foreign(uId+"");
+        userCollection.setC_foreign(uId + "");
         int i = resourcesService.deleteLoveMovie(userCollection);
         if (i == 1) {
             return "取消收藏成功";
@@ -187,7 +186,10 @@ public class IndexController {
         return "取消收藏失败了.......";
     }
 
-
+    /**
+     * HttpSession@param session
+     * 个性化推荐@return
+     */
     @ResponseBody
     @GetMapping(value = "/getRecommendMovie")
     public List<Resources> getRecommendResources(HttpSession session) {
