@@ -103,6 +103,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <li>
                         <a href="like.html"><img src="image/11.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个性化推荐</a>
                     </li>
+
+                    <li>
+                        <a href="personalCenter.html"><img src="image/13.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个人中心</a>
+                    </li>
                 </ul>
                 <!-- //sidebar-collapse -->
             </nav>
@@ -137,27 +141,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <div class="profile_details">
             <ul>
                 <li class="dropdown profile_details_drop">
-                    <form action="/uploadImage" method="post" enctype="multipart/form-data">
                         <div class="profile_img">
                             <span class="prfil-img" id="showImg">
-                                <img :src="image" class="round_icon" alt="" onerror="this.src='image/pp.jpg'" onclick="uploadImg()"/>
+                                <img :src="image" class="round_icon" alt="" onerror="this.src='image/pp.jpg'"/>
                             </span>
                             <div class="user-name">
                                 <p id="app">{{info}}</p>
                                 <span>Administrator</span>
                                 <button><a href="/login.html">退出登录</a></button>
-                                <input type="submit" value="文件上传"/>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                        <div class="hello">
-                            <div class="user-header" id="headerImage">
-                                <div class="row">
-                                    <input type="file" name="file" id="upp"/><br/>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </li>
             </ul>
         </div>
@@ -238,7 +232,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 </script>-->
 
 <script>
-    window.onload = function () {
         new Vue({
             el: '#ads',
             data: {
@@ -290,7 +283,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 this.image = '/static/image/'+response.data.u_number+'/'+response.data.u_head))
             }
         })
-    }
 </script>
 <script>
     function getSearchData() {
@@ -299,11 +291,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 
-<script>
-    function uploadImg(){
-       document.getElementById("upp").click()
-    }
-</script>
 
 <!--<script>
         new Vue({

@@ -153,4 +153,22 @@ public class Logins {
         userInformation.setU_number(email);
         return userInformation;
     }
+
+    /**
+     *
+     * 传入用户所修改的昵称@param names
+     * 传入用户所修改的密码@param pass
+     * HttpSession@param session
+     * 返回修改是否成功@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/updateData")
+    public String updateData(@RequestParam String u_name, String u_password, HttpSession session) {
+        String u_number =(String) session.getAttribute("email");
+        int i = userService.updateUserInformation(u_name, u_password,u_number);
+        if(i==1){
+            return "修改成功,请重新登录!";
+        }
+        return "修改失败!";
+    }
 }

@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService {
     public String getUserImage(String u_number) {
         return userDao.getUserImage(u_number);
     }
+
+    @Override
+    public int updateUserInformation(String u_name, String u_password,String u_number) {
+        return userDao.updateUserInformation(u_name,u_password,u_number);
+    }
 }

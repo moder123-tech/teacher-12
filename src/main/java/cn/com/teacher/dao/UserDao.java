@@ -37,4 +37,13 @@ public interface UserDao {
      */
     String getUserImage(@Param("u_number") String u_number);
 
+    /**
+     *
+     * 传入用户所修改的昵称@param u_name
+     * 传入用户所修改的密码@param u_password
+     * 获取用户的邮箱账号@param u_number
+     * 返回修改是否成功@return
+     */
+    int updateUserInformation(@Param("u_name")String u_name,@Param("u_password")String u_password,@Param("u_number")String u_number);
+
 }

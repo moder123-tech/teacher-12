@@ -37,6 +37,24 @@
 
 
     </update>
+
+    <update id="updateUserInformation"  parameterType="java.lang.String">
+        UPDATE UserInformation
+        SET
+        <if test="u_password != null">
+            u_password = #{u_password,jdbcType=VARCHAR},
+        </if>
+        <if test="u_name != null">
+            u_name = #{u_name,jdbcType=VARCHAR}
+        </if>
+        <where>
+            <if test="u_number != null">
+                u_number=#{u_number,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+
     <select id="getUser" resultType="cn.com.teacher.bean.UserInformation" parameterType="java.lang.String">
         select
         <include refid="UserInformation"/>

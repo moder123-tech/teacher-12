@@ -105,4 +105,6 @@ public interface ResourcesService {
      * 从历史表中查找数量最多的标签@return
      */
     History getRlabel(String h_forrign);
+
+
 }

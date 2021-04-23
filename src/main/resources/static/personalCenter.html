@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Novus Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | General Elements ::
+    <title>Novus Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Widgets ::
         w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -20,18 +20,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
-
-    <style>
-        .round_icon{
-            width: 70px;
-            height: 70px;
-            display: flex;
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-    </style>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <!-- Custom CSS -->
@@ -51,16 +39,68 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!--//webfonts-->
     <!--animate-->
     <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
     <style>
         .div-inline {
             display: inline-block;
         }
     </style>
-    <script src="js/wow.min.js"></script>
-    <script>
-        new WOW().init();
-    </script>
+    <style>
+        .round_icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+    </style>
+    <style type="text/css">
+        table
+        {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+        }
+        table td, table th
+        {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
+        }
+        table thead th
+        {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+        table tr:nth-child(odd)
+        {
+            background: #fff;
+        }
+        table tr:nth-child(even)
+        {
+            background: #F5FAFA;
+        }
+    </style>
+<style>
+    input:focus{
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+    }
+</style>
     <!--//end-animate-->
+    <!--skycons-icons-->
+    <script src="js/skycons.js"></script>
+    <!--//skycons-icons-->
+    <!--circlechart-->
+    <script src="js/jquery.circlechart.js"></script>
+    <!--circlechart-->
     <!-- Metis Menu -->
     <script src="js/metisMenu.min.js"></script>
     <script src="js/custom.js"></script>
@@ -77,7 +117,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <li>
                         <a href="index.html" class="active"><img src="image/6.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主页</a>
                     </li>
-
                     <li class="">
                         <a href="#"><img src="image/7.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类</a>
                         <ul class="nav nav-second-level collapse">
@@ -120,55 +159,51 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <!--toggle button end-->
             <!--logo -->
             <div class="logo">
-                <a href="index.jsp">
+                <a href="index.html">
                     <h1>NOVUS</h1>
                     <span>AdminPanel</span>
                 </a>
             </div>
             <!--//logo-->
+            <!--search-box-->
             <div class="clearfix"></div>
         </div>
-        <div class="header-right">
-            <!--notification menu end -->
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                 <span class="prfil-img" id="showImg">
-                                <img :src="image" class="round_icon" alt="" onerror="this.src='image/pp.jpg'"/>
-                            </span>
-                                <div class="user-name">
-                                    <p id="app">{{info}}</p>
-                                    <span>Administrator</span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+
         <div class="clearfix"></div>
     </div>
     <!-- //header-ends -->
     <!-- main content start-->
     <div id="page-wrapper">
         <div id="ads">
-            <div class="div-inline" v-for="site in sites">
-                <video controls="controls" name="media" height="200" width="350px"
-                       @click="countss(site.r_content+':'+site.r_path)">
-                    <source :src="site.r_path" type="video/mp4"></source>
-                </video>
-                </br>
-                <span v-text="site.r_content" style="width: 50px"></span>
-                <img :src="images" width="35px" height="35px" @click="likes(site.r_content+':'+site.r_path)">
-                </br>
-                </br>
-                </br>
-                </br>
-            </div>
+            <form action="/uploadImage" method="post" enctype="multipart/form-data">
+                <table class="table">
+                    <tr>
+                        <td width="100px;">
+                         <span class="prfil-img" id="showImg">
+                         <p>头像:</p><img :src="image" class="round_icon" alt="" onerror="this.src='image/pp.jpg'"/>
+                         </span>
+                        </td>
+                        <td width="100px;">
+                           <p>昵称: </p> <input type="text" v-model="info" id="names"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  width="200px;">
+                            <input type="file" name="file" id="upp"/><br/>
+                            <input type="submit" value="文件上传"/>
+                        </td>
+                        <td>
+                            密码: <input type="password" id="pass">
+                            确认密码: <input type="password" id="passwo"><br><br>
+                            <input type="button" value="保存" @click="preservations()">
+                            <input type="button" value="重置" onclick="clears()">
+                            <button><a href="/login.html">退出登录</a></button>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </form>
         </div>
     </div>
     <!--footer-->
@@ -199,52 +234,68 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 <script>
-    window.onload = function () {
-        new Vue({
-            el: '#ads',
-            data: {
-                sites: [],
-                images: ''
-            },
-            mounted() {
-                axios.get("http://localhost:8080/getTypeMovie?r_label=java")
-                    .then(response => (this.images = "image/5.png",this.sites = response.data))
-            },
-            methods: {
-                countss(src) {
-                    axios.get("http://localhost:8080/addHistory?content=" + src).then((res) => {
-
-                    })
-                },
-                likes(data) {
-                    axios.get("http://localhost:8080/addCollection?content=" + data).then((res) => {
-                        alert(res.data)
-                    })
-                }
-            }
-        }), new Vue({
-            el: '#app',
-            data: {
-                info: ""
-            },
-            mounted() {
-                axios.get("http://localhost:8080/test")
-                    .then(function (response) {
-                        document.getElementById("app").innerHTML = "<font color=red> " + response.data + "</font>";
-                    })
-            }
-        }),new Vue({
-            el: '#showImg',
-            data: {
-                image: ''
-            },
-            mounted() {
+    new Vue({
+        el: '#ads',
+        data: {
+            sites: [],
+            images: '',
+            image: '',
+            info: ''
+        },
+        mounted() {
                 axios.get("http://localhost:8080/getUserImage")
                     .then(response => (
-                        console.log(response.data),
-                            this.image = '/static/image/'+response.data.u_number+'/'+response.data.u_head))
+                            this.image = '/static/image/'+response.data.u_number+'/'+response.data.u_head)),
+                axios.get("http://localhost:8080/test")
+                    .then(response => (
+                        this.info = response.data
+                    ))
+
+        },
+        methods: {
+            preservations() {
+                var names=document.getElementById("names").value
+                var pass=document.getElementById("pass").value
+                var passwo=document.getElementById("passwo").value
+                if(names==''){
+                    alert('昵称不能为空')
+                    return false
+                }
+                if(pass==''){
+                    alert('密码不能为空')
+                    return false
+                }
+                if(passwo==''){
+                    alert('确认密码不能为空')
+                    return false
+                }
+                if(pass.length<6){
+                    alert('密码长度不能小于6')
+                    return false
+                }
+                if(passwo.length<6){
+                    alert('确认密码长度不能小于6')
+                    return false
+                }
+                if(pass!=passwo){
+                    alert('密码与确认密码不一致')
+                    return false
+                }
+                axios.get("http://localhost:8080/updateData?u_name="+names+"&u_password="+pass)
+                    .then(response => (
+                       alert(response.data), window.location.href = '/login.html'
+                    ))
             }
-        })
+        }
+    })
+</script>
+
+
+<script>
+    function clears(){
+        document.getElementById("names").value= ''
+        document.getElementById("pass").value= ''
+        document.getElementById("passwo").value= ''
     }
 </script>
 <!--scrolling js-->
@@ -255,3 +306,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/bootstrap.js"></script>
 </body>
 </html>
+<script>
+    import Bootstrap from "./js/bootstrap";
+    export default {
+        components: {Bootstrap}
+    }
+</script>

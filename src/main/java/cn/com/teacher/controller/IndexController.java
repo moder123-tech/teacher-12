@@ -204,4 +204,6 @@ public class IndexController {
         System.out.println("getRecommendResources =" + recommendMovie);
         return recommendMovie;
     }
+
+
 }
