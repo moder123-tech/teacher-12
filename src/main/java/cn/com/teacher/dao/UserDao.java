@@ -19,10 +19,9 @@ public interface UserDao {
 
     /**
      * 邮箱 @param email
-     * 密码 @param password
      * 是否成功 @return
      */
-    UserInformation getUser(@Param("u_number") String u_number, @Param("u_password") String u_password);
+    UserInformation getUser(@Param("u_number") String u_number);
 
 
     /**

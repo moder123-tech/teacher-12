@@ -6,6 +6,7 @@ import cn.com.teacher.util.EmailSend;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,12 @@ public class Logins {
     @Autowired
     public UserService userService;
 
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public Logins(){
+        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+        this.passwordEncoder=passwordEncoder;
+    }
 
     /**
      * 传入所要注册的用户对象@param userInformation
@@ -51,6 +58,8 @@ public class Logins {
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @GetMapping(value = "/register")
     public String register(UserInformation userInformation, Map map, ModelAndView modelAndView, @RequestParam("code") String code, HttpServletRequest request) {
+        String newPassword = passwordEncoder.encode(userInformation.getU_password());
+        userInformation.setU_password(newPassword);
         userService.insertUser(userInformation);
         HttpSession sessoin = request.getSession();
         Object codes = sessoin.getAttribute("codes");
@@ -83,13 +92,14 @@ public class Logins {
     @GetMapping(value = "/login")
     public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session) {
         try {
-            UserInformation user = userService.getUser(u_number, u_password);
+            UserInformation user = userService.getUser(u_number);
+            boolean matches = passwordEncoder.matches(u_password, user.getU_password());
             Integer u_id = user.getU_id();
             String uName = user.getU_name();
             session.setAttribute("uName", uName);
             session.setAttribute("email", u_number);
             session.setAttribute("uId",u_id);
-            if (uName != null) {
+            if (matches == true) {
                 session.setAttribute("msg", "200");
                 return "redirect:http://localhost:8080/index.html";
             }

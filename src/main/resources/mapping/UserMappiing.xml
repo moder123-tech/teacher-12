@@ -63,9 +63,6 @@
             <if test="u_number != null">
                 u_number=#{u_number,jdbcType=VARCHAR}
             </if>
-            <if test="u_password !=null">
-                and u_password=#{u_password,jdbcType=VARCHAR}
-            </if>
         </where>
 
     </select>
