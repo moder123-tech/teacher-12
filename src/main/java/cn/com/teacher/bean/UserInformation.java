@@ -37,5 +37,9 @@ public class UserInformation implements Serializable {
      */
     private String u_name;
 
+    /**
+     * 0 表示普通用户 1表示管理员
+     */
+    private String u_state;
 
 }

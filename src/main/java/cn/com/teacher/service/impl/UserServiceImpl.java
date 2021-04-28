@@ -6,6 +6,8 @@ import cn.com.teacher.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * @author wx
@@ -39,5 +41,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateUserInformation(String u_name, String u_password,String u_number) {
         return userDao.updateUserInformation(u_name,u_password,u_number);
+    }
+
+    @Override
+    public List<UserInformation> selectAllUsers(String u_number) {
+        return userDao.selectAllUsers(u_number);
     }
 }

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,6 +61,7 @@ public class Logins {
     public String register(UserInformation userInformation, Map map, ModelAndView modelAndView, @RequestParam("code") String code, HttpServletRequest request) {
         String newPassword = passwordEncoder.encode(userInformation.getU_password());
         userInformation.setU_password(newPassword);
+        userInformation.setU_state("0");
         userService.insertUser(userInformation);
         HttpSession sessoin = request.getSession();
         Object codes = sessoin.getAttribute("codes");
@@ -99,9 +101,13 @@ public class Logins {
             session.setAttribute("uName", uName);
             session.setAttribute("email", u_number);
             session.setAttribute("uId",u_id);
-            if (matches == true) {
+            if (matches == true && user.getU_state().equals("0")) {
                 session.setAttribute("msg", "200");
                 return "redirect:http://localhost:8080/index.html";
+            }
+            if (matches == true && user.getU_state().equals("1")) {
+                session.setAttribute("msg", "200");
+                return "redirect:http://localhost:8080/administrators.html";
             }
             return "redirect:http://localhost:8080/password.html";
         } catch (Exception exception) {
@@ -175,10 +181,24 @@ public class Logins {
     @GetMapping(value = "/updateData")
     public String updateData(@RequestParam String u_name, String u_password, HttpSession session) {
         String u_number =(String) session.getAttribute("email");
-        int i = userService.updateUserInformation(u_name, u_password,u_number);
+        String newPassword = passwordEncoder.encode(u_password);
+        int i = userService.updateUserInformation(u_name, newPassword,u_number);
         if(i==1){
             return "修改成功,请重新登录!";
         }
         return "修改失败!";
+    }
+
+    /**
+     * HttpSession@param session
+     * 查询用户表中的除自己以外的所有信息@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/showAllUsers")
+    public List<UserInformation> showAllUsers(HttpSession session) {
+        String u_number =(String) session.getAttribute("email");
+        List<UserInformation> userInformations = userService.selectAllUsers(u_number);
+        System.out.println("userInformations"+userInformations);
+        return userInformations;
     }
 }

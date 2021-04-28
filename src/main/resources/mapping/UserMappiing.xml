@@ -8,10 +8,11 @@
         <result column="u_password" jdbcType="VARCHAR" property="u_password"/>
         <result column="u_head" jdbcType="VARCHAR" property="u_head"/>
         <result column="u_name" jdbcType="VARCHAR" property="u_name"/>
+        <result column="u_state" jdbcType="VARCHAR" property="u_state"/>
     </resultMap>
 
     <sql id="UserInformation">
-      u_id,u_number,u_password,u_head,u_name
+      u_id,u_number,u_password,u_head,u_name,u_state
     </sql>
 
     <insert id="insertUser" parameterType="cn.com.teacher.bean.UserInformation" useGeneratedKeys="true"
@@ -19,8 +20,8 @@
         <selectKey keyProperty="u_id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into UserInformation(u_number,u_password,u_name)
-        values(#{u_number},#{u_password},#{u_name})
+        insert into UserInformation(u_number,u_password,u_name,u_state)
+        values(#{u_number},#{u_password},#{u_name},#{u_state})
     </insert>
 
     <update id="updateUpdateUploadImage" parameterType="cn.com.teacher.bean.UserInformation">
@@ -74,6 +75,17 @@
                 u_number=#{u_number,jdbcType=VARCHAR}
             </if>
         </where>
+    </select>
+
+    <select id="selectAllUsers" resultType="cn.com.teacher.bean.UserInformation">
+        select
+        <include refid="UserInformation"/>
+        from UserInformation
+    <where>
+        <if test="u_number != null">
+            u_number!=#{u_number,jdbcType=VARCHAR}
+        </if>
+    </where>
     </select>
 
 </mapper>

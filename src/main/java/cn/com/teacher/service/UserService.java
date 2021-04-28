@@ -3,6 +3,8 @@ package cn.com.teacher.service;
 import cn.com.teacher.bean.UserInformation;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 /**
  * @author wx
@@ -42,4 +44,10 @@ public interface UserService {
      */
     int updateUserInformation(@Param("u_name")String u_name,@Param("u_password")String u_password,@Param("u_number")String u_number);
 
+    /**
+     *
+     * 传入查询用户表要去除的用户@param u_number
+     * @return
+     */
+    List<UserInformation> selectAllUsers(@Param("u_number") String u_number);
 }
