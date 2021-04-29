@@ -50,4 +50,11 @@ public interface UserService {
      * @return
      */
     List<UserInformation> selectAllUsers(@Param("u_number") String u_number);
+
+    /**
+     *
+     * 传入要删除的用户账号@param u_number
+     * 返回是否删除成功@return
+     */
+    int deleteUser(@Param("u_number") String u_number);
 }

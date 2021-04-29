@@ -39,12 +39,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUserInformation(String u_name, String u_password,String u_number) {
-        return userDao.updateUserInformation(u_name,u_password,u_number);
+    public int updateUserInformation(String u_name, String u_password, String u_number) {
+        return userDao.updateUserInformation(u_name, u_password, u_number);
     }
 
     @Override
     public List<UserInformation> selectAllUsers(String u_number) {
         return userDao.selectAllUsers(u_number);
+    }
+
+    @Override
+    public int deleteUser(String u_number) {
+        return userDao.deleteUser(u_number);
     }
 }

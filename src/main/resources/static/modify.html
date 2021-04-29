@@ -60,38 +60,37 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         }
     </style>
     <style type="text/css">
-        table
-        {
+        table {
             border-collapse: collapse;
             margin: 0 auto;
             text-align: center;
         }
-        table td, table th
-        {
+
+        table td, table th {
             border: 1px solid #cad9ea;
             color: #666;
             height: 30px;
         }
-        table thead th
-        {
+
+        table thead th {
             background-color: #CCE8EB;
             width: 100px;
         }
-        table tr:nth-child(odd)
-        {
+
+        table tr:nth-child(odd) {
             background: #fff;
         }
-        table tr:nth-child(even)
-        {
+
+        table tr:nth-child(even) {
             background: #F5FAFA;
         }
     </style>
     <style>
-        input:focus{
+        input:focus {
             border-color: #66afe9;
             outline: 0;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
         }
     </style>
     <!--//end-animate-->
@@ -150,29 +149,34 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!-- //header-ends -->
     <!-- main content start-->
     <div id="page-wrapper">
-        <div id="ads" >
-                <table class="table">
-                        <tr>
-                            <td>用户邮箱</td>
-                            <td>用户密码</td>
-                            <td>用户昵称</td>
-                            <td>用户权限</td>
-                            <td>操作</td>
-                        </tr>
-                        <tr v-for="site in sites">
-                            <td v-text="site.u_number"></td>
-                            <td><input type="password" v-model="password"/></td>
-                            <td v-text="site.u_name"></td>
-                            <td>
-                             <select >
-                                <option value="user" v-if="site.u_state==0" selected="selected">普通用户</option>
-                                <option value="administrators" v-if="site.u_state==1" selected="selected">管理员</option>
-                              </select>
-                            </td>
-                            <td></td>
-                        </tr>
+        <div id="ads">
+            <table class="table">
+                <tr>
+                    <td>用户邮箱</td>
+                    <td>用户密码</td>
+                    <td>用户昵称</td>
+                    <td>用户权限</td>
+                    <td>操作</td>
+                </tr>
+                <tr v-for="site in sites">
+                    <td v-text="site.u_number"></td>
+                    <td>
+                        <input type="password" v-model="password"/>
+                    </td>
+                    <td v-text="site.u_name"></td>
+                    <td>
+                        <select>
+                            <option value="0" selected="selected">普通用户</option>
+                            <option value="1">管理员</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button @click="updUser(site.u_number)">更新</button>
+                        <button @click="delUser(site.u_number)">删除</button>
+                    </td>
+                </tr>
 
-                </table>
+            </table>
         </div>
     </div>
     <!--footer-->
@@ -213,21 +217,30 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             axios.get("http://localhost:8080/showAllUsers")
                 .then(response => (
                     console.log(response.data),
-                    this.sites = response.data))
+                        this.sites = response.data))
 
         },
         methods: {
+            delUser(data) {
+                var result = confirm('确认删除吗！');
+                if (result) {
+                    console.log(data)
+                    axios.get("http://localhost:8080/deleteUser?u_number=" + data)
+                        .then(response => (alert("删除成功"), this.sites = response.data))
+                }
+            }, updUser(u_number) {
 
+            }
         }
     })
 </script>
 
 
 <script>
-    function clears(){
-        document.getElementById("names").value= ''
-        document.getElementById("pass").value= ''
-        document.getElementById("passwo").value= ''
+    function clears() {
+        document.getElementById("names").value = ''
+        document.getElementById("pass").value = ''
+        document.getElementById("passwo").value = ''
     }
 </script>
 <!--scrolling js-->
@@ -240,6 +253,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 </html>
 <script>
     import Bootstrap from "./js/bootstrap";
+
     export default {
         components: {Bootstrap}
     }

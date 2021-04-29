@@ -1,5 +1,7 @@
 package cn.com.teacher.controller;
 
+import cn.com.teacher.bean.History;
+import cn.com.teacher.bean.Resources;
 import cn.com.teacher.bean.UserInformation;
 import cn.com.teacher.service.UserService;
 import cn.com.teacher.util.EmailSend;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -43,12 +46,13 @@ public class Logins {
 
     private BCryptPasswordEncoder passwordEncoder;
 
-    public Logins(){
-        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
-        this.passwordEncoder=passwordEncoder;
+    public Logins() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
+     * HttpServletResponse@param response
      * 传入所要注册的用户对象@param userInformation
      * map集合@param map
      * 模型视图@param modelAndView
@@ -58,17 +62,24 @@ public class Logins {
      */
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @GetMapping(value = "/register")
-    public String register(UserInformation userInformation, Map map, ModelAndView modelAndView, @RequestParam("code") String code, HttpServletRequest request) {
+    public String register(UserInformation userInformation, Map map, ModelAndView modelAndView, @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String newPassword = passwordEncoder.encode(userInformation.getU_password());
+        response.setContentType("text/html;charset=utf-8");
         userInformation.setU_password(newPassword);
         userInformation.setU_state("0");
-        userService.insertUser(userInformation);
+        UserInformation user = userService.getUser(userInformation.getU_number());
+        if (user == null) {
+            userService.insertUser(userInformation);
+        } else {
+            response.getWriter().write("<script>alert('账号已存在,请登录!');window.location='login.html'; </script>");
+        }
         HttpSession sessoin = request.getSession();
         Object codes = sessoin.getAttribute("codes");
         if (!(codes.equals(code))) {
-            return "redirect:http://localhost:8080/number.html";
+            response.getWriter().write("<script>alert('验证码不正确!');window.location='signup.html'; </script>");
         }
-        return "redirect:http://localhost:8080/login.html";
+        response.getWriter().write("<script>alert('注册成功,请登录！');window.location='login.html'; </script>");
+        return null;
     }
 
     /**
@@ -86,21 +97,23 @@ public class Logins {
     }
 
     /**
+     * HttpServletResponse@param response
      * 用户所填的账号信息@param u_number
      * 用户所填的密码信息@param u_password
      * HttpSession@param session
      * 返回成功或者失败页面@return
      */
     @GetMapping(value = "/login")
-    public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session) {
+    public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session, HttpServletResponse response) throws IOException {
         try {
+            response.setContentType("text/html;charset=utf-8");
             UserInformation user = userService.getUser(u_number);
             boolean matches = passwordEncoder.matches(u_password, user.getU_password());
             Integer u_id = user.getU_id();
             String uName = user.getU_name();
             session.setAttribute("uName", uName);
             session.setAttribute("email", u_number);
-            session.setAttribute("uId",u_id);
+            session.setAttribute("uId", u_id);
             if (matches == true && user.getU_state().equals("0")) {
                 session.setAttribute("msg", "200");
                 return "redirect:http://localhost:8080/index.html";
@@ -109,12 +122,11 @@ public class Logins {
                 session.setAttribute("msg", "200");
                 return "redirect:http://localhost:8080/administrators.html";
             }
-            return "redirect:http://localhost:8080/password.html";
+            response.getWriter().write("<script>alert('账号或者密码不正确!');window.location='login.html'; </script>");
         } catch (Exception exception) {
-            return "redirect:http://localhost:8080/password.html";
+            response.getWriter().write("<script>alert('账号或者密码不正确!');window.location='login.html'; </script>");
         }
-
-
+        return null;
     }
 
     /**
@@ -138,17 +150,17 @@ public class Logins {
         //获取原始文件名
         String originalFilename = file.getOriginalFilename();
         String email = (String) session.getAttribute("email");
-        String uuidFilename = email+System.currentTimeMillis();
-        File fileDir = new File("F:/Idea/IdeaWork/teacher/src/main/resources/static/image/"+email);
+        String uuidFilename = email + System.currentTimeMillis();
+        File fileDir = new File("F:/Idea/IdeaWork/teacher/src/main/resources/static/image/" + email);
         if (!fileDir.exists()) {
             fileDir.mkdirs();
         }
         //创建新的文件夹
-        File newFile = new File("F:/Idea/IdeaWork/teacher/src/main/resources/static/image/"+email,uuidFilename+".jpg");
+        File newFile = new File("F:/Idea/IdeaWork/teacher/src/main/resources/static/image/" + email, uuidFilename + ".jpg");
         file.transferTo(newFile);
         UserInformation userInformation = new UserInformation();
         userInformation.setU_number(email);
-        userInformation.setU_head(uuidFilename+".jpg");
+        userInformation.setU_head(uuidFilename + ".jpg");
         int i = userService.updateUpdateUploadImage(userInformation);
         if (i == 1) {
             return "redirect:http://localhost:8080/index.html";
@@ -163,15 +175,14 @@ public class Logins {
     @ResponseBody
     @GetMapping(value = "/getUserImage")
     public UserInformation getUserImage(HttpSession session) {
-        UserInformation userInformation=new UserInformation();
-        String email =(String) session.getAttribute("email");
+        UserInformation userInformation = new UserInformation();
+        String email = (String) session.getAttribute("email");
         userInformation.setU_head(userService.getUserImage(email));
         userInformation.setU_number(email);
         return userInformation;
     }
 
     /**
-     *
      * 传入用户所修改的昵称@param names
      * 传入用户所修改的密码@param pass
      * HttpSession@param session
@@ -180,10 +191,10 @@ public class Logins {
     @ResponseBody
     @GetMapping(value = "/updateData")
     public String updateData(@RequestParam String u_name, String u_password, HttpSession session) {
-        String u_number =(String) session.getAttribute("email");
+        String u_number = (String) session.getAttribute("email");
         String newPassword = passwordEncoder.encode(u_password);
-        int i = userService.updateUserInformation(u_name, newPassword,u_number);
-        if(i==1){
+        int i = userService.updateUserInformation(u_name, newPassword, u_number);
+        if (i == 1) {
             return "修改成功,请重新登录!";
         }
         return "修改失败!";
@@ -196,9 +207,23 @@ public class Logins {
     @ResponseBody
     @GetMapping(value = "/showAllUsers")
     public List<UserInformation> showAllUsers(HttpSession session) {
-        String u_number =(String) session.getAttribute("email");
+        String u_number = (String) session.getAttribute("email");
         List<UserInformation> userInformations = userService.selectAllUsers(u_number);
-        System.out.println("userInformations"+userInformations);
+        System.out.println("userInformations" + userInformations);
+        return userInformations;
+    }
+
+    /**
+     * HttpSession@param session
+     * 传入要删除的用户账号@param u_number
+     * 返回是否删除成功@return
+     */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @ResponseBody
+    @GetMapping(value = "/deleteUser")
+    public List<UserInformation> deleteUser(@RequestParam String u_number, HttpSession session) {
+        int i = userService.deleteUser(u_number);
+        List<UserInformation> userInformations = this.showAllUsers(session);
         return userInformations;
     }
 }

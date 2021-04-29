@@ -3,6 +3,7 @@ package cn.com.teacher.controller;
 import cn.com.teacher.bean.History;
 import cn.com.teacher.bean.Resources;
 import cn.com.teacher.bean.UserCollection;
+import cn.com.teacher.bean.UserInformation;
 import cn.com.teacher.service.ResourcesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
