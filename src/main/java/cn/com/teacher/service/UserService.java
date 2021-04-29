@@ -57,4 +57,11 @@ public interface UserService {
      * 返回是否删除成功@return
      */
     int deleteUser(@Param("u_number") String u_number);
+
+    /**
+     *
+     * 传入要找回密码的账号@param userInformation
+     * 返回是否更新密码成功@return
+     */
+    int updateUser(UserInformation userInformation);
 }

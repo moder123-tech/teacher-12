@@ -158,7 +158,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td>用户权限</td>
                     <td>操作</td>
                 </tr>
-                <tr v-for="site in sites">
+                <tr v-for="(site,index) in sites">
                     <td v-text="site.u_number"></td>
                     <td>
                         <input type="password" v-model="password"/>

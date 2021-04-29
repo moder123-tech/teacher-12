@@ -56,6 +56,19 @@
         </where>
     </update>
 
+    <update id="updateUser">
+        UPDATE UserInformation
+        SET
+        <if test="u_password != null">
+            u_password = #{u_password,jdbcType=VARCHAR}
+        </if>
+        <where>
+            <if test="u_number != null">
+                u_number=#{u_number,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
     <delete id="deleteUser">
         delete
         from UserInformation

@@ -83,6 +83,36 @@ public class Logins {
     }
 
     /**
+     * HttpServletResponse@param response
+     * 传入所要注册的用户对象@param userInformation
+     * map集合@param map
+     * 模型视图@param modelAndView
+     * 状态@param code
+     * httprequest@param request
+     * 返回成功或者失败页面@return
+     */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @GetMapping(value = "/find")
+    public String findPassword(UserInformation userInformation, Map map, ModelAndView modelAndView, @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String newPassword = passwordEncoder.encode(userInformation.getU_password());
+        response.setContentType("text/html;charset=utf-8");
+        userInformation.setU_password(newPassword);
+        UserInformation user = userService.getUser(userInformation.getU_number());
+        if (user == null) {
+            response.getWriter().write("<script>alert('该账号不存在,请注册!');window.location='findPass.html'; </script>");
+        } else {
+            userService.updateUser(userInformation);
+        }
+        HttpSession sessoin = request.getSession();
+        Object codes = sessoin.getAttribute("codes");
+        if (!(codes.equals(code))) {
+            response.getWriter().write("<script>alert('验证码不正确!');window.location='findPass.html'; </script>");
+        }
+        response.getWriter().write("<script>alert('修改密码成功,请登录！');window.location='login.html'; </script>");
+        return null;
+    }
+
+    /**
      * 传入所要注册的用户对象@param userInformation
      * map集合@param map
      * 从前端页面获取用户所填的邮箱@param emails
