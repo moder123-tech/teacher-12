@@ -42,8 +42,8 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
-    public List<History> getSearchHistory(String h_content,String h_forrign) {
-        return resourcesDao.getSearchHistory(h_content,h_forrign);
+    public List<History> getSearchHistory(String h_content, String h_forrign) {
+        return resourcesDao.getSearchHistory(h_content, h_forrign);
     }
 
     @Override
@@ -57,13 +57,13 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
-    public Integer checkLove(String c_path,String c_foreign) {
-        return resourcesDao.checkLove(c_path,c_foreign);
+    public Integer checkLove(String c_path, String c_foreign) {
+        return resourcesDao.checkLove(c_path, c_foreign);
     }
 
     @Override
-    public List<UserCollection> getSearchLoveMovie(String c_content,String c_foreign) {
-        return resourcesDao.getSearchLoveMovie(c_content,c_foreign);
+    public List<UserCollection> getSearchLoveMovie(String c_content, String c_foreign) {
+        return resourcesDao.getSearchLoveMovie(c_content, c_foreign);
     }
 
     @Override
@@ -72,8 +72,8 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
-    public int deleteHistory(String h_time,String h_forrign) {
-        return resourcesDao.deleteHistory(h_time,h_forrign);
+    public int deleteHistory(String h_time, String h_forrign) {
+        return resourcesDao.deleteHistory(h_time, h_forrign);
     }
 
     @Override

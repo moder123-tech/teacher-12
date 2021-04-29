@@ -104,7 +104,7 @@
                 h_time = #{h_time,jdbcType=VARCHAR}
             </if>
             <if test="h_forrign != null">
-               and #{h_forrign,jdbcType=VARCHAR}
+                and #{h_forrign,jdbcType=VARCHAR}
             </if>
         </where>
     </delete>
@@ -145,7 +145,7 @@
         from UserCollection
         <where>
             <if test="c_foreign != null">
-              c_foreign = #{c_foreign,jdbcType=VARCHAR}
+                c_foreign = #{c_foreign,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -213,7 +213,11 @@
     </select>
 
     <select id="getRlabel" resultType="cn.com.teacher.bean.History">
-        select h_label,count(*) as h_path from History WHERE h_forrign= #{h_forrign,jdbcType=VARCHAR} group by h_label ORDER BY h_path DESC LIMIT 1
+        select h_label, count(*) as h_path
+        from History
+        WHERE h_forrign = #{h_forrign,jdbcType=VARCHAR}
+        group by h_label
+        ORDER BY h_path DESC LIMIT 1
     </select>
 
 

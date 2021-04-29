@@ -9,11 +9,12 @@
         <result column="u_head" jdbcType="VARCHAR" property="u_head"/>
         <result column="u_name" jdbcType="VARCHAR" property="u_name"/>
         <result column="u_state" jdbcType="VARCHAR" property="u_state"/>
+        <result column="u_time" jdbcType="VARCHAR" property="u_time"/>
     </resultMap>
 
     <sql id="UserInformation">
         u_id
-        ,u_number,u_password,u_head,u_name,u_state
+        ,u_number,u_password,u_head,u_name,u_state,u_time
     </sql>
 
     <insert id="insertUser" parameterType="cn.com.teacher.bean.UserInformation" useGeneratedKeys="true"
@@ -61,6 +62,35 @@
         SET
         <if test="u_password != null">
             u_password = #{u_password,jdbcType=VARCHAR}
+        </if>
+        <where>
+            <if test="u_number != null">
+                u_number=#{u_number,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateUsers">
+        UPDATE UserInformation
+        SET
+        <if test="u_password != null">
+            u_password = #{u_password,jdbcType=VARCHAR},
+        </if>
+        <if test="u_state != null">
+            u_state = #{u_state,jdbcType=VARCHAR}
+        </if>
+        <where>
+            <if test="u_number != null">
+                u_number=#{u_number,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateUserTime">
+        UPDATE UserInformation
+        SET
+        <if test="u_time != null">
+            u_time = #{u_time,jdbcType=VARCHAR}
         </if>
         <where>
             <if test="u_number != null">

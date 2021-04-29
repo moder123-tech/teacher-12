@@ -49,7 +49,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         }
     </style>
     <style>
-        .round_icon{
+        .round_icon {
             width: 70px;
             height: 70px;
             display: flex;
@@ -175,7 +175,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td v-text="site.h_content" style="width: 400px"></td>
                     <td style="width: 400px"><a :href="site.h_path">{{site.h_path}}</a></td>
                     <td v-text="site.h_time" style="width: 400px"></td>
-                    <td><button @click="deleteTime(site.h_time)">删除</button></td>
+                    <td>
+                        <button @click="deleteTime(site.h_time)">删除</button>
+                    </td>
                 </tr>
             </table>
             <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
@@ -209,57 +211,57 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     }
 </script>
 <script>
-        new Vue({
-            el: '#ads',
-            data: {
-                sites: []
+    new Vue({
+        el: '#ads',
+        data: {
+            sites: []
+        },
+        mounted() {
+            axios.get("http://localhost:8080/searchResourcesHistory")
+                .then(response => (this.sites = response.data))
+        },
+        methods: {
+            showData() {
+                var result = document.getElementById("input-31").value;
+                console.log(result)
+                axios.get("http://localhost:8080/searchHistory?h_content=" + result)
+                    .then(response => (
+                        this.sites = response.data))
             },
-            mounted() {
-                axios.get("http://localhost:8080/searchResourcesHistory")
-                    .then(response => (this.sites = response.data))
-            },
-            methods: {
-                showData() {
-                    var result = document.getElementById("input-31").value;
-                    console.log(result)
-                    axios.get("http://localhost:8080/searchHistory?h_content=" + result)
-                        .then(response => (
-                            this.sites = response.data))
-                },
-                deleteTime(data){
-                    var result = confirm('确认删除吗！');
-                    if(result){
-                        axios.get("http://localhost:8080/deleteHistory?h_time=" + data)
-                            .then(response => (alert("删除成功"), this.sites = response.data))
-                    }else{
-
-                    }
+            deleteTime(data) {
+                var result = confirm('确认删除吗！');
+                if (result) {
+                    axios.get("http://localhost:8080/deleteHistory?h_time=" + data)
+                        .then(response => (alert("删除成功"), this.sites = response.data))
+                } else {
 
                 }
+
             }
-        }), new Vue({
-            el: '#app',
-            data: {
-                info: ""
-            },
-            mounted() {
-                axios.get("http://localhost:8080/test")
-                    .then(function (response) {
-                        document.getElementById("app").innerHTML = "<font color=red> " + response.data + "</font>";
-                    })
-            }
-        }),new Vue({
-            el: '#showImg',
-            data: {
-                image: ''
-            },
-            mounted() {
-                axios.get("http://localhost:8080/getUserImage")
-                    .then(response => (
-                        console.log(response.data),
-                            this.image = '/static/image/'+response.data.u_number+'/'+response.data.u_head))
-            }
-        })
+        }
+    }), new Vue({
+        el: '#app',
+        data: {
+            info: ""
+        },
+        mounted() {
+            axios.get("http://localhost:8080/test")
+                .then(function (response) {
+                    document.getElementById("app").innerHTML = "<font color=red> " + response.data + "</font>";
+                })
+        }
+    }), new Vue({
+        el: '#showImg',
+        data: {
+            image: ''
+        },
+        mounted() {
+            axios.get("http://localhost:8080/getUserImage")
+                .then(response => (
+                    console.log(response.data),
+                        this.image = '/static/image/' + response.data.u_number + '/' + response.data.u_head))
+        }
+    })
 
 </script>
 <script>

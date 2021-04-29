@@ -60,40 +60,39 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         }
     </style>
     <style type="text/css">
-        table
-        {
+        table {
             border-collapse: collapse;
             margin: 0 auto;
             text-align: center;
         }
-        table td, table th
-        {
+
+        table td, table th {
             border: 1px solid #cad9ea;
             color: #666;
             height: 30px;
         }
-        table thead th
-        {
+
+        table thead th {
             background-color: #CCE8EB;
             width: 100px;
         }
-        table tr:nth-child(odd)
-        {
+
+        table tr:nth-child(odd) {
             background: #fff;
         }
-        table tr:nth-child(even)
-        {
+
+        table tr:nth-child(even) {
             background: #F5FAFA;
         }
     </style>
-<style>
-    input:focus{
-        border-color: #66afe9;
-        outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
-    }
-</style>
+    <style>
+        input:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+        }
+    </style>
     <!--//end-animate-->
     <!--skycons-icons-->
     <script src="js/skycons.js"></script>
@@ -184,11 +183,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                          </span>
                         </td>
                         <td width="100px;">
-                           <p>昵称: </p> <input type="text" v-model="info" id="names"/>
+                            <p>昵称: </p> <input type="text" v-model="info" id="names"/>
                         </td>
                     </tr>
                     <tr>
-                        <td  width="200px;">
+                        <td width="200px;">
                             <input type="file" name="file" id="upp"/><br/>
                             <input type="submit" value="文件上传"/>
                         </td>
@@ -243,9 +242,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             info: ''
         },
         mounted() {
-                axios.get("http://localhost:8080/getUserImage")
-                    .then(response => (
-                            this.image = '/static/image/'+response.data.u_number+'/'+response.data.u_head)),
+            axios.get("http://localhost:8080/getUserImage")
+                .then(response => (
+                    this.image = '/static/image/' + response.data.u_number + '/' + response.data.u_head)),
                 axios.get("http://localhost:8080/test")
                     .then(response => (
                         this.info = response.data
@@ -254,36 +253,36 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         },
         methods: {
             preservations() {
-                var names=document.getElementById("names").value
-                var pass=document.getElementById("pass").value
-                var passwo=document.getElementById("passwo").value
-                if(names==''){
+                var names = document.getElementById("names").value
+                var pass = document.getElementById("pass").value
+                var passwo = document.getElementById("passwo").value
+                if (names == '') {
                     alert('昵称不能为空')
                     return false
                 }
-                if(pass==''){
+                if (pass == '') {
                     alert('密码不能为空')
                     return false
                 }
-                if(passwo==''){
+                if (passwo == '') {
                     alert('确认密码不能为空')
                     return false
                 }
-                if(pass.length<6){
+                if (pass.length < 6) {
                     alert('密码长度不能小于6')
                     return false
                 }
-                if(passwo.length<6){
+                if (passwo.length < 6) {
                     alert('确认密码长度不能小于6')
                     return false
                 }
-                if(pass!=passwo){
+                if (pass != passwo) {
                     alert('密码与确认密码不一致')
                     return false
                 }
-                axios.get("http://localhost:8080/updateData?u_name="+names+"&u_password="+pass)
+                axios.get("http://localhost:8080/updateData?u_name=" + names + "&u_password=" + pass)
                     .then(response => (
-                       alert(response.data), window.location.href = '/login.html'
+                        alert(response.data), window.location.href = '/login.html'
                     ))
             }
         }
@@ -292,10 +291,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 
 <script>
-    function clears(){
-        document.getElementById("names").value= ''
-        document.getElementById("pass").value= ''
-        document.getElementById("passwo").value= ''
+    function clears() {
+        document.getElementById("names").value = ''
+        document.getElementById("pass").value = ''
+        document.getElementById("passwo").value = ''
     }
 </script>
 <!--scrolling js-->
@@ -308,6 +307,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 </html>
 <script>
     import Bootstrap from "./js/bootstrap";
+
     export default {
         components: {Bootstrap}
     }

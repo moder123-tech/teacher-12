@@ -42,4 +42,8 @@ public class UserInformation implements Serializable {
      */
     private String u_state;
 
+    /**
+     * 用户上次登录事件时间
+     */
+    private String u_time;
 }

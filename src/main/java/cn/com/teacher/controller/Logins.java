@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -133,12 +135,15 @@ public class Logins {
      * HttpSession@param session
      * 返回成功或者失败页面@return
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @GetMapping(value = "/login")
     public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session, HttpServletResponse response) throws IOException {
         try {
             response.setContentType("text/html;charset=utf-8");
             UserInformation user = userService.getUser(u_number);
             boolean matches = passwordEncoder.matches(u_password, user.getU_password());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String u_time = df.format(new Date());
             Integer u_id = user.getU_id();
             String uName = user.getU_name();
             session.setAttribute("uName", uName);
@@ -146,10 +151,12 @@ public class Logins {
             session.setAttribute("uId", u_id);
             if (matches == true && user.getU_state().equals("0")) {
                 session.setAttribute("msg", "200");
+                userService.updateUserTime(u_number, u_time);
                 return "redirect:http://localhost:8080/index.html";
             }
             if (matches == true && user.getU_state().equals("1")) {
                 session.setAttribute("msg", "200");
+                userService.updateUserTime(u_number, u_time);
                 return "redirect:http://localhost:8080/administrators.html";
             }
             response.getWriter().write("<script>alert('账号或者密码不正确!');window.location='login.html'; </script>");
@@ -256,4 +263,20 @@ public class Logins {
         List<UserInformation> userInformations = this.showAllUsers(session);
         return userInformations;
     }
+
+    /**
+     * HttpSession@param session
+     * 传入要删除的用户账号@param u_number
+     * 返回是否删除成功@return
+     */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @ResponseBody
+    @GetMapping(value = "/updateUser")
+    public List<UserInformation> deleteUser(@RequestParam String u_number, @RequestParam String u_password, @RequestParam String u_state, HttpSession session) {
+        String newPassword = passwordEncoder.encode(u_password);
+        userService.updateUsers(u_number, newPassword, u_state);
+        List<UserInformation> userInformations = this.showAllUsers(session);
+        return userInformations;
+    }
+
 }
