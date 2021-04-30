@@ -114,7 +114,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作历史</a>
+                        <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
                     </li>
                     <li>
                         <a href="modify.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
@@ -131,7 +131,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!--left-fixed -navigation-->
     <!-- header-starts -->
     <div class="sticky-header header-section ">
-        <div class="header-left">
+        <div class="header-center">
             <!--toggle button start-->
             <button id="showLeftPush"><i class="fa fa-bars"></i></button>
             <!--toggle button end-->
@@ -142,12 +142,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <span>AdminPanel</span>
                 </a>
             </div>
-            <!--//logo-->
-            <!--search-box-->
-            <div class="clearfix"></div>
-        </div>
+            <div class="search-box" id="searchBox">
+                用户邮箱:&nbsp;&nbsp;&nbsp;<input placeholder="Search..." type="search"
+                                              id="input-31"/>
+                &nbsp;&nbsp;&nbsp;操作账号:&nbsp;&nbsp;&nbsp;<select id="sell">
+                <option>无</option>
+                <option v-for="sit in selects">{{sit.u_number}}</option>
+            </select>
 
-        <div class="clearfix"></div>
+            </div><!--//end-search-box-->
+        </div>
+        <button onclick="getSearchData()" style="position: absolute;top: 20px;">搜索</button>
     </div>
     <!-- //header-ends -->
     <!-- main content start-->
@@ -164,7 +169,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td v-text="site.u_update_number"></td>
                     <td v-text="site.u_update_time"></td>
                 </tr>
-
+                <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
             </table>
         </div>
     </div>
@@ -206,8 +211,28 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 .then(response => (
                     console.log(response.data),
                         this.sites = response.data))
+        }, methods: {
+            showData() {
+                var result = document.getElementById("input-31").value;
+                var result1 = document.getElementById("sell").value;
+                axios.get("http://localhost:8080/selectSomeUser?u_number=" + result + "&u_update_number=" + result1)
+                    .then(response => (
+                        console.log(response.data),
+                            this.sites = response.data))
+            }
         }
 
+    }), new Vue({
+        el: '#searchBox',
+        data: {
+            selects: []
+        },
+        mounted() {
+            axios.get("http://localhost:8080/showSelectUser")
+                .then(response => (
+                    console.log(response.data),
+                        this.selects = response.data))
+        }
     })
 </script>
 
@@ -217,6 +242,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         document.getElementById("names").value = ''
         document.getElementById("pass").value = ''
         document.getElementById("passwo").value = ''
+    }
+</script>
+<script>
+    function getSearchData() {
+        var result = document.getElementById("input-31").value;
+        document.getElementById("buttons").click();
     }
 </script>
 <!--scrolling js-->

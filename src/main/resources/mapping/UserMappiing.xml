@@ -117,7 +117,7 @@
         <if test="u_update_time != null">
             u_update_time = #{u_update_time,jdbcType=VARCHAR},
         </if>
-            u_visual = 0
+        u_visual = 0
         <where>
             <if test="u_number != null">
                 u_number = #{u_number,jdbcType=VARCHAR}
@@ -171,6 +171,59 @@
             </if>
             <if test="u_update_number != null">
                 and u_number like "%"#{u_update_number,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="searchSomeUser" resultType="cn.com.teacher.bean.UserInformation">
+        select
+        <include refid="UserInformation"/>
+        from UserInformation
+        <where>
+            <if test="u_update_number != null">
+                u_update_number = #{u_update_number,jdbcType=VARCHAR} and u_visual=1
+            </if>
+            <if test="u_update_time != null and u_update_time!=''">
+                and u_number like "%"#{u_number,jdbcType=VARCHAR}"%" and u_number!=#{u_update_time,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="showSelectUser" resultType="cn.com.teacher.bean.UserInformation">
+        select
+        <include refid="UserInformation"/>
+        from UserInformation
+        <where>
+            <if test="u_id != null">
+                u_id!=#{u_id,jdbcType=VARCHAR}
+            </if>
+            <if test="u_number != null">
+                u_number!=#{u_number,jdbcType=VARCHAR}
+            </if>
+            <if test="u_password != null">
+                u_password!=#{u_password,jdbcType=VARCHAR}
+            </if>
+            <if test="u_head != null">
+                u_head!=#{u_head,jdbcType=VARCHAR}
+            </if>
+            <if test="u_name != null">
+                u_name!=#{u_name,jdbcType=VARCHAR}
+            </if>
+            <if test="u_state != null">
+                u_state!=#{u_state,jdbcType=VARCHAR}
+            </if>
+            <if test="u_time != null">
+                u_time!=#{u_time,jdbcType=VARCHAR}
+            </if>
+            <if test="u_update_number != null">
+                u_update_number!=#{u_update_number,jdbcType=VARCHAR}
+            </if>
+            <if test="u_update_time != null">
+                u_update_time!=#{u_update_time,jdbcType=VARCHAR}
+            </if>
+            <if test="u_visual != null">
+                u_visual!=#{u_visual,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

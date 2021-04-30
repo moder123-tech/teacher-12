@@ -24,7 +24,7 @@ public interface UserDao {
      * 是否可见 @param u_visual
      * 是否成功 @return
      */
-    UserInformation getUser(@Param("u_number") String u_number,@Param("u_visual") String u_visual);
+    UserInformation getUser(@Param("u_number") String u_number, @Param("u_visual") String u_visual);
 
 
     /**
@@ -55,11 +55,19 @@ public interface UserDao {
     List<UserInformation> selectAllUsers(@Param("u_number") String u_number);
 
     /**
-     * 传入查询用户表要去除的用户@param u_number
-     * 所查询的用户@param u_update_number
+     * 传入要查询的历史操作记录@param userInformation
+     *
      * @return
      */
-    List<UserInformation> selectSomeUser(@Param("u_number") String u_number,@Param("u_update_number") String u_update_number);
+    List<UserInformation> searchSomeUser(UserInformation userInformation);
+
+    /**
+     * 传入查询用户表要去除的用户@param u_number
+     * 所查询的用户@param u_update_number
+     *
+     * @return
+     */
+    List<UserInformation> selectSomeUser(@Param("u_number") String u_number, @Param("u_update_number") String u_update_number);
 
     /**
      * 传入要删除的用户对象@param userInformation
@@ -81,7 +89,7 @@ public interface UserDao {
      * 操作人时间@param u_update_time
      * 返回更新用户是否成功@return
      */
-    int updateUsers(@Param("u_number") String u_number, @Param("u_password") String u_password, @Param("u_state") String u_state,@Param("u_update_number") String u_update_number,@Param("u_update_time") String u_update_time);
+    int updateUsers(@Param("u_number") String u_number, @Param("u_password") String u_password, @Param("u_state") String u_state, @Param("u_update_number") String u_update_number, @Param("u_update_time") String u_update_time);
 
 
     /**
@@ -90,4 +98,11 @@ public interface UserDao {
      * 返回更新用户是否成功@return
      */
     int updateUserTime(@Param("u_number") String u_number, @Param("u_time") String u_time);
+
+    /**
+     * 下拉列表对象@param userInformation
+     *
+     * @return
+     */
+    List<UserInformation> showSelectUser(UserInformation userInformation);
 }

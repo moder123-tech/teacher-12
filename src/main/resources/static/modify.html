@@ -114,7 +114,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作历史</a>
+                        <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
                     </li>
                     <li>
                         <a href="modify.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
@@ -246,9 +246,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             alert("更新成功!"),
                                 this.sites = response.data))
                 }
-            },showData(){
+            }, showData() {
                 var result = document.getElementById("input-31").value;
-                axios.get("http://localhost:8080/showSomeUser?u_update_number="+result)
+                axios.get("http://localhost:8080/showSomeUser?u_update_number=" + result)
                     .then(response => (
                         console.log(response.data),
                             this.sites = response.data))

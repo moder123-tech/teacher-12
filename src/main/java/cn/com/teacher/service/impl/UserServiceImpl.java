@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInformation getUser(String u_number,String u_visual) {
-        return userDao.getUser(u_number,u_visual);
+    public UserInformation getUser(String u_number, String u_visual) {
+        return userDao.getUser(u_number, u_visual);
     }
 
     @Override
@@ -49,8 +49,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserInformation> selectSomeUser(String u_number,String u_update_number) {
-        return userDao.selectSomeUser(u_number,u_update_number);
+    public List<UserInformation> searchSomeUser(UserInformation userInformation) {
+        return userDao.searchSomeUser(userInformation);
+    }
+
+    @Override
+    public List<UserInformation> selectSomeUser(String u_number, String u_update_number) {
+        return userDao.selectSomeUser(u_number, u_update_number);
     }
 
     @Override
@@ -64,12 +69,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUsers(String u_number, String u_password, String u_state,String u_update_number,String u_update_time) {
-        return userDao.updateUsers(u_number, u_password, u_state,u_update_number,u_update_time);
+    public int updateUsers(String u_number, String u_password, String u_state, String u_update_number, String u_update_time) {
+        return userDao.updateUsers(u_number, u_password, u_state, u_update_number, u_update_time);
     }
 
     @Override
     public void updateUserTime(String u_number, String u_time) {
         userDao.updateUserTime(u_number, u_time);
+    }
+
+    @Override
+    public List<UserInformation> showSelectUser(UserInformation userInformation) {
+        return userDao.showSelectUser(userInformation);
     }
 }

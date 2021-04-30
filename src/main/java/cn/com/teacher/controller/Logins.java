@@ -68,7 +68,7 @@ public class Logins {
         userInformation.setU_password(newPassword);
         userInformation.setU_state("0");
         userInformation.setU_visual("1");
-        UserInformation user = userService.getUser(userInformation.getU_number(),"1");
+        UserInformation user = userService.getUser(userInformation.getU_number(), "1");
         if (user == null) {
             userService.insertUser(userInformation);
         } else {
@@ -98,7 +98,7 @@ public class Logins {
         String newPassword = passwordEncoder.encode(userInformation.getU_password());
         response.setContentType("text/html;charset=utf-8");
         userInformation.setU_password(newPassword);
-        UserInformation user = userService.getUser(userInformation.getU_number(),"1");
+        UserInformation user = userService.getUser(userInformation.getU_number(), "1");
         if (user == null) {
             response.getWriter().write("<script>alert('该账号不存在,请注册!');window.location='findPass.html'; </script>");
         } else {
@@ -139,7 +139,7 @@ public class Logins {
     public String login(@RequestParam("eamil") String u_number, @RequestParam("password") String u_password, HttpSession session, HttpServletResponse response) throws IOException {
         try {
             response.setContentType("text/html;charset=utf-8");
-            UserInformation user = userService.getUser(u_number,"1");
+            UserInformation user = userService.getUser(u_number, "1");
             boolean matches = passwordEncoder.matches(u_password, user.getU_password());
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String u_time = df.format(new Date());
@@ -252,13 +252,33 @@ public class Logins {
 
     /**
      * HttpSession@param session
+     * 查询用户表中的除自己以外的所有信息@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/selectSomeUser")
+    public List<UserInformation> selectSomeUser(HttpSession session, @RequestParam("u_number") String u_number, @RequestParam("u_update_number") String u_update_number) {
+        UserInformation userInformation = new UserInformation();
+        if (u_update_number.equals("无")) {
+            System.out.println("-------");
+        } else {
+            userInformation.setU_update_number(u_update_number);
+        }
+        userInformation.setU_number(u_number);
+        userInformation.setU_update_time((String) session.getAttribute("email"));
+        List<UserInformation> userInformations = userService.searchSomeUser(userInformation);
+        System.out.println("userInformations" + userInformations);
+        return userInformations;
+    }
+
+    /**
+     * HttpSession@param session
      * 查询用户表中的信息@return
      */
     @ResponseBody
     @GetMapping(value = "/showSomeUser")
-    public List<UserInformation> showSomeUser(HttpSession session,@RequestParam String u_update_number) {
+    public List<UserInformation> showSomeUser(HttpSession session, @RequestParam String u_update_number) {
         String u_number = (String) session.getAttribute("email");
-        List<UserInformation> userInformations = userService.selectSomeUser(u_number,u_update_number);
+        List<UserInformation> userInformations = userService.selectSomeUser(u_number, u_update_number);
         System.out.println("userInformations" + userInformations);
         return userInformations;
     }
@@ -276,7 +296,7 @@ public class Logins {
         String u_update_time = df.format(new Date());
         UserInformation userInformation = new UserInformation();
         userInformation.setU_number(u_number);
-        userInformation.setU_update_number((String)session.getAttribute("email"));
+        userInformation.setU_update_number((String) session.getAttribute("email"));
         userInformation.setU_update_time(u_update_time);
         int i = userService.upUser(userInformation);
         List<UserInformation> userInformations = this.showAllUsers(session);
@@ -296,8 +316,19 @@ public class Logins {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String u_update_time = df.format(new Date());
         String u_update_number = (String) session.getAttribute("email");
-        userService.updateUsers(u_number, newPassword, u_state,u_update_number,u_update_time);
+        userService.updateUsers(u_number, newPassword, u_state, u_update_number, u_update_time);
         List<UserInformation> userInformations = this.showAllUsers(session);
+        return userInformations;
+    }
+
+    /**
+     * 返回下拉列表对象@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/showSelectUser")
+    public List<UserInformation> showSelectUser() {
+        UserInformation userInformation = new UserInformation();
+        List<UserInformation> userInformations = userService.showSelectUser(userInformation);
         return userInformations;
     }
 
