@@ -46,4 +46,19 @@ public class UserInformation implements Serializable {
      * 用户上次登录事件时间
      */
     private String u_time;
+
+    /**
+     * 更新人账号
+     */
+    private String u_update_number;
+
+    /**
+     * 更新时间
+     */
+    private String u_update_time;
+
+    /**
+     * 0 表示不可见 1表示可见
+     */
+    private String u_visual;
 }

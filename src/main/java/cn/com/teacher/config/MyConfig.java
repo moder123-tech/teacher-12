@@ -24,7 +24,7 @@ public class MyConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login.html",
                 "/signup.html", "/findPass.html", "/find", "/css/*", "/fonts/*", "/images/*", "/js/*", "/login", "/register",
-                "/send/*", "/test", "/getMovie", "/getTypeMovie/*", "/getTypeMovie", "/searchMovie", "/searchMovie/*");
+                "/send/*", "/test", "/getMovie", "/getTypeMovie/*", "/getTypeMovie", "/searchMovie", "/searchMovie/*","/uploadImage");
     }
 
     @Override

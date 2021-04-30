@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInformation getUser(String u_number) {
-        return userDao.getUser(u_number);
+    public UserInformation getUser(String u_number,String u_visual) {
+        return userDao.getUser(u_number,u_visual);
     }
 
     @Override
@@ -49,8 +49,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int deleteUser(String u_number) {
-        return userDao.deleteUser(u_number);
+    public List<UserInformation> selectSomeUser(String u_number,String u_update_number) {
+        return userDao.selectSomeUser(u_number,u_update_number);
+    }
+
+    @Override
+    public int upUser(UserInformation userInformation) {
+        return userDao.upUser(userInformation);
     }
 
     @Override
@@ -59,8 +64,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUsers(String u_number, String u_password, String u_state) {
-        return userDao.updateUsers(u_number, u_password, u_state);
+    public int updateUsers(String u_number, String u_password, String u_state,String u_update_number,String u_update_time) {
+        return userDao.updateUsers(u_number, u_password, u_state,u_update_number,u_update_time);
     }
 
     @Override
