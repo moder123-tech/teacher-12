@@ -1,7 +1,5 @@
 package cn.com.teacher.controller;
 
-import cn.com.teacher.bean.History;
-import cn.com.teacher.bean.Resources;
 import cn.com.teacher.bean.UserInformation;
 import cn.com.teacher.service.UserService;
 import cn.com.teacher.util.EmailSend;
@@ -185,6 +183,7 @@ public class Logins {
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @PostMapping(value = "/uploadImage")
     public String updateUploadImage(MultipartFile file, HttpSession session) throws IOException {
+        System.out.println("---------------");
         //获取原始文件名
         String originalFilename = file.getOriginalFilename();
         String email = (String) session.getAttribute("email");
