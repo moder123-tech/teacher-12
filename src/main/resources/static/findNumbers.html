@@ -114,16 +114,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="findNumber.html"><img src="image/16.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;找回账号</a>
+                        <a href="findNumbers.html"><img src="image/16.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;找回账号</a>
                     </li>
                     <li>
-                        <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
+                        <a href="records.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
                     </li>
                     <li>
-                        <a href="modify.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
+                        <a href="superAdministrator.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
                     </li>
                     <li>
-                        <a href="administrators.html"><img src="image/13.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个人中心</a>
+                        <a href="administrator.html"><img src="image/13.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个人中心</a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -146,12 +146,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 </a>
             </div>
             <!--//logo-->
-            <div class="search-box" id="searchBox">
-                <input placeholder="Search..." type="search"
-                       id="input-31"/>
-                <button onclick="getSearchData()">搜索</button>
-            </div><!--//end-search-box-->
-            <div class="clearfix"></div>
         </div>
 
         <div class="clearfix"></div>
@@ -163,28 +157,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <table class="table">
                 <tr>
                     <td>用户邮箱</td>
-                    <td>用户密码</td>
                     <td>用户昵称</td>
-                    <td>上次登录时间</td>
-                    <td>用户权限</td>
+                    <td>操作时间</td>
                     <td>操作</td>
                 </tr>
                 <tr v-for="(site,index) in sites">
                     <td v-text="site.u_number"></td>
-                    <td>
-                        <input type="password" v-model="password[index]"/>
-                    </td>
                     <td v-text="site.u_name"></td>
-                    <td v-text="site.u_time"></td>
+                    <td v-text="site.u_update_time"></td>
                     <td>
-                        <select :id=index>
-                            <option value="0" v-if="site.u_state==0">普通用户</option>
-                            <option value="1">管理员</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button @click="updUser(site.u_number,password[index],index)" v-if="site.u_state==0">更新</button>
-                        <button @click="delUser(site.u_number)" v-if="site.u_state==0">删除</button>
+                        <button @click="recovery(site.u_number)">恢复</button>
                     </td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
@@ -222,39 +204,24 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     new Vue({
         el: '#ads',
         data: {
-            sites: [],
-            password: ["000000", "000000", "000000", "000000", "000000", "000000", "000000", "000000"
-                , "000000", "000000"]
+            sites: []
         },
         mounted() {
-            axios.get("http://localhost:8080/showAllUsers")
+            axios.get("http://localhost:8080/showDeleUser")
                 .then(response => (
                     console.log(response.data),
                         this.sites = response.data))
         },
         methods: {
-            delUser(data) {
-                var result = confirm('确认删除吗！');
+            recovery(u_number) {
+                var result = confirm('是否恢复该账号！');
                 if (result) {
-                    console.log(data)
-                    axios.get("http://localhost:8080/deleteUser?u_number=" + data)
-                        .then(response => (alert("删除成功"), this.sites = response.data))
-                }
-            }, updUser(u_number, data, index) {
-                var result = confirm('确认更新此次操作吗！');
-                if (result) {
-                    var a = document.getElementById(index).value
-                    axios.get("http://localhost:8080/updateUser?u_number=" + u_number + "&u_password=" + data + "&u_state=" + a)
+                    console.log(u_number)
+                    axios.get("http://localhost:8080/recoveryUser?u_number=" + u_number)
                         .then(response => (
-                            alert("更新成功!"),
+                            alert("恢复成功!"),
                                 this.sites = response.data))
                 }
-            }, showData() {
-                var result = document.getElementById("input-31").value;
-                axios.get("http://localhost:8080/showSomeUser?u_update_number=" + result)
-                    .then(response => (
-                        console.log(response.data),
-                            this.sites = response.data))
             }
         }
     })
@@ -266,12 +233,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         document.getElementById("names").value = ''
         document.getElementById("pass").value = ''
         document.getElementById("passwo").value = ''
-    }
-</script>
-<script>
-    function getSearchData() {
-        var result = document.getElementById("input-31").value;
-        document.getElementById("buttons").click();
     }
 </script>
 <!--scrolling js-->

@@ -105,4 +105,11 @@ public interface UserDao {
      * @return
      */
     List<UserInformation> showSelectUser(UserInformation userInformation);
+
+    /**
+     *
+     * 要恢复的账号@param u_number
+     * 是否成功@return
+     */
+    int recoveryUser(@Param("u_number") String u_number);
 }

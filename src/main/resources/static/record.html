@@ -114,6 +114,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
                 <ul class="nav" id="side-menu">
                     <li>
+                        <a href="findNumber.html"><img src="image/16.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;找回账号</a>
+                    </li>
+                    <li>
                         <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
                     </li>
                     <li>
@@ -162,11 +165,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <tr>
                     <td>用户邮箱</td>
                     <td>操作人账号</td>
+                    <td>操作类型</td>
                     <td>操作时间</td>
                 </tr>
                 <tr v-for="(site,index) in sites">
                     <td v-text="site.u_number"></td>
                     <td v-text="site.u_update_number"></td>
+                    <td v-if="site.u_visual==0">删除</td>
+                    <td v-if="site.u_visual==1">更新</td>
                     <td v-text="site.u_update_time"></td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
@@ -207,7 +213,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             sites: []
         },
         mounted() {
-            axios.get("http://localhost:8080/showAllUsers")
+            var result = document.getElementById("input-31").value;
+            var result1 = document.getElementById("sell").value;
+            axios.get("http://localhost:8080/selectSomeUser?u_number=" + result + "&u_update_number=" + result1)
                 .then(response => (
                     console.log(response.data),
                         this.sites = response.data))

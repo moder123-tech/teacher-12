@@ -82,4 +82,9 @@ public class UserServiceImpl implements UserService {
     public List<UserInformation> showSelectUser(UserInformation userInformation) {
         return userDao.showSelectUser(userInformation);
     }
+
+    @Override
+    public int recoveryUser(String u_number) {
+        return userDao.recoveryUser(u_number);
+    }
 }

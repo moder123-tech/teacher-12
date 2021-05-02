@@ -123,7 +123,16 @@
                 u_number = #{u_number,jdbcType=VARCHAR}
             </if>
         </where>
+    </update>
 
+    <update id="recoveryUser">
+        UPDATE UserInformation
+        SET u_visual = 1
+        <where>
+            <if test="u_number != null">
+                u_number = #{u_number,jdbcType=VARCHAR}
+            </if>
+        </where>
     </update>
 
     <select id="getUser" resultType="cn.com.teacher.bean.UserInformation" parameterType="java.lang.String">
@@ -186,7 +195,7 @@
             <if test="u_update_time != null and u_update_time!=''">
                 and u_number like "%"#{u_number,jdbcType=VARCHAR}"%" and u_number!=#{u_update_time,jdbcType=VARCHAR}
             </if>
-
+            ORDER BY u_update_time DESC
         </where>
     </select>
 
@@ -196,34 +205,34 @@
         from UserInformation
         <where>
             <if test="u_id != null">
-                u_id!=#{u_id,jdbcType=VARCHAR}
+                u_id = #{u_id,jdbcType=VARCHAR}
             </if>
             <if test="u_number != null">
-                u_number!=#{u_number,jdbcType=VARCHAR}
+                and u_number = #{u_number,jdbcType=VARCHAR}
             </if>
             <if test="u_password != null">
-                u_password!=#{u_password,jdbcType=VARCHAR}
+                and u_password = #{u_password,jdbcType=VARCHAR}
             </if>
             <if test="u_head != null">
-                u_head!=#{u_head,jdbcType=VARCHAR}
+                and u_head = #{u_head,jdbcType=VARCHAR}
             </if>
             <if test="u_name != null">
-                u_name!=#{u_name,jdbcType=VARCHAR}
+                and u_name = #{u_name,jdbcType=VARCHAR}
             </if>
             <if test="u_state != null">
-                u_state!=#{u_state,jdbcType=VARCHAR}
+                and u_state = #{u_state,jdbcType=VARCHAR}
             </if>
             <if test="u_time != null">
-                u_time!=#{u_time,jdbcType=VARCHAR}
+                and u_time = #{u_time,jdbcType=VARCHAR}
             </if>
             <if test="u_update_number != null">
-                u_update_number!=#{u_update_number,jdbcType=VARCHAR}
+                and u_update_number = #{u_update_number,jdbcType=VARCHAR}
             </if>
             <if test="u_update_time != null">
-                u_update_time!=#{u_update_time,jdbcType=VARCHAR}
+                and u_update_time = #{u_update_time,jdbcType=VARCHAR}
             </if>
             <if test="u_visual != null">
-                u_visual!=#{u_visual,jdbcType=VARCHAR}
+                and u_visual = #{u_visual,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

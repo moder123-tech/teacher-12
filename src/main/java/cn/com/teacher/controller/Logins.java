@@ -158,6 +158,11 @@ public class Logins {
                 userService.updateUserTime(u_number, u_time);
                 return "redirect:http://localhost:8080/administrators.html";
             }
+            if (matches == true && user.getU_state().equals("2")) {
+                session.setAttribute("msg", "200");
+                userService.updateUserTime(u_number, u_time);
+                return "redirect:http://localhost:8080/superAdministrator.html";
+            }
             response.getWriter().write("<script>alert('账号或者密码不正确!');window.location='login.html'; </script>");
         } catch (Exception exception) {
             response.getWriter().write("<script>alert('账号或者密码不正确!');window.location='login.html'; </script>");
@@ -187,6 +192,7 @@ public class Logins {
         //获取原始文件名
         String originalFilename = file.getOriginalFilename();
         String email = (String) session.getAttribute("email");
+        UserInformation user = userService.getUser(email, "1");
         String uuidFilename = email + System.currentTimeMillis();
         File fileDir = new File("F:/Idea/IdeaWork/teacher/src/main/resources/static/image/" + email);
         if (!fileDir.exists()) {
@@ -200,7 +206,18 @@ public class Logins {
         userInformation.setU_head(uuidFilename + ".jpg");
         int i = userService.updateUpdateUploadImage(userInformation);
         if (i == 1) {
-            return "redirect:http://localhost:8080/index.html";
+            if (user.getU_state().equals("0")) {
+                session.setAttribute("msg", "200");
+                return "redirect:http://localhost:8080/personalCenter.html";
+            }
+            if (user.getU_state().equals("1")) {
+                session.setAttribute("msg", "200");
+                return "redirect:http://localhost:8080/administrators.html";
+            }
+            if (user.getU_state().equals("2")) {
+                session.setAttribute("msg", "200");
+                return "redirect:http://localhost:8080/administrator.html";
+            }
         }
         return "上传头像失败";
     }
@@ -313,6 +330,9 @@ public class Logins {
     @GetMapping(value = "/updateUser")
     public List<UserInformation> deleteUser(@RequestParam String u_number, @RequestParam String u_password, @RequestParam String u_state, HttpSession session) {
         String newPassword = passwordEncoder.encode(u_password);
+        if(u_password.equals("000000")){
+            newPassword=null;
+        }
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String u_update_time = df.format(new Date());
         String u_update_number = (String) session.getAttribute("email");
@@ -329,6 +349,33 @@ public class Logins {
     public List<UserInformation> showSelectUser() {
         UserInformation userInformation = new UserInformation();
         List<UserInformation> userInformations = userService.showSelectUser(userInformation);
+        return userInformations;
+    }
+
+    /**
+     * HttpSession@param session
+     * 查找自己所删除的用户@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/showDeleUser")
+    public List<UserInformation> showDeleUser(HttpSession session) {
+        UserInformation userInformation = new UserInformation();
+        userInformation.setU_update_number((String) session.getAttribute("email"));
+        userInformation.setU_visual("0");
+        List<UserInformation> userInformations = userService.showSelectUser(userInformation);
+        return userInformations;
+    }
+
+    /**
+     *
+     * HttpSession@param session
+     * 恢复所删除的账号@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/recoveryUser")
+    public List<UserInformation> recoveryUser(HttpSession session,@RequestParam String u_number) {
+        userService.recoveryUser(u_number);
+        List<UserInformation> userInformations = this.showDeleUser(session);
         return userInformations;
     }
 

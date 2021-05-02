@@ -114,16 +114,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="findNumber.html"><img src="image/16.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;找回账号</a>
+                        <a href="findNumbers.html"><img src="image/16.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;找回账号</a>
                     </li>
                     <li>
-                        <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
+                        <a href="records.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
                     </li>
                     <li>
-                        <a href="modify.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
+                        <a href="superAdministrator.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
                     </li>
                     <li>
-                        <a href="administrators.html"><img src="image/13.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个人中心</a>
+                        <a href="administrator.html"><img src="image/13.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个人中心</a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -178,13 +178,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td v-text="site.u_time"></td>
                     <td>
                         <select :id=index>
-                            <option value="0" v-if="site.u_state==0">普通用户</option>
-                            <option value="1">管理员</option>
+                            <option value="0" v-if="site.u_state==0" selected="selected">普通用户</option>
+                            <option value="0" v-else="site.u_state==0" >普通用户</option>
+                            <option value="1" v-if="site.u_state==1" selected="selected">管理员</option>
+                            <option value="1" v-else="site.u_state==1">管理员</option>
                         </select>
                     </td>
                     <td>
-                        <button @click="updUser(site.u_number,password[index],index)" v-if="site.u_state==0">更新</button>
-                        <button @click="delUser(site.u_number)" v-if="site.u_state==0">删除</button>
+                        <button @click="updUser(site.u_number,password[index],index)">更新</button>
+                        <button @click="delUser(site.u_number)">删除</button>
                     </td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
