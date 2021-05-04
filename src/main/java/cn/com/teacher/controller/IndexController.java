@@ -64,7 +64,7 @@ public class IndexController {
     public void addResourcesHistory(@RequestParam String content, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
         History history = new History();
-        String[] split = content.split(":");
+        String[] split = content.split(",");
         Resources resources = resourcesService.getLabel(split[1]);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String h_time = df.format(new Date());
@@ -131,7 +131,7 @@ public class IndexController {
     public String addResourcesCollection(@RequestParam String content, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
         UserCollection userCollection = new UserCollection();
-        String[] split = content.split(":");
+        String[] split = content.split(",");
         userCollection.setC_content(split[0]);
         userCollection.setC_path(split[1]);
         userCollection.setC_foreign(uId + "");
