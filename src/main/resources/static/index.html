@@ -137,10 +137,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             </div>
             <!--//logo-->
             <!--search-box-->
-            <div class="search-box" id="searchBox">
-                <input placeholder="Search..." type="search"
-                       id="input-31"/>
-                <button onclick="getSearchData()">搜索</button>
+            <div class="col-lg-6" id="searchBox" style="top: 20px;">
+                <div class="input-group">
+                <input placeholder="Search for..." type="text"
+                       id="input-31" class="form-control"/>
+                    <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="getSearchData()">搜索</button>
+                    </span>
+                </div>
             </div><!--//end-search-box-->
             <div class="clearfix"></div>
         </div>
@@ -157,7 +161,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         <div class="user-name">
                             <p id="app">{{info}}</p>
                             <span>Administrator</span>
-                            <button><a href="/login.html">退出登录</a></button>
+                            <div class="btn-group" role="group" aria-label="...">
+                            <button class="btn btn-default"><a href="/login.html">退出登录</a></button>
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                     </div>

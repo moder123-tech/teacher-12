@@ -146,10 +146,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 </a>
             </div>
             <!--//logo-->
-            <div class="search-box" id="searchBox">
-                <input placeholder="Search..." type="search"
-                       id="input-31"/>
-                <button onclick="getSearchData()">搜索</button>
+            <div class="col-lg-6" id="searchBox" style="top: 20px;">
+                <div class="input-group">
+                    <input placeholder="Search for..." type="text"
+                           id="input-31" class="form-control"/>
+                    <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="getSearchData()">搜索</button>
+                    </span>
+                </div>
             </div><!--//end-search-box-->
             <div class="clearfix"></div>
         </div>
@@ -183,8 +187,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </select>
                     </td>
                     <td>
-                        <button @click="updUser(site.u_number,password[index],index)" v-if="site.u_state==0">更新</button>
-                        <button @click="delUser(site.u_number)" v-if="site.u_state==0">删除</button>
+                        <div class="btn-group" role="group" aria-label="...">
+                        <button @click="updUser(site.u_number,password[index],index)" v-if="site.u_state==0" class="btn btn-default" style="color: green">更新</button>
+                        <button @click="delUser(site.u_number)" v-if="site.u_state==0" class="btn btn-default" style="color: red">删除</button>
+                        </div>
                     </td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>

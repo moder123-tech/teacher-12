@@ -140,10 +140,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             </div>
             <!--//logo-->
             <!--search-box-->
-            <div class="search-box" id="searchBox">
-                <input placeholder="Search..." type="search"
-                       id="input-31"/>
-                <button onclick="getSearchData()">搜索</button>
+            <div class="col-lg-6" id="searchBox" style="top: 20px;">
+                <div class="input-group">
+                    <input placeholder="Search for..." type="text"
+                           id="input-31" class="form-control"/>
+                    <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="getSearchData()">搜索</button>
+                    </span>
+                </div>
             </div><!--//end-search-box-->
             <div class="clearfix"></div>
         </div>
@@ -179,13 +183,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td style="width: 400px">内容</td>
                     <td style="width: 400px">路径</td>
                     <td style="width: 400px">时间</td>
+                    <td>操作</td>
                 </tr>
                 <tr>
                     <td v-text="site.h_content" style="width: 400px"></td>
                     <td style="width: 400px"><a :href="site.h_path">{{site.h_path}}</a></td>
                     <td v-text="site.h_time" style="width: 400px"></td>
                     <td>
-                        <button @click="deleteTime(site.h_time)">删除</button>
+                        <div class="btn-group" role="group" aria-label="...">
+                        <button @click="deleteTime(site.h_time)" class="btn btn-default" style="color: red">删除</button>
+                        </div>
                     </td>
                 </tr>
             </table>

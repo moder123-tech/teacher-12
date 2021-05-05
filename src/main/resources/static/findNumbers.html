@@ -166,7 +166,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td v-text="site.u_name"></td>
                     <td v-text="site.u_update_time"></td>
                     <td>
-                        <button @click="recovery(site.u_number)">恢复</button>
+                        <div class="btn-group" role="group" aria-label="...">
+                        <button @click="recovery(site.u_number)" class="btn btn-default">恢复</button>
+                        </div>
                     </td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>

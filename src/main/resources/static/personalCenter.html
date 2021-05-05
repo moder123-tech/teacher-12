@@ -197,15 +197,19 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     </tr>
                     <tr>
                         <td  width="200px;">
-                            <input type="file" name="file" id="upp"/><br/>
-                            <input type="submit" value="文件上传"/>
+                            <div class="btn-group" role="group" aria-label="...">
+                            <input type="file" name="file" id="upp" class="btn btn-default"/><br/>
+                            <input type="submit" value="文件上传" class="btn btn-default"/>
+                            </div>
                         </td>
                         <td>
                             密码: <input type="password" id="pass">
                             确认密码: <input type="password" id="passwo"><br><br>
-                            <input type="button" value="保存" @click="preservations()">
-                            <input type="button" value="重置" onclick="clears()">
-                            <button><a href="/login.html">退出登录</a></button>
+                            <div class="btn-group" role="group" aria-label="...">
+                            <input type="button" value="保存" @click="preservations()" class="btn btn-default">
+                            <input type="button" value="重置" onclick="clears()" class="btn btn-default">
+                            <button class="btn btn-default"><a href="/login.html">退出登录</a></button>
+                            </div>
                         </td>
                     </tr>
 
