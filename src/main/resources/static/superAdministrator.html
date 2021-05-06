@@ -180,7 +180,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td v-text="site.u_name"></td>
                     <td v-text="site.u_time"></td>
                     <td>
-                        <select :id=index>
+                        <select :id=index class="form-control">
                             <option value="0" v-if="site.u_state==0" selected="selected">普通用户</option>
                             <option value="0" v-else="site.u_state==0" >普通用户</option>
                             <option value="1" v-if="site.u_state==1" selected="selected">管理员</option>
@@ -188,10 +188,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </select>
                     </td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="...">
-                        <button @click="updUser(site.u_number,password[index],index)" class="btn btn-default" style="color: green">更新</button>
-                        <button @click="delUser(site.u_number)" class="btn btn-default" style="color: red">删除</button>
-                        </div>
+                        <button @click="updUser(site.u_number,password[index],index)" class="btn btn-info">更新</button>
+                        <button @click="delUser(site.u_number)" class="btn btn-danger">删除</button>
                     </td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
