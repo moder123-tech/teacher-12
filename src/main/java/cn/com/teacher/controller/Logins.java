@@ -367,6 +367,19 @@ public class Logins {
     }
 
     /**
+     * HttpSession@param session
+     * 管理员查看已被删除账号@return
+     */
+    @ResponseBody
+    @GetMapping(value = "/seeDeleUser")
+    public List<UserInformation> SeeDeleUser(HttpSession session) {
+        UserInformation userInformation = new UserInformation();
+        userInformation.setU_visual("0");
+        List<UserInformation> userInformations = userService.showSelectUser(userInformation);
+        return userInformations;
+    }
+
+    /**
      *
      * HttpSession@param session
      * 恢复所删除的账号@return

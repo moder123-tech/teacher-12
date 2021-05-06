@@ -187,8 +187,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </select>
                     </td>
                     <td>
-                        <button @click="updUser(site.u_number,password[index],index)" class="btn btn-info">更新</button>
-                        <button @click="delUser(site.u_number)" class="btn btn-danger">删除</button>
+                        <button @click="updUser(site.u_number,password[index],index)" class="btn btn-info" v-if="site.u_state==0">更新</button>
+                        <button @click="delUser(site.u_number)" class="btn btn-danger" v-if="site.u_state==0">删除</button>
                     </td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>

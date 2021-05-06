@@ -209,7 +209,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             sites: []
         },
         mounted() {
-            axios.get("http://localhost:8080/showDeleUser")
+            axios.get("http://localhost:8080/seeDeleUser")
                 .then(response => (
                     console.log(response.data),
                         this.sites = response.data))
