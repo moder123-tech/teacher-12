@@ -49,6 +49,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         }
     </style>
     <style>
+        .btn-success:hover{
+            background: #5cb85c !important;
+            opacity: 0.8;
+            border-color: #5cb85c !important;
+        }
         .round_icon {
             width: 70px;
             height: 70px;
@@ -167,7 +172,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td v-text="site.u_update_time"></td>
                     <td>
                         <div class="btn-group" role="group" aria-label="...">
-                        <button @click="recovery(site.u_number)" class="btn btn-default">恢复</button>
+                        <button @click="recovery(site.u_number)" class="btn btn-success">恢复</button>
                         </div>
                     </td>
                 </tr>
@@ -177,8 +182,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     </div>
     <!--footer-->
     <div class="footer">
-        <p>&copy; 2016 Novus Admin Panel. All Rights Reserved | Design by <a href="https://w3layouts.com/"
-                                                                             target="_blank">w3layouts</a></p>
+        <p>&copy; 2021 Integration of open education resources and personalized recommendation system | Design by author wx</p>
     </div>
     <!--//footer-->
 </div>
