@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -202,7 +203,26 @@ public class IndexController {
     public List<Resources> getRecommendResources(HttpSession session) {
         History history = resourcesService.getRlabel(session.getAttribute("uId") + "");
         List<Resources> recommendMovie = resourcesService.getRecommendMovie(history.getH_label());
+        List<Resources> list = new ArrayList<>();
+        History his = new History();
+        his.setH_forrign(session.getAttribute("uId") + "");
+        his.setH_label(history.getH_label());
+        List<History> someHistory = resourcesService.getSomeHistory(his);
         System.out.println("getRecommendResources =" + recommendMovie);
+        System.out.println("someHistory"+someHistory);
+        for(int i=0;i<recommendMovie.size();i++){
+           for (int j=0;j<someHistory.size();j++){
+               if(someHistory.get(j).getH_content().equals(recommendMovie.get(i).getR_content())){
+                   Resources resources = recommendMovie.get(i);
+                   list.add(resources);
+               }
+           }
+        }
+        for(int i=0;i<recommendMovie.size();i++){
+            for(int j=0;j<list.size();j++){
+                recommendMovie.remove(list.get(j));
+            }
+        }
         return recommendMovie;
     }
 

@@ -127,9 +127,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <!--toggle button end-->
             <!--logo -->
             <div class="logo">
-                <a href="index.html">
-                    <h1>NOVUS</h1>
-                    <span>AdminPanel</span>
+                <a href="administrators.html">
+                    <h1>模块功能</h1>
+                    <span>普通用户</span>
                 </a>
             </div>
             <!--//logo-->
@@ -148,7 +148,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             </span>
                                 <div class="user-name">
                                     <p id="app">{{info}}</p>
-                                    <span>Administrator</span>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -166,7 +165,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <div id="ads">
             <div class="div-inline" v-for="site in sites">
                 <video controls="controls" name="media" style="margin-left:20px " height="200" width="350px"
-                       @click="countss(site.r_content+':'+site.r_path)">
+                       @click="countss(site.r_content+', '+site.r_path)">
                     <source :src="site.r_path" type="video/mp4"></source>
                 </video>
                 </br>
@@ -183,7 +182,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     </div>
     <!--footer-->
     <div class="footer">
-        <p>&copy; 2021 Integration of open education resources and personalized recommendation system | Design by author wx</p>
+        <p>&copy; 开放教育资源融合与个性化推荐系统</p>
     </div>
     <!--//footer-->
 </div>

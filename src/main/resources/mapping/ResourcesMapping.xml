@@ -220,5 +220,19 @@
         ORDER BY h_path DESC LIMIT 1
     </select>
 
+    <select id="getSomeHistory" resultType="cn.com.teacher.bean.History">
+        select
+        <include refid="History"/>
+        from History
+        <where>
+            <if test="h_label != null">
+                h_label = #{h_label,jdbcType=VARCHAR}
+            </if>
+            <if test="h_forrign != null">
+                and h_forrign = #{h_forrign,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
 
 </mapper>

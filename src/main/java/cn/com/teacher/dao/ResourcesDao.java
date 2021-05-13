@@ -102,4 +102,11 @@ public interface ResourcesDao {
      * 从历史表中查找数量最多的标签@return
      */
     History getRlabel(String h_forrign);
+
+    /**
+     *
+     * 传入历史记录对象@param history
+     * 根据标签从历史表里面查询所有@return
+     */
+    List<History> getSomeHistory(History history);
 }

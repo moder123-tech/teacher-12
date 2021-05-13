@@ -91,5 +91,10 @@ public class ResourcesServiceImpl implements ResourcesService {
         return resourcesDao.getRlabel(h_forrign);
     }
 
+    @Override
+    public List<History> getSomeHistory(History history) {
+        return resourcesDao.getSomeHistory(history);
+    }
+
 
 }

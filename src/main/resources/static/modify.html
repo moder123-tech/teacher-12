@@ -141,14 +141,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <!--logo -->
             <div class="logo">
                 <a href="administrators.html">
-                    <h1>NOVUS</h1>
-                    <span>AdminPanel</span>
+                    <h1>模块功能</h1>
+                    <span>管理员</span>
                 </a>
             </div>
             <!--//logo-->
             <div class="col-lg-6" id="searchBox" style="top: 20px;">
                 <div class="input-group">
-                    <input placeholder="Search for..." type="text"
+                    <input placeholder="搜索用户邮箱" type="text"
                            id="input-31" class="form-control"/>
                     <span class="input-group-btn">
                 <button class="btn btn-default" type="button" onclick="getSearchData()">搜索</button>
@@ -180,12 +180,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     </td>
                     <td v-text="site.u_name"></td>
                     <td v-text="site.u_time"></td>
-                    <td>
+                    <td v-if="site.u_state==0" >普通用户</td>
+                    <td v-if="site.u_state==1" >管理员</td>
+                    <!--<td>
                         <select :id=index  class="form-control">
                             <option value="0" v-if="site.u_state==0">普通用户</option>
                             <option value="1">管理员</option>
                         </select>
-                    </td>
+                    </td>-->
                     <td>
                         <button @click="updUser(site.u_number,password[index],index)" class="btn btn-info" v-if="site.u_state==0">更新</button>
                         <button @click="delUser(site.u_number)" class="btn btn-danger" v-if="site.u_state==0">删除</button>
@@ -197,7 +199,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     </div>
     <!--footer-->
     <div class="footer">
-        <p>&copy; 2021 Integration of open education resources and personalized recommendation system | Design by author wx</p>
+        <p>&copy; 开放教育资源融合与个性化推荐系统</p>
     </div>
     <!--//footer-->
 </div>
