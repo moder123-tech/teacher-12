@@ -166,12 +166,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <div id="ads">
             <div class="div-inline" v-for="site in sites">
                 <video controls="controls" name="media" style="margin-left:20px " height="200" width="350px"
-                       @click="countss(site.r_content+':'+site.r_path)">
+                       @click="countss(site.r_content+','+site.r_path)">
                     <source :src="site.r_path" type="video/mp4"></source>
                 </video>
                 </br>
                 <span v-text="site.r_content" style="margin-left:20px;width: 35px " ></span>
-                <img :src="images" style="margin-left:20px;width: 35px;height: 35px" @click="likes(site.r_content+':'+site.r_path)">
+                <img :src="images" style="margin-left:20px;width: 35px;height: 35px" @click="likes(site.r_content+','+site.r_path)">
                 </br>
                 </br>
                 </br>
@@ -181,7 +181,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     </div>
     <!--footer-->
     <div class="footer">
-        <p>&copy; 开放教育资源融合与个性化推荐系统</p>
+        <p>&copy; 开放教育资源融合与个性化推荐系统的设计与实现</p>
     </div>
     <!--//footer-->
 </div>

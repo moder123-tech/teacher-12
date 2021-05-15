@@ -69,17 +69,18 @@ public class Logins {
         userInformation.setU_state("0");
         userInformation.setU_visual("1");
         UserInformation user = userService.getUser(userInformation.getU_number(), "1");
-        if (user == null) {
-            userService.insertUser(userInformation);
-        } else {
-            response.getWriter().write("<script>alert('账号已存在,请登录!');window.location='login.html'; </script>");
-        }
         HttpSession sessoin = request.getSession();
         Object codes = sessoin.getAttribute("codes");
         if (!(codes.equals(code))) {
             response.getWriter().write("<script>alert('验证码不正确!');window.location='signup.html'; </script>");
+        }else {
+            if (user == null) {
+                userService.insertUser(userInformation);
+            } else {
+                response.getWriter().write("<script>alert('账号已存在,请登录!');window.location='login.html'; </script>");
+            }
+            response.getWriter().write("<script>alert('注册成功,请登录！');window.location='login.html'; </script>");
         }
-        response.getWriter().write("<script>alert('注册成功,请登录！');window.location='login.html'; </script>");
         return null;
     }
 

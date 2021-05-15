@@ -66,6 +66,9 @@ public class IndexController {
         Integer uId = (Integer) session.getAttribute("uId");
         History history = new History();
         String[] split = content.split(",");
+        for (int i=0;i<split.length;i++){
+            System.out.println(split[i]);
+        }
         Resources resources = resourcesService.getLabel(split[1]);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String h_time = df.format(new Date());

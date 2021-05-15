@@ -173,7 +173,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <div id="ads">
             <div class="div-inline" v-for="site in sites">
                 <video controls="controls" name="media" style="margin-left:20px " height="200" width="350px"
-                       @click="countss(site.c_content+':'+site.c_path)">
+                       @click="countss(site.c_content+','+site.c_path)">
                     <source :src="site.c_path" type="video/mp4"></source>
                 </video>
                 </br>
@@ -190,7 +190,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     </div>
     <!--footer-->
     <div class="footer">
-        <p>&copy; 开放教育资源融合与个性化推荐系统</p>
+        <p>&copy; 开放教育资源融合与个性化推荐系统的设计与实现</p>
     </div>
     <!--//footer-->
 </div>
