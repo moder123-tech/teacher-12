@@ -137,7 +137,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!--left-fixed -navigation-->
     <!-- header-starts -->
     <div class="sticky-header header-section ">
-        <div class="header-center">
+        <div class="header-left">
             <!--toggle button start-->
             <button id="showLeftPush"><i class="fa fa-bars"></i></button>
             <!--toggle button end-->
@@ -148,17 +148,20 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <span>管理员</span>
                 </a>
             </div>
-            <div class="search-box" id="searchBox">
-                用户邮箱:&nbsp;&nbsp;&nbsp;<input placeholder="搜索用户邮箱" type="search"
-                                              id="input-31"/>
-                &nbsp;&nbsp;&nbsp;操作账号:&nbsp;&nbsp;&nbsp;<select id="sell">
-                <option>无</option>
-                <option v-for="sit in selects">{{sit.u_number}}</option>
-            </select>
-
+            <!--//logo-->
+            <div class="col-lg-6" id="searchBox" style="top: 20px;">
+                <div class="input-group">
+                    <input placeholder="搜索视频内容" type="text"
+                           id="input-31" class="form-control"/>
+                    <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="getSearchData()">搜索</button>
+                    </span>
+                </div>
             </div><!--//end-search-box-->
+            <div class="clearfix"></div>
         </div>
-        <button onclick="getSearchData()" style="position: absolute;top: 20px;">搜索</button>
+
+        <div class="clearfix"></div>
     </div>
     <!-- //header-ends -->
     <!-- main content start-->
@@ -167,18 +170,26 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <table class="table">
                 <tr>
                     <td>序号</td>
-                    <td>用户邮箱</td>
-                    <td>操作人账号</td>
-                    <td>操作类型</td>
-                    <td>操作时间</td>
+                    <td>视频路径</td>
+                    <td>视频内容</td>
+                    <td>视频标签</td>
+                    <td>操作</td>
                 </tr>
                 <tr v-for="(site,index) in sites">
                     <td v-text="index+1"></td>
-                    <td v-text="site.u_number"></td>
-                    <td v-text="site.u_update_number"></td>
-                    <td v-if="site.u_visual==0">删除</td>
-                    <td v-if="site.u_visual==1">更新</td>
-                    <td v-text="site.u_update_time"></td>
+                    <td>
+                        <input type="text" v-model="path[index]" style="width: 300px;"/>
+                    </td>
+                    <td>
+                        <input type="text" v-model="content[index]" style="width: 150px;"/>
+                    </td>
+                    <td>
+                        <input type="text" v-model="label[index]" style="width: 100px;"/>
+                    </td>
+                    <td>
+                        <button @click="updUser(path[index],content[index],label[index])" class="btn btn-info" >更新</button>
+                        <button @click="delUser(site.u_number)" class="btn btn-danger">删除</button>
+                    </td>
                 </tr>
                 <button style="visibility: hidden;width: 0px;height: 0px" id="buttons" @click="showData()">123</button>
             </table>
@@ -214,36 +225,50 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     new Vue({
         el: '#ads',
         data: {
-            sites: []
+            sites: [],
+            path: [],
+            content: [],
+            label: []
         },
         mounted() {
-            var result = document.getElementById("input-31").value;
-            var result1 = document.getElementById("sell").value;
-            axios.get("http://localhost:8080/selectSomeUser?u_number=" + result + "&u_update_number=" + result1)
-                .then(response => (
-                    console.log(response.data),
+            axios.get("http://localhost:8080/getMovie")
+                .then(response => ( console.log(response.data),
+                    response.data.forEach(element=>{
+                        this.path.push(element.r_path),
+                            this.content.push(element.r_content),
+                            this.label.push(element.r_label)
+
+                    }),
                         this.sites = response.data))
-        }, methods: {
-            showData() {
+        },
+        methods: {
+            delUser(data) {
+                var result = confirm('确认删除吗！');
+                if (result) {
+                    console.log(data)
+                    axios.get("http://localhost:8080/deleteUser?u_number=" + data)
+                        .then(response => (alert("删除成功"), this.sites = response.data))
+                }
+            }, updUser(path, content, label) {
+                console.log(path)
+                console.log(content)
+                console.log(label)
+            }, showData() {
                 var result = document.getElementById("input-31").value;
-                var result1 = document.getElementById("sell").value;
-                axios.get("http://localhost:8080/selectSomeUser?u_number=" + result + "&u_update_number=" + result1)
+                axios.get("http://localhost:8080/searchMovie?r_content=" + result)
                     .then(response => (
                         console.log(response.data),
+                            this.path=[],
+                            this.content=[],
+                            this.label=[],
+                            response.data.forEach(element=>{
+                                this.path.push(element.r_path),
+                                this.content.push(element.r_content),
+                                this.label.push(element.r_label)
+
+                            }),
                             this.sites = response.data))
             }
-        }
-
-    }), new Vue({
-        el: '#searchBox',
-        data: {
-            selects: []
-        },
-        mounted() {
-            axios.get("http://localhost:8080/showSelectUser")
-                .then(response => (
-                    console.log(response.data),
-                        this.selects = response.data))
         }
     })
 </script>
@@ -261,7 +286,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         var result = document.getElementById("input-31").value;
         document.getElementById("buttons").click();
     }
-</script>
 </script>
 <!--scrolling js-->
 <script src="js/jquery.nicescroll.js"></script>

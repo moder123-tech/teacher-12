@@ -120,6 +120,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
                     </li>
                     <li>
+                        <a href="movie.html"><img src="image/18.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理视频</a>
+                    </li>
+                    <li>
                         <a href="modify.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
                     </li>
                     <li>
@@ -166,6 +169,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <div id="ads">
             <table class="table">
                 <tr>
+                    <td>序号</td>
                     <td>用户邮箱</td>
                     <td>用户密码</td>
                     <td>用户昵称</td>
@@ -174,6 +178,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <td>操作</td>
                 </tr>
                 <tr v-for="(site,index) in sites">
+                    <td v-text="index+1"></td>
                     <td v-text="site.u_number"></td>
                     <td>
                         <input type="password" v-model="password[index]"/>
