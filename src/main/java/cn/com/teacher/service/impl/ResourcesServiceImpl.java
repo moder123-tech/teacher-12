@@ -87,8 +87,13 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
-    public History getRlabel(String h_forrign) {
+    public List<History> getRlabel(String h_forrign) {
         return resourcesDao.getRlabel(h_forrign);
+    }
+
+    @Override
+    public List<UserCollection> getCollectionRlabel(String h_forrign) {
+        return resourcesDao.getCollectionRlabel(h_forrign);
     }
 
     @Override

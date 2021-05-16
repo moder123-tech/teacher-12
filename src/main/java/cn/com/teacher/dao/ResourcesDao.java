@@ -101,7 +101,13 @@ public interface ResourcesDao {
      * 传入用户表的id@param h_forrign
      * 从历史表中查找数量最多的标签@return
      */
-    History getRlabel(String h_forrign);
+    List<History> getRlabel(String h_forrign);
+
+    /**
+     * 传入用户表的id@param h_forrign
+     * 从收藏中查找数量最多的标签@return
+     */
+    List<UserCollection> getCollectionRlabel(String h_forrign);
 
     /**
      *

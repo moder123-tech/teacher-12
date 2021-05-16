@@ -32,5 +32,10 @@ public class UserCollection implements Serializable {
      */
     private String c_content;
 
+    /**
+     * 标签
+     */
+    private String c_label;
+
 
 }

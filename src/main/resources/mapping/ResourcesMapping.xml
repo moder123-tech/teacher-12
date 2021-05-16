@@ -69,6 +69,9 @@
             <if test="c_content != null">
                 c_content,
             </if>
+            <if test="c_label != null">
+                c_label,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="c_path != null">
@@ -79,6 +82,9 @@
             </if>
             <if test="c_content != null">
                 #{c_content,jdbcType=VARCHAR},
+            </if>
+            <if test="c_label != null">
+                #{c_label,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -217,7 +223,7 @@
         from History
         WHERE h_forrign = #{h_forrign,jdbcType=VARCHAR}
         group by h_label
-        ORDER BY h_path DESC LIMIT 1
+        ORDER BY h_path DESC LIMIT 5
     </select>
 
     <select id="getSomeHistory" resultType="cn.com.teacher.bean.History">
@@ -233,6 +239,15 @@
             </if>
         </where>
     </select>
+
+    <select id="getCollectionRlabel" resultType="cn.com.teacher.bean.UserCollection">
+        select c_label, count(*)*3 as c_path
+        from UserCollection
+        WHERE c_foreign = #{c_foreign,jdbcType=VARCHAR}
+        group by c_label
+        ORDER BY c_path DESC LIMIT 5
+    </select>
+
 
 
 </mapper>

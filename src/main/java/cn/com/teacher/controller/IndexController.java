@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,9 +67,6 @@ public class IndexController {
         Integer uId = (Integer) session.getAttribute("uId");
         History history = new History();
         String[] split = content.split(",");
-        for (int i=0;i<split.length;i++){
-            System.out.println(split[i]);
-        }
         Resources resources = resourcesService.getLabel(split[1]);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String h_time = df.format(new Date());
@@ -136,9 +134,11 @@ public class IndexController {
         Integer uId = (Integer) session.getAttribute("uId");
         UserCollection userCollection = new UserCollection();
         String[] split = content.split(",");
+        Resources resources = resourcesService.getLabel(split[1]);
         userCollection.setC_content(split[0]);
         userCollection.setC_path(split[1]);
         userCollection.setC_foreign(uId + "");
+        userCollection.setC_label(resources.getR_label());
         try {
             if (resourcesService.checkLove(split[1], uId + "") == null) {
                 int i = resourcesService.addResourcesCollection(userCollection);
@@ -204,12 +204,79 @@ public class IndexController {
     @ResponseBody
     @GetMapping(value = "/getRecommendMovie")
     public List<Resources> getRecommendResources(HttpSession session) {
-        History history = resourcesService.getRlabel(session.getAttribute("uId") + "");
-        List<Resources> recommendMovie = resourcesService.getRecommendMovie(history.getH_label());
+        List<History> history = resourcesService.getRlabel(session.getAttribute("uId") + "");
+        List<UserCollection> userCollection = resourcesService.getCollectionRlabel(session.getAttribute("uId") + "");
+        int english=0;
+        int compilation=0;
+        int computer=0;
+        int data=0;
+        int math=0;
+        for (int i=0;i< history.size();i++){
+            if(history.get(i).getH_label().equals("英语")){
+                english+=Integer.valueOf(history.get(i).getH_path());
+            }
+            if(history.get(i).getH_label().equals("编译原理")){
+                compilation+=Integer.valueOf(history.get(i).getH_path());
+            }
+            if(history.get(i).getH_label().equals("计算机原理")){
+                computer+=Integer.valueOf(history.get(i).getH_path());
+            }
+            if(history.get(i).getH_label().equals("数据结构")){
+                data+=Integer.valueOf(history.get(i).getH_path());
+            }
+            if(history.get(i).getH_label().equals("高等数学")){
+                math+=Integer.valueOf(history.get(i).getH_path());
+            }
+            System.out.println(history.get(i).toString());
+        }
+        for (int i=0;i< userCollection.size();i++){
+            if(userCollection.get(i).getC_label().equals("英语")){
+                english+=Integer.valueOf(userCollection.get(i).getC_path());
+            }
+            if(userCollection.get(i).getC_label().equals("编译原理")){
+                compilation+=Integer.valueOf(userCollection.get(i).getC_path());
+            }
+            if(userCollection.get(i).getC_label().equals("计算机原理")){
+                computer+=Integer.valueOf(userCollection.get(i).getC_path());
+            }
+            if(userCollection.get(i).getC_label().equals("数据结构")){
+                data+=Integer.valueOf(userCollection.get(i).getC_path());
+            }
+            if(userCollection.get(i).getC_label().equals("高等数学")){
+                math+=Integer.valueOf(userCollection.get(i).getC_path());
+            }
+            System.out.println(userCollection.get(i).toString());
+        }
+        int [] array = {english,compilation,computer,data,math};
+        int max = array[0];//假设第一个值为最大值
+        int index=0;
+        for (int i = 1; i < array.length; i++) { //和后面的数进行比较
+            if(array[i] > max) {
+                max = array[i];
+                index=i;
+            }
+        }
+        String label="";
+        if(index==0){
+            label="英语";
+        }
+        if(index==1){
+            label="编译原理";
+        }
+        if(index==2){
+            label="计算机原理";
+        }
+        if(index==3){
+            label="数据结构";
+        }
+        if(index==4){
+            label="高等数学";
+        }
+        List<Resources> recommendMovie = resourcesService.getRecommendMovie(label);
         List<Resources> list = new ArrayList<>();
         History his = new History();
         his.setH_forrign(session.getAttribute("uId") + "");
-        his.setH_label(history.getH_label());
+        his.setH_label(label);
         List<History> someHistory = resourcesService.getSomeHistory(his);
         System.out.println("getRecommendResources =" + recommendMovie);
         System.out.println("someHistory"+someHistory);
@@ -228,6 +295,7 @@ public class IndexController {
         }
         return recommendMovie;
     }
+
 
 
 }
