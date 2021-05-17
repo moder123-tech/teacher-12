@@ -89,6 +89,22 @@
         </trim>
     </insert>
 
+    <update id="updateResources">
+        UPDATE Resources
+        SET
+        <if test="r_content != null">
+            r_content = #{r_content,jdbcType=VARCHAR},
+        </if>
+        <if test="r_label != null">
+            r_label = #{r_label,jdbcType=VARCHAR}
+        </if>
+        <where>
+            <if test="r_path != null">
+                r_path=#{r_path,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
     <delete id="deleteLoveMovie" parameterType="cn.com.teacher.bean.UserCollection">
         delete
         from UserCollection
@@ -111,6 +127,16 @@
             </if>
             <if test="h_forrign != null">
                 and #{h_forrign,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+    <delete id="deleteMovie">
+        delete
+        from Resources
+        <where>
+            <if test="r_path != null">
+                r_path = #{r_path,jdbcType=VARCHAR}
             </if>
         </where>
     </delete>

@@ -201,6 +201,7 @@ public class IndexController {
      * HttpSession@param session
      * 个性化推荐@return
      */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     @ResponseBody
     @GetMapping(value = "/getRecommendMovie")
     public List<Resources> getRecommendResources(HttpSession session) {
@@ -296,6 +297,36 @@ public class IndexController {
         return recommendMovie;
     }
 
+    /**
+     * 传入要查询的内容@param r_content
+     * 返回符合查询条件的视频资源集合@return
+     */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @ResponseBody
+    @GetMapping(value = "/updateMovie")
+    public List<Resources> getUpdateMovie(@RequestParam String r_path,@RequestParam String r_content,@RequestParam String r_label) {
+        Resources resources = new Resources();
+        resources.setR_path(r_path);
+        resources.setR_content(r_content);
+        resources.setR_label(r_label);
+        int i = resourcesService.updateResources(resources);
+        List<Resources> allResources = this.getAllResources();
+        return allResources;
+    }
 
+    /**
+     * 根据路径删除对应视频@param r_path
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @ResponseBody
+    @GetMapping(value = "/deleteMovie")
+    public List<Resources> isDeleteMovie(@RequestParam String r_path) {
+        Resources resources = new Resources();
+        resources.setR_path(r_path);
+        int i = resourcesService.deleteMovie(resources);
+        List<Resources> allResources = this.getAllResources();
+        return allResources;
+    }
 
 }

@@ -101,5 +101,13 @@ public class ResourcesServiceImpl implements ResourcesService {
         return resourcesDao.getSomeHistory(history);
     }
 
+    @Override
+    public int updateResources(Resources resources) {
+        return resourcesDao.updateResources(resources);
+    }
 
+    @Override
+    public int deleteMovie(Resources resources) {
+        return resourcesDao.deleteMovie(resources);
+    }
 }

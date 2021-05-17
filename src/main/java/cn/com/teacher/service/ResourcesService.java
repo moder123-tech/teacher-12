@@ -112,4 +112,17 @@ public interface ResourcesService {
      * 根据标签从历史表里面查询所有@return
      */
     List<History> getSomeHistory(History history);
+
+    /**
+     * 传入要更新的资源表@param resources
+     * 返回是否更新成功@return
+     */
+    int updateResources(Resources resources);
+
+    /**
+     *
+     * 根据路径删除对应视频资源@param resources
+     * 返回是否删除成功@return
+     */
+    int deleteMovie(Resources resources);
 }

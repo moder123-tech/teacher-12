@@ -120,7 +120,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         <a href="record.html"><img src="image/15.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作日志</a>
                     </li>
                     <li>
-                        <a href="movie.html"><img src="image/18.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理视频</a>
+                        <a href="movies.html"><img src="image/18.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理视频</a>
                     </li>
                     <li>
                         <a href="modify.html"><img src="image/14.png" width="35px;" height="35px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理账号</a>
@@ -145,7 +145,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <div class="logo">
                 <a href="administrators.html">
                     <h1>模块功能</h1>
-                    <span>管理员</span>
+                    <span>超级管理员</span>
                 </a>
             </div>
             <!--//logo-->
@@ -239,7 +239,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             this.label.push(element.r_label)
 
                     }),
-                        this.sites = response.data))
+                    this.sites = response.data))
         },
         methods: {
             delUser(data) {
@@ -287,8 +287,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             this.label=[],
                             response.data.forEach(element=>{
                                 this.path.push(element.r_path),
-                                this.content.push(element.r_content),
-                                this.label.push(element.r_label)
+                                    this.content.push(element.r_content),
+                                    this.label.push(element.r_label)
 
                             }),
                             this.sites = response.data))
